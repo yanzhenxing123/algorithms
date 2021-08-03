@@ -17,7 +17,7 @@ def quick_sort(arr, left, right):
 def partition(arr, left, right):
     pivot = arr[left]
     while left < right:
-        while left < right and arr[right] > pivot:
+        while left < right and arr[right] >= pivot:
             right -= 1
         arr[left] = arr[right]
         while left < right and arr[left] < pivot:
@@ -29,8 +29,8 @@ def partition(arr, left, right):
 
 if __name__ == '__main__':
     # 洗牌
-    nums = [i for i in range(100000)]
-    random.shuffle(nums)
+    nums = [1,2,1]
+    # random.shuffle(nums)
     print(nums)
     quick_sort(nums, 0, len(nums) - 1)
     print(nums)

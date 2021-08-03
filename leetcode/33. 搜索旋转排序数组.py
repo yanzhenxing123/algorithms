@@ -19,14 +19,13 @@ class Solution:
             else:
                 right -= 1
         mid = left
-        left, right =  0, len(nums) - 1
+        left, right = 0, len(nums) - 1
         if nums[mid] == target:
             return mid
         if nums[right] >= target:
-            return self.binary_search(nums, mid+1, right, target)
+            return self.binary_search(nums, mid + 1, right, target)
         else:
-            return self.binary_search(nums, left, mid-1, target)
-
+            return self.binary_search(nums, left, mid - 1, target)
 
     def binary_search(self, arr, left, right, target):
         while left <= right:
@@ -38,8 +37,6 @@ class Solution:
             else:
                 right = mid - 1
         return -1
-
-
 
 
 if __name__ == '__main__':
