@@ -34,6 +34,7 @@ eg2:
 
 """
 
+
 # 暴力dfs，与12题差不多，走过的地方需要标记
 
 class Solution:
@@ -52,16 +53,15 @@ class Solution:
                 dfs(i, j - 1)
                 dfs(i - 1, j)
                 dfs(i + 1, j)
+
         dfs(0, 0)
         return self.res
 
 
-
-
 if __name__ == '__main__':
-    m = 2
-    n = 3
-    k = 1
+    m = 100
+    n = 100
+    k = 10
     s = Solution()
     res = s.movingCount(m, n, k)
     print(res)

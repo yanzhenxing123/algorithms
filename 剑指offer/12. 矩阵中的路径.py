@@ -12,6 +12,7 @@ dfs
 
 from typing import List
 
+
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         def dfs(i: int, j: int, word: str):
@@ -19,7 +20,7 @@ class Solution:
             if word == "":
                 return True
 
-            if i < 0 or i > row-1 or j < 0 or j > col-1:
+            if i < 0 or i > row - 1 or j < 0 or j > col - 1:
                 return False
 
             # 如果不等于 终止递归
@@ -31,13 +32,13 @@ class Solution:
             board[i][j] = "#"
 
             # 上下左右进行递归
-            if dfs(i+1, j, word[1:]):
+            if dfs(i + 1, j, word[1:]):
                 return True
-            if dfs(i-1, j, word[1:]):
+            if dfs(i - 1, j, word[1:]):
                 return True
-            if dfs(i, j+1, word[1:]):
+            if dfs(i, j + 1, word[1:]):
                 return True
-            if dfs(i, j-1, word[1:]):
+            if dfs(i, j - 1, word[1:]):
                 return True
 
             board[i][j] = tmp
