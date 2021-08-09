@@ -30,7 +30,6 @@ class Solution:
         return dp[-1]
 
 
-
 if __name__ == '__main__':
     s = Solution()
     res = s.cuttingRope(10)

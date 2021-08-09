@@ -6,7 +6,6 @@ B是A的子结构， 即 A中有出现和B相同的结构和节点值
 """
 
 
-
 # Definition for a binary tree node.
 class TreeNode:
     def __init__(self, x):
@@ -14,9 +13,24 @@ class TreeNode:
         self.left = None
         self.right = None
 
+
 class Solution:
     def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
-        pass
+        if not B or not A:
+            return False
+
+        # 左右递归
+        def hashSubStructure(A: TreeNode, B: TreeNode) -> bool:
+            if not B:
+                return True
+            if not A:
+                return False
+            if A.val == B.val:
+                return hashSubStructure(A.left, B.left) and hashSubStructure(A.right, B.right)
+            return False
+
+        return hashSubStructure(A, B) or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B)
+
 
 if __name__ == '__main__':
     s = Solution()
