@@ -27,6 +27,8 @@ class Solution:
             last1 = res
         return res % (10 ** 9 + 7)
 
+def test():
+    pass
 
 if __name__ == '__main__':
     pass
