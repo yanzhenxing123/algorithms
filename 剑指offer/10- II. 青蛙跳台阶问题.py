@@ -10,7 +10,7 @@ dafafa
 
 """
 
-def main():
+def main1():
     pass
 
 class Solution:
