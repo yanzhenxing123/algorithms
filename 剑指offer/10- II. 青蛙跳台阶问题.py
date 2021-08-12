@@ -10,6 +10,9 @@ dafafa
 
 """
 
+def main():
+    pass
+
 class Solution:
     def numWays(self, n: int) -> int:
         if n == 1 or n == 2:
