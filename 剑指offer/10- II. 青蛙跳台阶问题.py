@@ -28,5 +28,8 @@ class Solution:
 def test():
     pass
 
+def test2():
+    pass
+
 if __name__ == '__main__':
     pass
