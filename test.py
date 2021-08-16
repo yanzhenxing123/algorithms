@@ -47,4 +47,4 @@ class Test(unittest.TestCase):
         if l2:
             p.next = l2
 
-        return root
+        return rooooo
