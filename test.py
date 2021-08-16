@@ -48,6 +48,3 @@ class Test(unittest.TestCase):
             p.next = l2
 
         return rooooo
-=======
-        return rootdadf
->>>>>>> Stashed changes
