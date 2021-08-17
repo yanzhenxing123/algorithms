@@ -1,50 +1,36 @@
-"""
-@Author: yanzx
-@Date: 2021-07-30 11:38:13
-@Desc:
-"""
+import requests
 import unittest
 
 
-class ListNode:
-    def __init__(self, val):
-        self.val = val
-        self.next = None
-
 
 class Test(unittest.TestCase):
-    def testMergeLinklist(self, l1: ListNode, l2: ListNode):
-        if l1 and not l2:
-            return l1
-        if l2 and not l1:
-            return l2
 
-        if not l1 and not l2:
-            return l1
-
-        if l1.val > l2.val:
-            root = l2
-            l2 = l2.next
-
-        else:
-            root = l1
-            l1 = l1.next
-
-        p = root
-
-        while l1 and l2:
-            if l1.val < l2.val:
-                p.next = l1
-                l1 = l1.next
-                p = p.next
-            else:
-                p.next = l2
-                l2 = l2.next
-                p = p.next
-
-        if l1:
-            p.next = l1
-        if l2:
-            p.next = l2
-
-        return rooooo
+    def testGms(self):
+        url = "http://localhost:8889/gms/v1/collect-event/"
+        log = {
+            "platform": "native",
+            "UserAgent": "okhttp/4.9.0",
+            "result": 1,
+            "sdkVer": "1.5.0",
+            "uid": "gms1402205437565136897",
+            "channelId": "",
+            "os": "Android/8.1.0",
+            "type": "LeaveChannel",
+            "timestamp": 1629163654339,
+            "elapsed": 74,
+            "deviceId": "e7a39215dcd92061",
+            "channelSessionId": "",
+            "appId": "GaLknQbqNqe9p23z",
+            "errorCode": 0,
+            "appIdEncrypt": False,
+            "clientSessionId": "c926bb0d-af4e-4dff-b9b5-8624e4bfeaa7",
+            "Geo": {
+                "Isp": "中国联通",
+                "City": "北京市",
+                "Ip": "111.206.85.4",
+                "Country": "中国",
+                "Province": "北京市"
+            }
+        }
+        res = requests.post(url=url, data=log)
+        print(res)
