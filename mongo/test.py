@@ -1,6 +1,9 @@
+import json
+
 import requests
 import unittest
 from client import conn
+
 
 class Test(unittest.TestCase):
     def testGms(self):
@@ -44,7 +47,7 @@ class Test(unittest.TestCase):
         res = col.aggregate([
             {
                 "$group": {
-                   "_id": "$author",
+                    "_id": "$author",
                     "tags": {
                         "$push": "$tags"
                     }
@@ -85,4 +88,41 @@ class Test(unittest.TestCase):
         for i in res:
             print(i)
 
+    def test_gmsConnectChanged(self):
+        log = {
+            "Geo": {
+                "Isp": "中国联通",
+                "Province": "北京市",
+                "Ip": "222.128.2.34",
+                "Country": "中国",
+                "City": "北京市"
+            },
+            "UserInfo": {
+                "enterpriseName": "",
+                "userId": 0,
+                "username": "",
+                "mobile": "",
+                "nickname": "",
+                "enterpriseID": 0
+            },
+            "state": "已连接",
+            "deviceId": "3f426330-9d97-11eb-8d1e-f18510275be1",
+            "gmsuid": "rrjD6m8PQg2wPTx5Bwx1Vj7N10",
+            "uid": "rrjD6m8PQg2wPTx5Bwx1Vj7N10",
+            "osVersion": "10",
+            "timestamp": 1630637902975,
+            "serverAddr": "",
+            "companyName": "北京沃龙科技发展有限公司",
+            "appPack": "tongshi-pc",
+            "appVersion": "2.5.7",
+            "platform": "Windows",
+            "mobile": "18838980951",
+            "UserAgent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) tosee-web-client/2.5.7 Chrome/91.0.4472.69 Electron/13.0.1 Safari/537.36",
+            "reason": "登录成功",
+            "nickname": "【乐高】小北",
+            "type": "GMSConnectStateChanged"
+        }
+        url = "http://localhost:8889/tosee/collect-event"
 
+        res = requests.post(url=url, data=json.dumps(log))
+        print(res)
