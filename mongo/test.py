@@ -126,3 +126,11 @@ class Test(unittest.TestCase):
 
         res = requests.post(url=url, data=json.dumps(log))
         print(res)
+
+    def test_update(self):
+        col = conn["test"]["duobei"]
+        res = col.update_many({"_id": 1}, {"$set": {
+            'dad': "da"
+        }})
+        # {'n': 0, 'nModified': 0, 'ok': 1.0, 'updatedExisting': False}
+        print(res.modified_count)
