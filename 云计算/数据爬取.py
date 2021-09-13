@@ -62,3 +62,6 @@ for page in range(100, 1, -1):
                                                                                                       price_average=price_average,
                                                                                                       unit=unit)
         f.write(query_log + "\n")
+
+
+        print("local")
