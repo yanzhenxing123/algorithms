@@ -1,0 +1,20 @@
+Mongo:
+  #  URL: "mongodb://duobei:RZmongo4cPRqq5@134.175.253.100:30027/datacenter?authSource=admin"
+  URL: "mongodb://127.0.0.1:27017/datacenter?authSource=admin"
+  #MongoURL: "mongodb://report:3270815cb@dds-2ze494fdab7efbe4153t4-pub.mongodb.rds.aliyuncs.com:3717/duobei"
+  hostname: "mongodb://duobei:UT87Pl%40ti%40xfRRE@134.175.253.100:27017/duobei?authSource=admin" # 原始数据仓库
+
+
+Kafka:
+  Addr: ["127.0.0.1:9092"]
+#  Ver: "2.0.1"
+  Topics: ["streamtopic"]
+  GroupId: "consumer-09"
+  Offset: "earliest"
+
+Mysql:
+  user: "root"
+  pwd: "5211314yzx"
+  host: "127.0.0.1"
+  port: 3306
+  database: "cloud_computing"
