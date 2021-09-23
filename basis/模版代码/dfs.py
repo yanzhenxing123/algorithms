@@ -6,6 +6,12 @@ from typing import List
 
 
 def permute(arr: List[int]):
+    '''
+    没有相同的元素可以这样做
+    但是有相同的元素就不可以这样做 要使用 permute2
+    :param arr:
+    :return:
+    '''
     res = []
 
     def dfs(path):
@@ -24,6 +30,28 @@ def permute(arr: List[int]):
     return res
 
 
+def permute2(arr: List[int]):
+    res = []
+    visited = [False for _ in range(len(arr))]
+
+    def dfs(path):
+        if len(arr) == len(path):
+            res.append(path.copy())
+            return
+
+        for i in range(len(arr)):
+            if visited[i]:
+                continue
+            path.append(arr[i])
+            visited[i] = True
+            dfs(path)
+            path.pop()
+            visited[i] = False
+    dfs([])
+    return res
+
+
+
 if __name__ == '__main__':
-    res = permute([1, 2, 3, 4])
+    res = permute2([1, 2, 3, 4])
     print(res)

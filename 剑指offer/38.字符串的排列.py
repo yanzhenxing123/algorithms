@@ -20,6 +20,25 @@ class Solution1:
         return list(set(res_tuple))
 
 
+class Solution2:
+    def permutation(self, s: str) -> List[str]:
+        # 对于aab这种情况是不行的
+        res = []
+        def dfs(path):
+            if len(path) == len(s):
+                res.append(path)
+                return
+            for i in range(len(s)):
+                if s[i] in path:
+                    continue
+                path += s[i]
+                dfs(path)
+                path = path[:len(path)-1]
+        dfs("")
+        return res
+
+
+
 class Solution:
     def permutation(self, s: str) -> List[str]:
         res = set()
@@ -44,6 +63,6 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = Solution()
+    s = Solution2()
     res = s.permutation("abc")
     print(res)
