@@ -9,7 +9,7 @@
 
 """
 
-from basis.utils.linked_list import ListNode, create_list, print_list
+from utils.linked_list import ListNode, create_list, print_list
 
 
 class Solution:
@@ -17,7 +17,6 @@ class Solution:
         if not head:
             return None
         slow = head
-        fast = head
         for i in range(k):
             fast = fast.next
 
@@ -27,11 +26,10 @@ class Solution:
         return slow
 
 
-
 if __name__ == '__main__':
     s = Solution()
     nums = [1, 2, 3, 4, 5, 6]
     head = create_list(nums)
+
     res = s.getKthFromEnd(head, 3)
     print_list(res)
-

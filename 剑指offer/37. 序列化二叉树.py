@@ -12,7 +12,7 @@
 
 """
 
-from basis.utils.binary_tree import TreeNode, create_tree, floor_print
+from utils.binary_tree import TreeNode, create_tree, floor_print
 from collections import deque
 
 

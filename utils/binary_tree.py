@@ -13,6 +13,7 @@ import unittest
 from typing import List
 from collections import deque
 
+
 class TreeNode:
     def __init__(self, val):
         self.val = val
@@ -29,20 +30,27 @@ def create_tree(nums: List[int]) -> TreeNode:
     if not nums:
         return None
     queue = deque()
-    root = TreeNode(0)
+    root = TreeNode(nums[0])
+    index = 1
     queue.append(root)
-    for i in range(len(nums)):
-        p = queue.popleft()
-        p.val = nums[i]
-        if i*2+1 <= len(nums)-1:
-            node = TreeNode(0)
-            p.left = node
-            queue.append(node)
-        if i*2+2 <= len(nums)-1:
-            node = TreeNode(0)
-            p.right = node
-            queue.append(node)
+    while queue:
+        node = queue.popleft()
+        if index >= len(nums):
+            break
+        if nums[index] is not None:
+            left_node = TreeNode(nums[index])
+            node.left = left_node
+            queue.append(left_node)
+        index += 1
+        if index >= len(nums):
+            break
+        if nums[index] is not None:
+            right_node = TreeNode(nums[index])
+            node.right = right_node
+            queue.append(right_node)
+        index += 1
     return root
+
 
 def floor_print(root: TreeNode):
     queue = deque()
@@ -55,29 +63,23 @@ def floor_print(root: TreeNode):
         if node.right is not None:
             queue.append(node.right)
 
+
 class Test(unittest.TestCase):
     def test_create_tree(self):
         """
-            0
-          1   2
-        3  4 5 6
-      7  8 9 10
+                0
+              1   2
+            3  4 5 6
+          7  8 9 10
 
-           3
-        4     5
-    1    2   N    N
-
+               3
+            4     5
+        1    2   N    N
 
         """
-        root = create_tree([3,4,5,1,2])
+        root = create_tree([3, 4, 5, 1, 2])
         print(root)
 
     def test_floor_print_tree(self):
-        root = create_tree([3,4,5,1,2])
+        root = create_tree([3, 4, 5, 1, 2])
         floor_print(root)
-
-
-
-
-
-

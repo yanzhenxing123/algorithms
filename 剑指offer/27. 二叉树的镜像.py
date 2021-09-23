@@ -6,7 +6,7 @@
 后序遍历 交换节点
 
 """
-from basis.utils.binary_tree import create_tree, TreeNode, floor_print
+from utils.binary_tree import create_tree, TreeNode, floor_print
 
 class Solution:
     def mirrorTree(self, root: TreeNode) -> TreeNode:

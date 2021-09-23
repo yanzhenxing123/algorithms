@@ -22,7 +22,7 @@
 输出：false
 """
 
-from basis.utils.binary_tree import create_tree, TreeNode, floor_print
+from utils.binary_tree import create_tree, TreeNode
 from copy import deepcopy
 
 
