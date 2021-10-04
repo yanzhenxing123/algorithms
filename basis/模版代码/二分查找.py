@@ -17,8 +17,49 @@ def binary_search(arr, left, right, target):
     return -1
 
 
+def binary_search_right(arr, left, right, target):
+    """
+    找右边界
+    :param arr:
+    :param left:
+    :param right:
+    :param target:
+    :return:
+    """
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] <= target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return left
+
+
+def binary_search_left(arr, left, right, target):
+    """
+    找左边界
+    :param arr:
+    :param left:
+    :param right:
+    :param target:
+    :return:
+    """
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] >= target:
+            right = mid - 1
+        else:
+            left = mid + 1
+    return right
+
+
 if __name__ == '__main__':
-    arr = [_ for _ in range(100)]
-    print(arr)
-    index = binary_search(arr, 0, len(arr) - 1, 20)
+    arr = [1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 6, 7]
+    index = binary_search_right(arr, 0, len(arr) - 1, 3)  # index = 8
+    print(index)
+    index = binary_search_left(arr, 0, len(arr) - 1, 3)  # index = 1
+    print(index)
+    index = binary_search_right(arr, 0, len(arr) - 1, 4)  # index = 8
+    print(index)
+    index = binary_search_left(arr, 0, len(arr) - 1, 4)  # index = 7
     print(index)
