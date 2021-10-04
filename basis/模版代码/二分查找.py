@@ -32,6 +32,7 @@ def binary_search_right(arr, left, right, target):
             left = mid + 1
         else:
             right = mid - 1
+    # 返回的left-1就是右边界
     return left
 
 
@@ -50,6 +51,7 @@ def binary_search_left(arr, left, right, target):
             right = mid - 1
         else:
             left = mid + 1
+    # 返回的right+1就是左边界
     return right
 
 
