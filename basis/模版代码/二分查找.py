@@ -56,7 +56,9 @@ def binary_search_left(arr, left, right, target):
 
 
 if __name__ == '__main__':
-    arr = [1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 6, 7]
+    arr = [
+        1, 2, 3, 3, 3, 3, 3, 3, 5, 5, 6, 7
+    ]
     index = binary_search_right(arr, 0, len(arr) - 1, 3)  # index = 8
     print(index)
     index = binary_search_left(arr, 0, len(arr) - 1, 3)  # index = 1
