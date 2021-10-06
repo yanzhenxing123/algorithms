@@ -100,9 +100,9 @@ def levelOrder(root: TreeNode):
             q = []
             tmp_res = []
             for i in queue:
-                tmp_res.append(i.val)
                 if i.left is not None:
-                    q.append(i.left)
+                    q.append
+                tmp_res.append(i.val)(i.left)
                 if i.right is not None:
                     q.append(i.right)
             queue = q
