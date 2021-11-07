@@ -7,6 +7,8 @@ import random
 import unittest
 from typing import List
 
+import httpx
+
 
 class MyTest(unittest.TestCase):
     def test_merge_sort(self):
@@ -30,3 +32,25 @@ class MyTest(unittest.TestCase):
         nums = [random.randint(1, 1000) for _ in range(100)]
         res = merge_sort(nums)
         print(res)
+
+    def test(self):
+        URL = "https://open.feishu.cn/open-apis/bot/v2/hook/02d7a4f6-f85f-4c00-a3d3-6c9930ee6bc7"
+        response = httpx.post(URL, json={
+            "msg_type": "interactive",
+            "card": {
+                "config": {
+                    "wide_screen_mode": True,
+                    "enable_forward": True
+                },
+                "elements": [
+                    {
+                        "tag": "div",
+                        "text": {
+                            "tag": "lark_md",
+                            "content": f"****"
+                        },
+                    },
+                ]
+            }
+        })
+        print(response.json())
