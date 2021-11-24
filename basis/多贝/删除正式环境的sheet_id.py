@@ -1,7 +1,7 @@
 """
 @Author: yanzx
 @Date: 2021-09-29 13:17:22
-@Desc: 
+@Desc:
 """
 from larksuiteoapi import DOMAIN_FEISHU, DefaultLogger, LEVEL_DEBUG
 from loguru import logger
@@ -16,11 +16,11 @@ service = SheetsService(conf)
 
 def delete_sheet():
     sheet_tokens = {
-        # "活跃用户版本分布 副本": "shtcnUz8rLfgcvcgYVqullxNI4K",
-        # "同视-在网客户活跃度明细-日报 副本": "shtcnxvX6ykAxm9xABJFlwREU5f",
-        # "同视-在网用户活跃度明细-日报 副本": "shtcnOSfPD3ayNM7xszPBUEpbkf",
-        "同视-在网终端APP客户活跃度明细-日报 副本": "shtcnDzDQe79SuWub3y90FddxZb",
-        "同视-在网PC APP客户活跃度明细-日报 副本": "shtcnbKLM6Xxam7ExVgxyuisWSf",
+        # "同视-在网用户活跃度明细-日报": "shtcnWExos59YVUpxm2GZbLZ6Ud",
+        # "同视-在网客户活跃度明细-日报": "shtcn4sIDz2SlX8g2iJY5Nk9pRc",
+        # "同视-在网终端APP客户活跃度明细-日报": "shtcnSSFlryFEmwwsXq2I0Ky00p",
+        # "同视-在网PC APP客户活跃度明细-日报": "shtcnVmfm9APEy9uoJjwhQAxp7g",
+        "活跃用户版本分布": "shtcnqNVrs7hMV3Yti1NHAlQwMe",
     }
 
     yunying_data_sheet_tokens = {
@@ -33,11 +33,13 @@ def delete_sheet():
     for excel_name, sheet_token in sheet_tokens.items():
         # 删除 7月1日 - 9月30日
         for i in [
-            # 3, 4,
-            5, 6, 10,
-            11]:
+         5, 6, 7, 8,
+        ]:
             for j in range(1, 32):
-                sheet_name = str(i) + "月" + str(j) + "日"
+                if sheet_token == "shtcnWExos59YVUpxm2GZbLZ6Ud" and i < 6:
+                    sheet_name = str(i) + "月" + str(j) + "号"
+                else:
+                    sheet_name = str(i) + "月" + str(j) + "日"
                 sheet_id = get_sheet_id(sheet_name, sheet_token)
                 if sheet_id is None:
                     continue
