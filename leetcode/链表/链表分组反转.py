@@ -33,10 +33,10 @@ class Solution(object):
         prv = head
         end = self.find_end(head, k)
         new_new_head = self.reverse(head, k)
-        for i in range(length//k):
+        for i in range(length // k):
             if end is not None:
                 temp = self.find_end(end, k)
-                if i != length//k - 1:
+                if i != length // k - 1:
                     new_head = self.reverse(end, k)
 
                 # 最后一组
@@ -57,7 +57,6 @@ class Solution(object):
             else:
                 break
         return head
-
 
     # 反转链表
     def reverse(self, head, k):
