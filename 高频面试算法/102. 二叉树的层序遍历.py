@@ -45,7 +45,6 @@ class Solution:
             res.append(vals)
             if roots:
                 queue.append(roots)
-
         return res
 
 
