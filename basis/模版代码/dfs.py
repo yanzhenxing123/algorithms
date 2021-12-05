@@ -37,7 +37,7 @@ def permute2(arr: List[int]):
     def dfs(path):
         if len(arr) == len(path):
             res.append(path.copy())
-
+            print(path.copy())
             return
 
         for i in range(len(arr)):
@@ -50,7 +50,6 @@ def permute2(arr: List[int]):
             visited[i] = False
     dfs([])
     return res
-
 
 
 if __name__ == '__main__':
