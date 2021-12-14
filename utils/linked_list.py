@@ -27,3 +27,4 @@ def print_list(head: ListNode):
     while head is not None:
         print(head.val)
         head = head.next
+
