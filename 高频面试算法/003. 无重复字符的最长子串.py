@@ -25,6 +25,23 @@ class Solution:
         return max_len
 
 
+# 最优解
+class Solution1:
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        st = {}
+        i, ans = -1, 0
+        for j in range(len(s)):
+            if s[j] in st:
+                i = max(st[s[j]], i)
+            ans = max(ans, j - i)
+            st[s[j]] = j
+        return ans
+
+
 if __name__ == '__main__':
     s = Solution()
     res = s.lengthOfLongestSubstring("abcabcbb")
