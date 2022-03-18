@@ -2,6 +2,9 @@
 @Author: yanzx
 @Date: 2021-07-30 11:03:34
 @Desc: 两个函数实现quick_sort
+
+[1, 3, 2, 1, 5]
+
 """
 import random
 
@@ -15,12 +18,17 @@ def quick_sort(arr, left, right):
 
 
 def partition(arr, left, right):
+    # arr[left] 作为基准点
     pivot = arr[left]
     while left < right:
+        # 终止条件： left == right
+
+        # 从右往左 <-
         while left < right and arr[right] >= pivot:
+            # 终止条件 left == right 或者 右边比pivot小
             right -= 1
         arr[left] = arr[right]
-        while left < right and arr[left] < pivot:
+        while left < right and arr[left] <= pivot:
             left += 1
         arr[right] = arr[left]
     arr[left] = pivot
@@ -29,7 +37,7 @@ def partition(arr, left, right):
 
 if __name__ == '__main__':
     # 洗牌
-    nums = [1,2,1]
+    nums = [1, 2, 3, 1]
     # random.shuffle(nums)
     print(nums)
     quick_sort(nums, 0, len(nums) - 1)
