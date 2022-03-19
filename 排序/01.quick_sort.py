@@ -19,7 +19,12 @@ def quick_sort(arr, left, right):
 
 def partition(arr, left, right):
     # arr[left] 作为基准点
-    pivot = arr[left]
+    # 基准选择终中间的
+    index = random.randint(left, right)
+    pivot = arr[index]
+    arr[left], arr[index] = arr[index], arr[left]
+
+
     while left < right:
         # 终止条件： left == right
 
@@ -37,8 +42,7 @@ def partition(arr, left, right):
 
 if __name__ == '__main__':
     # 洗牌
-    nums = [1, 2, 3, 1]
     # random.shuffle(nums)
-    print(nums)
+    nums = [1, 2, 3, 4]
     quick_sort(nums, 0, len(nums) - 1)
     print(nums)

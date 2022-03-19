@@ -13,39 +13,36 @@ from utils.linked_list import ListNode, create_list, print_list
 
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        if not head or not head.next or k == 1:
-            return head
-        tail = head
-        # 找到tail
-        for i in range(k):
-            # 找到tail
-            if not tail:
-                return head
-            tail = tail.next
-        new_head = self.reverse(head, tail)
-        head.next = self.reverseKGroup(tail, k)
-        return new_head
+        cur = head
+        count = 0
+        while cur and count != k:
+            cur = cur.next
+            count += 1
 
-    def reverse(self, head: ListNode, tail: ListNode) -> ListNode:
-        """
-        给定头和尾进行反转
-        :param head:
-        :param tail:
-        :return: 返回新的头结点
-        """
-        new_head = None
-        while head is not tail:
+        # cur每次都到一组的下一个，作为下一个的头节点
+        if count != k:
+            # 终止条件：一组不够 或者 为 None
+            return head
+
+        new_head = self.reverseKGroup(cur, k)
+
+        while count:
+            # 反转一组
+            count -= 1
+            # 头删 tmp = head, head = head.next
             tmp = head
             head = head.next
+            # 头插：先tmp.next = new_head, new_head.next = tmp
             tmp.next = new_head
             new_head = tmp
+
         return new_head
+
 
 
 if __name__ == '__main__':
     head = create_list([1, 2, 3, 4, 5, 6, 7, 8])
 
     s = Solution()
-
     res = s.reverseKGroup(head, 3)
     print_list(res)
