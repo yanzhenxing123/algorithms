@@ -13,6 +13,7 @@ class Solution:
         dp = [nums[0]]
         for i in range(1, len(nums)):
             dp.append(max(nums[i], dp[-1] + nums[i]))
+        print(dp)
         return max(dp)
 
 if __name__ == '__main__':

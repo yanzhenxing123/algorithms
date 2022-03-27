@@ -1,6 +1,5 @@
-def main():
-    pass
+bi = bin(10)
 
+print(bi)
 
-if __name__ == '__main__':
-    pass
+print()
