@@ -25,6 +25,6 @@ def create_list(nums: List[int]) -> ListNode:
 
 def print_list(head: ListNode):
     while head is not None:
-        print(head.val)
+        print(str(head.val) + "->", end="")
         head = head.next
-
+    print("None")
