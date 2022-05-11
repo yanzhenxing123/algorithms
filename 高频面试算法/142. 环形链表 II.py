@@ -6,7 +6,7 @@
 给定一个链表，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。
 
 """
-from utils.linked_list import ListNode
+from utils.linked_list import ListNode, create_list, print_list
 
 
 class Solution:
@@ -16,6 +16,29 @@ class Solution:
         :param head:
         :return:
         """
+        if not head:
+            return None
+        flag = False
+        fast, slow = head, head
+        while fast is not None and fast.next is not None and fast.next.next is not None:
+            slow = slow.next
+            fast = fast.next.next
+            if slow is fast:
+                flag = True
+                break
+
+        if not flag:
+            return None
+
+        slow = head
+        while slow is not fast:
+            slow = slow.next
+            fast = fast.next
+        return fast
+
+
+
+    def detectCycle1(self, head: ListNode) -> ListNode:
         if not head:
             return head
         fast = slow = head
@@ -30,6 +53,7 @@ class Solution:
             slow = slow.next
             if slow is fast:
                 break
+
         slow = head
         while slow is not fast:
             fast = fast.next
@@ -39,5 +63,13 @@ class Solution:
         return slow
 
 
+
+
 if __name__ == '__main__':
-    pass
+    s = Solution()
+    head = create_list([1, 2, 3, 4])
+    pos = head
+    pos = pos.next.next.next
+    pos.next = head
+    res = s.detectCycle(pos)
+    print(res)
