@@ -39,3 +39,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
+    res = s.isValid("{[]}")
+    print(res)
