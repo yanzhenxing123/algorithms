@@ -8,11 +8,13 @@ import json
 from db import MysqlConn, Consumer
 from config import Kafka
 
+
 def get_data():
     kafka = Consumer(Kafka['Topics'])
     for msg in kafka.confluent_consumer(timeout=1.00):
         yield msg
-        break
+        # break
+
 
 def main():
     for data in get_data():
