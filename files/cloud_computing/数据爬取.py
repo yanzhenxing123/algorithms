@@ -40,33 +40,28 @@ class Response:
         return html
 
 
-f = open("data/vegetable.log", "w+")
-for page in range(100, 1, -1):
-    url = 'http://www.vegnet.com.cn/Price/List_ar500000_p' + str(page) + '.html?marketID=0'
-    response = Response(url)
-    html = response.analy()
-    info = html.xpath('//div[@class="pri_k"]/p')
-    for i in info:
-        date = i.xpath('./span[1]/text()')[0][1:][:-1]
-        varity = i.xpath('./span[2]/text()')[0]
-        market = i.xpath('./span[3]/a/text()')[0]
-        price_min = i.xpath('./span[4]/text()')[0][1:]
-        price_max = i.xpath('./span[5]/text()')[0][1:]
-        price_average = i.xpath('./span[6]/text()')[0][1:]
-        unit = i.xpath('./span[7]/text()')[0]
-        query_log = "{date} {varity} {market} {price_min} {price_max} {price_average} {unit} ".format(date=date,
-                                                                                                      varity=varity,
-                                                                                                      market=market,
-                                                                                                      price_min=price_min,
-                                                                                                      price_max=price_max,
-                                                                                                      price_average=price_average,
-                                                                                                      unit=unit)
-        f.write(query_log + "\n")
-
-
-        print("main")
-        print("main")
-
-
-        print("local")
-        print("local")
+if __name__ == '__main__':
+    import random
+    f = open("./vegetable.log", "w+")
+    for page in range(100, 1, -1):
+        url = 'http://www.vegnet.com.cn/Price/List_ar500000_p' + str(page) + '.html?marketID=0'
+        response = Response(url)
+        html = response.analy()
+        info = html.xpath('//div[@class="pri_k"]/p')
+        for i in info:
+            date = i.xpath('./span[1]/text()')[0][1:][:-1]
+            varity = i.xpath('./span[2]/text()')[0]
+            market = i.xpath('./span[3]/a/text()')[0]
+            price_min = i.xpath('./span[4]/text()')[0][1:]
+            price_max = i.xpath('./span[5]/text()')[0][1:]
+            price_average = i.xpath('./span[6]/text()')[0][1:]
+            unit = i.xpath('./span[7]/text()')[0]
+            query_log = "{date} {varity} {market} {price_min} {price_max} {price_average} {unit} ".format(date=date,
+                                                                                                          varity=varity,
+                                                                                                          market=market,
+                                                                                                          price_min=price_min,
+                                                                                                          price_max=price_max,
+                                                                                                          price_average=price_average,
+                                                                                                          unit=unit)
+            f.write(query_log + "\n")
+    print("done~")

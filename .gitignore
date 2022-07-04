@@ -132,3 +132,5 @@ dmypy.json
 .idea/
 
 #test.py
+
+files/cloud_computing/data

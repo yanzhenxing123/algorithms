@@ -1,0 +1,48 @@
+airtest               1.0.25
+baidu-aip             2.2.13.0
+certifi               2018.11.29
+chardet               3.0.4
+cssselect             1.0.3
+facebook-wda          0.2.1
+
+hrpc                  1.0.8
+
+idna                  2.8
+
+Jinja2                2.10
+
+MarkupSafe            1.1.0
+
+multi-key-dict        2.0.3
+
+numpy                 1.16.0
+
+opencv-contrib-python 3.4.2.17
+
+pbr                   5.1.1
+
+Pillow                5.4.1
+
+pip                   18.1
+
+pocoui                1.0.76
+
+python-jenkins        1.4.0
+
+python-xlib           0.24
+
+pywinauto             0.6.3
+
+requests              2.21.0
+
+selenium              3.141.0
+
+setuptools            40.6.3
+
+six                   1.12.0
+
+urllib3               1.24.1
+
+websocket-client      0.56.0
+
+wheel                 0.32.3
