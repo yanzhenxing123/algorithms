@@ -20,7 +20,7 @@ style.use('ggplot')
 plt.rcParams['font.sans-serif']=['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 stockFile='./data_vegetable.csv'
-data=pd.read_csv(stockFile,index_col=0,parse_dates=[0])
+data=pd.read_csv(stockFile,index_col=0,parse_dates=[0], encoding='utf-8')
 data.tail(10)
 data=data[['price']].resample('W-MON').mean()
 data=data.fillna(data.bfill())
