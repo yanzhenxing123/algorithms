@@ -13,6 +13,7 @@ class Solution(object):
 
 
     def backtrack(self, nums, path):
+        print(path)
         if len(nums) == len(path):
             self.res.append(path.copy())
             return

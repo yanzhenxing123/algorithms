@@ -2,7 +2,11 @@
 @Author: yanzx
 @Date: 2021-11-24 15:21:25
 @Desc: 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。
-head
+
+new_head
+1 -> None
+
+tmp head
 1 -> 2 -> 3 -> 4 -> 5
 
 """
