@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "malloc.h"
 #include "queue"
+#include "stack"
+#include "vector"
 
 using namespace std;
 
@@ -9,6 +11,18 @@ using namespace std;
  *     1
  *   2   3       wpl = 4*3 + 5*3 + 3 = 21
  * 4   5
+ *
+ * 返回值为void的函数的首句 都是 if (!root) return;
+ *
+ * 有返回值的函数，要考虑节点为空返回什么，节点不为空返回什么
+ *
+ * 回溯要
+ *      void func(root, path) {
+ *          if (...) return;
+ *          path.push_back(data)
+ *          ...
+ *          path.pop_back();
+ *      }
  */
 
 typedef struct BiTNode {
@@ -44,60 +58,117 @@ void visit(BNode *node) {
 
 // 1. 先序遍历
 void pre_order(BTree root) {
-    if (root) {
-        visit(root);
-        pre_order(root->lchild);
-        pre_order(root->rchild);
+    if (!root) return;
+    visit(root);
+    pre_order(root->lchild);
+    pre_order(root->rchild);
+}
+
+// 1.2 先序遍历
+void pre_order2(BTree root) {
+    if (!root) return;
+    stack<BTree> S;
+    BTree p = root;
+    while (p || !S.empty()) {
+        if (p) {
+            visit(p);
+            S.push(p);
+            p = p->lchild;
+        } else {
+            p = S.top();
+            S.pop();
+            p = p->rchild;
+        }
     }
 }
 
 
 // 2. 中序遍历
 void in_order(BTree root) {
-    if (root) {
-        in_order(root->lchild);
-        visit(root);
-        in_order(root->rchild);
+    if (!root) return;
+    in_order(root->lchild);
+    visit(root);
+    in_order(root->rchild);
+}
+
+// 2.2 中序遍历
+void in_order2(BTree root) {
+    if (!root) return;
+    stack<BTree> S;
+    BTree p = root;
+    while (p || !S.empty()) {
+        if (p) {
+            S.push(p);
+            p = p->lchild;
+        } else {
+            p = S.top();
+            S.pop();
+            visit(p);
+            p = p->rchild;
+        }
     }
 }
 
 // 3. 后序遍历
 void post_order(BTree root) {
-    if (root) {
-        post_order(root->lchild);
-        post_order(root->rchild);
-        visit(root);
+    if (!root) return;
+    post_order(root->lchild);
+    post_order(root->rchild);
+    visit(root);
+}
+
+// 3.2 后序遍历
+void post_order2(BTree root) {
+    if (!root) return;
+    stack<BTree> s;
+    BTree p = root, r = NULL; // r记录上一个上一个访问的节点
+    while (p || !s.empty()) {
+        if (p) {
+            s.push(p);
+            p = p->lchild;
+        } else {
+            p = s.top(); // 先获取p节点
+            if (p->rchild && p->rchild != r) {
+                p = p->rchild;
+            } else {
+                s.pop();
+                visit(p);
+                r = p;
+                p = NULL; // 重置p指针
+            }
+        }
     }
 }
 
 // 4. 层序遍历
 void lever_order(BTree root) {
-    if (root) {
-        queue<BNode *> Q;
-        Q.push(root);
-        while (!Q.empty()) {
-            BNode *node = Q.front();
-            Q.pop();
-            visit(node);
-            if (node->lchild) {
-                Q.push(node->lchild);
-            }
-            if (node->rchild) {
-                Q.push(node->rchild);
-            }
+    if (!root) return;
+    queue<BNode *> Q;
+    Q.push(root);
+    while (!Q.empty()) {
+        BNode *node = Q.front();
+        Q.pop();
+        visit(node);
+        if (node->lchild) {
+            Q.push(node->lchild);
+        }
+        if (node->rchild) {
+            Q.push(node->rchild);
         }
     }
+
+
 }
 
 // 5. 二叉树中的最大值
 int max_value = -2147483648;
 
 void max_by_pre_order(BTree root) {
-    if (root) {
-        if (root->data > max_value) max_value = root->data;
-        max_by_pre_order(root->lchild);
-        max_by_pre_order(root->rchild);
-    }
+    if (!root) return;
+
+    if (root->data > max_value) max_value = root->data;
+    max_by_pre_order(root->lchild);
+    max_by_pre_order(root->rchild);
 }
 
 // 5.2 二叉树中的最大值
@@ -132,6 +203,22 @@ void wpl(BTree root, int height) {
     }
 }
 
+// 8. 找路径
+void search(BTree root, int x, vector<int> path) {
+    // 先序遍历
+    if (!root) return;
+
+    path.push_back(root->data);
+    if (root->data == x) {
+        for (int i : path) {
+            printf("%d\t", i);
+        }
+    }
+    search(root->lchild, x, path);
+    search(root->rchild, x, path);
+    path.pop_back();
+}
+
 void out(int A[], int n) {
     for (int i = 1; i <= n; ++i) {
         printf("%d\t", A[i]);
@@ -142,10 +229,19 @@ int main() {
     BTree root = create_tree();
     printf("先序遍历:\n");
     pre_order(root);
+    printf("\n先序遍历2:\n");
+
+    pre_order2(root);
     printf("\n中序遍历:\n");
     in_order(root);
+    printf("\n中序遍历2:\n");
+    in_order2(root);
+
     printf("\n后序遍历:\n");
     post_order(root);
+
+    printf("\n后序遍历:\n");
+    post_order2(root);
     printf("\n层序遍历:\n");
     lever_order(root);
     printf("\n最大值:\n");
@@ -156,6 +252,8 @@ int main() {
     printf("\nwpl:\n");
     wpl(root, 0);
     printf("%d", wpl_value);
-
+    printf("\n找路径:\n");
+    vector<int> path;
+    search(root, 4, path);
 
 }
