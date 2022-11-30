@@ -6,15 +6,15 @@
 using namespace std;
 
 /*
- * 11. å›¾ç›¸å…³ç®—æ³•
+ * 11. Í¼Ïà¹ØËã·¨
  *
- * aâ€”â€”bâ€”â€”c
+ * a¡ª¡ªb¡ª¡ªc
  * | \
- * dâ€”â€”e
+ * d¡ª¡ªe
  *
- * aâ€”â€”>bâ€”â€”>c
+ * a¡ª¡ª>b¡ª¡ª>c
  * | \
- * dâ€”â€”e
+ * d¡ª¡ªe
  *
  * 0 1 0 1 1
  * 1 0 1 0 0
@@ -25,49 +25,62 @@ using namespace std;
  *
  */
 
-// è¾¹èŠ‚ç‚¹
+// ÎŞÏòÍ¼ ×îÒ»°ãµÄ
+int a1[5][5] = {
+        {0, 1, 0, 1, 1},
+        {1, 0, 1, 0, 0},
+        {0, 1, 0, 0, 0},
+        {1, 0, 0, 0, 1},
+        {1, 0, 0, 1, 0}
+};
+// ÎŞÏòÍ¼ ÓĞÈ¨ÖµµÄ
+int a2[5][5] = {
+        {INT_MAX, 1, INT_MAX, 3,       4},
+        {1, INT_MAX, 2,       INT_MAX, INT_MAX},
+        {INT_MAX, 2, INT_MAX, INT_MAX, INT_MAX},
+        {3, INT_MAX, INT_MAX, INT_MAX, 5},
+        {4, INT_MAX, INT_MAX, 5,       INT_MAX}
+};
+
+// ÓĞÏòÍ¼,ÍØÆËÅÅĞò
+int a3[5][5] = {
+        {0, 1, 1, 1, 1},
+        {0, 0, 1, 1, 1},
+        {0, 0, 0, 1, 1},
+        {0, 0, 0, 0, 1},
+        {0, 0, 0, 0, 0}
+};
+
+
+// ±ß½Úµã
 typedef struct ArcNode {
     int adjvex;
     struct ArcNode *nextArc;
 } ArcNode;
 
-// é¡¶ç‚¹
+// ¶¥µã
 typedef struct VNode {
     char data;
     ArcNode *firstArc;
 } VNode;
 
-// é‚»æ¥è¡¨
+// ÁÚ½Ó±í
 typedef struct ALGraph {
     int vex_num, arc_num;
     VNode adjList[n];
 } ALGraph;
 
-// é‚»æ¥çŸ©é˜µå•å…ƒ
+// ÁÚ½Ó¾ØÕóµ¥Ôª
 typedef struct {
     char vertex[n];
     int arcs[n][n];
     int vex_num, arc_num;
 } MGraph;
 
-MGraph createMGraph() {
+MGraph createMGraph(int a[n][n]) {
     MGraph MG;
     MG.arc_num = 5;
     MG.vex_num = 5;
-    int a[5][5] = {
-            {0, 1, 0, 1, 1},
-            {1, 0, 1, 0, 0},
-            {0, 1, 0, 0, 0},
-            {1, 0, 0, 0, 1},
-            {1, 0, 0, 1, 0}
-    };
-//    int a[5][5] = {
-//            {0, 1, 1, 1, 1},
-//            {0, 0, 1, 1, 1},
-//            {0, 0, 0, 1, 1},
-//            {0, 0, 0, 0, 1},
-//            {0, 0, 0, 0, 0}
-//    };
     for (int i = 0; i < 5; ++i) {
         for (int j = 0; j < 5; ++j) {
             MG.arcs[i][j] = a[i][j];
@@ -82,7 +95,7 @@ MGraph createMGraph() {
     return MG;
 }
 
-// 1. é‚»æ¥è¡¨è½¬ä¸´ç•ŒçŸ©é˜µ
+// 1. ÁÚ½Ó±í×ªÁÙ½ç¾ØÕó
 MGraph ALGraph2MGraph(ALGraph AG, MGraph MG) {
     MG.arc_num = AG.arc_num;
     MG.vex_num = AG.vex_num;
@@ -99,21 +112,21 @@ MGraph ALGraph2MGraph(ALGraph AG, MGraph MG) {
     return MG;
 }
 
-// 2. é‚»æ¥çŸ©é˜µè½¬ä¸´ç•Œè¡¨
+// 2. ÁÚ½Ó¾ØÕó×ªÁÙ½ç±í
 ALGraph MGraph2ALGraph(MGraph MG, ALGraph AG) {
     AG.arc_num = MG.arc_num;
     AG.vex_num = MG.vex_num;
 
-    // å…ˆæ‹·è´æ•°æ®
+    // ÏÈ¿½±´Êı¾İ
     for (int i = 0; i < MG.vex_num; ++i) {
         AG.adjList[i].data = MG.vertex[i];
         AG.adjList[i].firstArc = nullptr;
     }
 
-    // ç„¶åæ‹·è´å…³ç³»
+    // È»ºó¿½±´¹ØÏµ
     for (int i = 0; i < MG.vex_num; ++i) {
         for (int j = 0; j < MG.vex_num; ++j) {
-            // å¤´æ’
+            // Í·²å
             if (MG.arcs[i][j]) {
                 ArcNode *p = (ArcNode *) malloc(sizeof(ArcNode));
                 p->adjvex = j;
@@ -153,7 +166,7 @@ void DFS(ALGraph G, int v) {
 
 // 4. BFS
 void BFS(ALGraph G, int v) {
-    // ä¸€ä¸ªè¿é€šåˆ†é‡çš„bfs
+    // Ò»¸öÁ¬Í¨·ÖÁ¿µÄbfs
     queue<int> Q;
     visited[v] = 1;
     visit(G, v);
@@ -169,13 +182,13 @@ void BFS(ALGraph G, int v) {
             }
 
         }
-//        é‚»æ¥çŸ©é˜µ
+//        ÁÚ½Ó¾ØÕó
 //        for (int j = 0; j < G.vex_num; j++){
 //            if (G.arcs[v][j] == 1 && !visited[j]){
 //                cout << "->";
-//                cout << G.vertex[j];//è®¿é—®ç»“ç‚¹
+//                cout << G.vertex[j];//·ÃÎÊ½áµã
 //                visited[j] = true;
-//                Q.push(j);//å…¥é˜Ÿ
+//                Q.push(j);//Èë¶Ó
 //            }
 //        }
     }
@@ -184,19 +197,19 @@ void BFS(ALGraph G, int v) {
 
 void BFSTraverse(ALGraph G) {
     init_visited();
-    for (int i = 0; i < G.vex_num; i++) {//å¯¹æ¯ä¸ªè¿é€šåˆ†é‡è¿›è¡Œéå†
+    for (int i = 0; i < G.vex_num; i++) {//¶ÔÃ¿¸öÁ¬Í¨·ÖÁ¿½øĞĞ±éÀú
         if (!visited[i]) BFS(G, i);
     }
 //    init_visited();
-//    for (int i = 4; i >= 0; i--) {//å¯¹æ¯ä¸ªè¿é€šåˆ†é‡è¿›è¡Œéå†
+//    for (int i = 4; i >= 0; i--) {//¶ÔÃ¿¸öÁ¬Í¨·ÖÁ¿½øĞĞ±éÀú
 //        if (!visited[i]) BFS(G, i);
 //    }
 }
 
-// 5. æ— å‘å›¾æ‰¾ä¸€ä¸ªç®€å•è·¯å¾„
+// 5. ÎŞÏòÍ¼ÕÒÒ»¸ö¼òµ¥Â·¾¶
 void find_path(ALGraph G, int start, int end, vector<int> path) {
     path.push_back(start);
-    // ç»ˆæ­¢æ¡ä»¶ start == end
+    // ÖÕÖ¹Ìõ¼ş start == end
     if (start == end) for (int i : path) printf("%d\t", i);
     visited[start] = 1;
     // dfs
@@ -208,14 +221,54 @@ void find_path(ALGraph G, int start, int end, vector<int> path) {
     path.pop_back();
 }
 
-// 6.primç®—æ³•
-int dist[n], book[n];
+// 6.primËã·¨
+typedef struct {
+    int adjvex;
+    int lowcost;
+} Closedge;
 
-void prim(ALGraph G) {
+
+int minimum(Closedge closedge[]) {
+    /*
+     * »ñÈ¡closedge[n]ÖĞÈ¨Öµ×îĞ¡µÄ±ß
+     */
+    int min = INT_MAX;
+    int i, res;
+    for (i = 0; i < n; i++) {
+        int lowcost = closedge[i].lowcost;
+        if (lowcost > 0 && lowcost < min) {
+            min = lowcost;
+            res = i;
+
+        }
+    }
+    return res;
+}
+
+void prim(MGraph G, int u) {
+    // uÊÇ¶¥µãË÷Òı£¬¶ø²»ÊÇÖµ Êé±¾ÉÏµÄÊÇcharÀàĞÍµÄÖµ, low_costÖĞµÄadjvexÒ²ÊÇint, ¶øÊ÷ÉÏµÄÒ²ÊÇÖµ.
+    int k = u;
+    Closedge closedge[n];
+    closedge[k].lowcost = 0;
+    for (int i = 0; i < G.vex_num; ++i) {
+        if (i != k) closedge[i] = {k, G.arcs[k][i]};
+    }
+    // ½«µÚÒ»¸ö¼ÓÈëµÄ¶¥µã¸³ÖµÎª0
+    for (int i = 1; i < G.vex_num; ++i) { // 1 ~ G.vex_num-1
+        k = minimum(closedge);    // »ñÈ¡closedgeÖĞ×îĞ¡µÄ
+        printf("¼ÓÈëµÄ±ßÎª:(%c-%c) \n", G.vertex[closedge[k].adjvex], G.vertex[k]);
+        closedge[k].lowcost = 0;
+        for (int j = 0; j < G.vex_num; ++j) {    // ¸üĞÂclosedgeÖĞµÄÈ¨Öµ
+            if (G.arcs[k][j] < closedge[j].lowcost) {
+                closedge[j] = {k, G.arcs[k][j]};
+            }
+        }
+    }
+
 
 }
 
-// 7. æ‹“æ‰‘æ’åº
+// 7. ÍØÆËÅÅĞò
 int indegree[n];
 
 void findInDegree(ALGraph G) {
@@ -234,7 +287,7 @@ void findInDegree(ALGraph G) {
 int TopologicalSort(ALGraph G) {
     findInDegree(G);
     stack<int> S;
-    // å…ˆæŠŠå…¥åº¦ä¸º0çš„ç‚¹æ”¾å…¥æ ˆä¸­
+    // ÏÈ°ÑÈë¶ÈÎª0µÄµã·ÅÈëÕ»ÖĞ
     for (int i = 0; i < G.vex_num; ++i) {
         if (indegree[i] == 0) S.push(i);
     }
@@ -246,7 +299,7 @@ int TopologicalSort(ALGraph G) {
         count++;
         for (ArcNode *p = G.adjList[vex].firstArc; p != nullptr; p = p->nextArc) {
             int v = p->adjvex;
-            if (!(--indegree[v])) { // â˜…
+            if (!(--indegree[v])) { // ¡ï
                 S.push(v);
             }
         }
@@ -257,9 +310,9 @@ int TopologicalSort(ALGraph G) {
 
 
 int main() {
-    MGraph mg = createMGraph();
+    MGraph MG = createMGraph(a1);
     ALGraph AG;
-    AG = MGraph2ALGraph(mg, AG);
+    AG = MGraph2ALGraph(MG, AG);
     printf("DFS:\n");
     DFS(AG, 0);
     printf("\nBFS:\n");
@@ -268,8 +321,15 @@ int main() {
     printf("\nfind_path:\n");
     vector<int> path;
     find_path(AG, 4, 1, path);
-//    printf("\nTopologicalSort:\n");
-//    int status = TopologicalSort(AG);
 
+    // ÎŞÏòÓĞÈ¨Í¼
+    MGraph MG2 = createMGraph(a2);
+    printf("\nprim:\n");
+    prim(MG2, 2);
 
+    // DAG
+    MGraph MG3 = createMGraph(a3);
+    ALGraph AG3 = MGraph2ALGraph(MG3, AG);
+    printf("TopologicalSort:\n");
+    TopologicalSort(AG3);
 }
