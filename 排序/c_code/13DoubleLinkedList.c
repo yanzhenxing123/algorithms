@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include "stdbool.h"
 
-// 13. 双端链表 复试考察
+/*
+// 13. 双端链表 复试考察，初试不考
+*/
 typedef struct Node {
     int data;
     struct Node* prev;
