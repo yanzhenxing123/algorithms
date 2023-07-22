@@ -20,6 +20,7 @@ print(a.data)
 # print('compute result is')
 # print(out.data[0])
 print('input gradients are')
+
 print(a.grad.data)
 
 
