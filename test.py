@@ -21,6 +21,7 @@ print(a.data)
 # print(out.data[0])
 print('input gradients are')
 
+
 print(a.grad.data)
 
 
