@@ -136,3 +136,6 @@ dmypy.json
 files/cloud_computing/data
 
 .vscode/
+
+
+basis/courses/DeepLearning/datasets
