@@ -1,33 +1,37 @@
 """
 @Author: yanzx
 @Date: 2023/7/24 15:45
-@Description: µ÷ÓÃ¿âº¯ÊıÊµÏÖ
+@Description: è°ƒç”¨åº“å‡½æ•°å®ç°
 """
 
 import torch
 import torchvision
 import torchvision.transforms as transforms
 import numpy as np
+from torch import nn
+from torch.nn import init
+from torch.optim import SGD
+import matplotlib.pyplot as plt
 
 mnist_train = torchvision.datasets.FashionMNIST(root='../datasets/FashionMNIST', train=True, download=False,
                                                 transform=transforms.ToTensor())
 mnist_test = torchvision.datasets.FashionMNIST(root='../datasets/FashionMNIST', train=False, download=False,
                                                transform=transforms.ToTensor())
-# ¶¨Òå batch_size
+# å®šä¹‰ batch_size
 """
-batch_sizeÊÇ³¬²ÎÊı,±íÊ¾Ò»ÂÖÑµÁ·¶àÉÙ¸öÑù±¾
-shuffleÊÇ·ñ´òÂÒÊı¾İ,True±íÊ¾´òÂÒÊı¾İ
-num_workers=0±íÊ¾²»¿ªÆô¶àÏß³Ì¶ÁÈ¡Êı¾İ
+batch_sizeæ˜¯è¶…å‚æ•°,è¡¨ç¤ºä¸€è½®è®­ç»ƒå¤šå°‘ä¸ªæ ·æœ¬
+shuffleæ˜¯å¦æ‰“ä¹±æ•°æ®,Trueè¡¨ç¤ºæ‰“ä¹±æ•°æ®
+num_workers=0è¡¨ç¤ºä¸å¼€å¯å¤šçº¿ç¨‹è¯»å–æ•°æ®
 """
 
 batch_size = 64  #
 
 train_iter = torch.utils.data.DataLoader(mnist_train, batch_size=batch_size, shuffle=True,
-                                         num_workers=0)  # num_workers=0,²»¿ªÆô¶àÏß³Ì¶ÁÈ¡¡£
+                                         num_workers=0)  # num_workers=0,ä¸å¼€å¯å¤šçº¿ç¨‹è¯»å–ã€‚
 test_iter = torch.utils.data.DataLoader(mnist_test, batch_size=batch_size, shuffle=False, num_workers=0)
 
-# ¶¨ÒåÄ£ĞÍ²ÎÊı
-num_inputs, num_outputs, num_hiddens = 784, 10, 256  # ÊäÈë Êä³ö Òş²Ø
+# å®šä¹‰æ¨¡å‹å‚æ•°
+num_inputs, num_outputs, num_hiddens = 784, 10, 256  # è¾“å…¥ è¾“å‡º éšè—
 W1 = torch.tensor(np.random.normal(0, 0.01, (num_hiddens, num_inputs)), dtype=torch.float)
 b1 = torch.zeros(num_hiddens, dtype=torch.float)
 W2 = torch.tensor(np.random.normal(0, 0.01, (num_outputs, num_hiddens)), dtype=torch.float)
@@ -37,41 +41,34 @@ for param in params:
     param.requires_grad_(requires_grad=True)
 
 
-def relu(X):
+class FlatterLayer(torch.nn.Module):
     """
-    relu¼¤»îº¯Êı
-    :param X:
-    :return:
+    é“ºå¹³
     """
-    return torch.max(input=X, other=torch.tensor(0.0))
+
+    def __init__(self):
+        super(FlatterLayer, self).__init__()
+
+    def forward(self, x: torch.Tensor):
+        return x.view(x.shape[0], -1)
 
 
-# ½»²æìØËğÊ§º¯Êı
-loss = torch.nn.CrossEntropyLoss()
+num_inputs, num_outputs, num_hiddens = 784, 10, 256
+net = nn.Sequential(
+    FlatterLayer(),
+    nn.Linear(num_inputs, num_hiddens),
+    nn.ReLU(),
+    nn.Linear(num_hiddens, num_outputs),
+)
+
+for params in net.parameters():
+    nn.init.normal_(params, mean=0, std=0.01)
 
 
-# Ëæ»úÌİ¶ÈÏÂ½µº¯Êı
-def SGD(params, lr):
-    for param in params:
-        param.data -= lr * param.grad
-
-
-# ¶¨ÒåÄ£ĞÍ
-def net(X):
+# è®¡ç®—å‡†ç¡®ç‡
+def evaluate_accuracy(data_iter, net, loss):
     """
-    Ä£ĞÍ
-    :param X:
-    :return:
-    """
-    X = X.view((-1, num_inputs))  # (1,  784)
-    H = relu(torch.matmul(X, W1.t()) + b1)  # Òş²Ø²ã
-    return torch.matmul(H, W2.t()) + b2  # Êä³ö²ã
-
-
-# ¼ÆËã×¼È·ÂÊ
-def evaluate_accuracy(data_iter, net):
-    """
-    ×¼È·ÂÊ
+    å‡†ç¡®ç‡
     :param data_iter:
     :param net:
     :return:
@@ -79,18 +76,29 @@ def evaluate_accuracy(data_iter, net):
     acc_sum, n = 0.0, 0
     for X, y in data_iter:
         acc_sum += (net(X).argmax(dim=1) == y).float().sum().item()
+        l = loss(net(X), y).sum()
+        test_l_sum = l.item()
         n += y.shape[0]
-    return acc_sum / n
+    return acc_sum / n, test_l_sum / n
 
 
-# Ä£ĞÍÑµÁ·º¯Êı
+num_epochs = 5
+lr = 0.1
+
+loss = torch.nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(net.parameters(), lr)
+
+
+# æ¨¡å‹è®­ç»ƒå‡½æ•°
 def train(net, train_iter, test_iter, loss, num_epochs, batch_size, params=None, lr=None, optimizer=None):
+    test_loss = []
+    train_loss = []
     for epoch in range(num_epochs):
         train_l_sum, train_acc_sum, n = 0.0, 0.0, 0
         for X, y in train_iter:
             y_hat = net(X)
             l = loss(y_hat, y).sum()
-            # Ìİ¶ÈÇåÁã
+            # æ¢¯åº¦æ¸…é›¶
             if optimizer is not None:
                 optimizer.zero_grad()
             elif params is not None and params[0].grad is not None:
@@ -104,24 +112,20 @@ def train(net, train_iter, test_iter, loss, num_epochs, batch_size, params=None,
             train_l_sum += l.item()
             train_acc_sum += (y_hat.argmax(dim=1) == y).sum().item()
             n += y.shape[0]
-        test_acc = evaluate_accuracy(test_iter, net)
-        print(' epoch %d,loss %.4f,train acc %.3f,test acc %.3f' % (
-            epoch + 1, train_l_sum / n, train_acc_sum / n, test_acc))
+        test_acc, test_l = evaluate_accuracy(test_iter, net, loss)
+        train_loss.append(train_l_sum / n)
+        test_loss.append(test_l)
+        print('epoch %d, loss%.4f,train acc %.3f,test acc %.3f' % (
+        epoch + 1, train_l_sum / n, train_acc_sum / n, test_acc))
+    return train_loss, test_loss
 
 
-num_epochs = 5
-lr = 0.1
+train_loss, test_loss = train(net, train_iter, test_iter, loss, num_epochs, batch_size, net.parameters(), lr, optimizer)
 
-
-class FlatterLayer(torch.nn.Module):
-    """
-    ÆÌÆ½
-    """
-    def __init__(self):
-        super(FlatterLayer, self).__init__()
-
-    def forward(self, x: torch.Tensor):
-        return x.view(x.shape[0], -1)
-
-
-class 
+x = np.linspace(0, len(train_loss), len(train_loss))
+plt.plot(x, train_loss, label="train_loss", linewidth=1.5)
+plt.plot(x, test_loss, label="test_loss", linewidth=1.5)
+plt.xlabel("epoch")
+plt.ylabel("loss")
+plt.legend()
+plt.show()
