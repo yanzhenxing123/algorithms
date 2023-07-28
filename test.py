@@ -18,21 +18,22 @@ shuffle是否打乱数据,True表示打乱数据
 num_workers=0表示不开启多线程读取数据
 """
 
-batch_size = 64  #
+import torch
+import torch.nn as nn
 
-train_iter = torch.utils.data.DataLoader(mnist_train, batch_size=batch_size, shuffle=True,
-                                         num_workers=0)  # num_workers=0,不开启多线程读取。
-test_iter = torch.utils.data.DataLoader(mnist_test, batch_size=batch_size, shuffle=False, num_workers=0)
+# 假设输入特征数量为n，输出特征数量为m
+n = 784  # 输入特征数，假设输入图像大小为28x28，展平后为784维
+m = 64  # 输出特征数，可以自行设定
 
-# 定义模型参数
-num_inputs, num_outputs, num_hiddens = 784, 10, 256 # 输入 输出 隐藏
-W1 = torch.tensor(np.random.normal(0, 0.01, (num_hiddens, num_inputs)), dtype=torch.float)
-b1 = torch.zeros(num_hiddens, dtype=torch.float)
-W2 = torch.tensor(np.random.normal(0, 0.01, (num_outputs, num_hiddens)), dtype=torch.float)
-b2 = torch.zeros(num_outputs, dtype=torch.float)
-params = [W1, b1, W2, b2]
-for param in params:
-    param.requires_grad_(requires_grad=True)
+# 定义全连接层
+fc_layer = nn.Linear(n, m)
 
+# 假设我们有一个输入张量x，大小为(n,)，表示一个展平的输入图像
+x = torch.randn(n)
 
+# 前向传播，将x输入全连接层进行线性变换
+output = fc_layer(x)
+
+# 输出的大小为(m,)，表示全连接层的输出特征
+print(output.size())
 
