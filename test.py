@@ -3,37 +3,49 @@ this is a test py
 """
 
 import torch
-import torchvision
-import torchvision.transforms as transforms
-import numpy as np
+import torch.nn as nn
+import torch.nn.functional as F
 
-mnist_train = torchvision.datasets.FashionMNIST(root='./datasets/FashionMNIST', train=True, download=False,
-                                                transform=transforms.ToTensor())
-mnist_test = torchvision.datasets.FashionMNIST(root='./datasets/FashionMNIST', train=False, download=False,
-                                               transform=transforms.ToTensor())
-# 定义 batch_size
-"""
-batch_size是超参数,表示一轮训练多少个样本
-shuffle是否打乱数据,True表示打乱数据
-num_workers=0表示不开启多线程读取数据
-"""
 
 import torch
-import torch.nn as nn
+import torch.utils.data as data
 
-# 假设输入特征数量为n，输出特征数量为m
-n = 784  # 输入特征数，假设输入图像大小为28x28，展平后为784维
-m = 64  # 输出特征数，可以自行设定
+# 特征数据：花朵的大小（第一列）和颜色（第二列）
+features = torch.tensor([
+    [5.1, 1.4],
+    [4.9, 1.4],
+    [5.8, 1.7],
+    [6.0, 1.4],
+    [5.5, 1.3],
+    [5.4, 1.7]
+])
 
-# 定义全连接层
-fc_layer = nn.Linear(n, m)
+# 标签：0表示玫瑰，1表示向日葵
+labels = torch.tensor([0, 0, 1, 1, 0, 1])
 
-# 假设我们有一个输入张量x，大小为(n,)，表示一个展平的输入图像
-x = torch.randn(n)
+# 创建自定义的数据集类
+class FlowerDataset(data.Dataset):
+    def __init__(self, features, labels):
+        self.features = features
+        self.labels = labels
 
-# 前向传播，将x输入全连接层进行线性变换
-output = fc_layer(x)
+    def __len__(self):
+        return len(self.features)
 
-# 输出的大小为(m,)，表示全连接层的输出特征
-print(output.size())
+    def __getitem__(self, index):
+        return self.features[index], self.labels[index]
 
+# 创建数据集
+flower_dataset = FlowerDataset(features, labels)
+
+# 创建 DataLoader 对象
+batch_size = 2
+flower_loader = data.DataLoader(flower_dataset, batch_size=batch_size, shuffle=True)
+
+# 遍历数据集，观察每个批次中的数据
+for inputs, labels in flower_loader:
+    print("Batch Features:")
+    print(inputs)
+    print("Batch Labels:")
+    print(labels)
+    print("-----------------------")
