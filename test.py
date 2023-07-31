@@ -1,11 +1,11 @@
 """
 this is a test py
+丹斯
 """
 
-import torch
+# 这是一个使用DataLoader的Demo
 import torch.nn as nn
 import torch.nn.functional as F
-
 
 import torch
 import torch.utils.data as data
@@ -23,6 +23,7 @@ features = torch.tensor([
 # 标签：0表示玫瑰，1表示向日葵
 labels = torch.tensor([0, 0, 1, 1, 0, 1])
 
+
 # 创建自定义的数据集类
 class FlowerDataset(data.Dataset):
     def __init__(self, features, labels):
@@ -34,6 +35,7 @@ class FlowerDataset(data.Dataset):
 
     def __getitem__(self, index):
         return self.features[index], self.labels[index]
+
 
 # 创建数据集
 flower_dataset = FlowerDataset(features, labels)
@@ -49,3 +51,6 @@ for inputs, labels in flower_loader:
     print("Batch Labels:")
     print(labels)
     print("-----------------------")
+
+
+# 我感觉这兼职就是一种折磨 对于我来说 不知道 为为什么
