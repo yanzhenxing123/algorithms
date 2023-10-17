@@ -1,10 +1,3 @@
-airtest               1.0.25
-baidu-aip             2.2.13.0
-certifi               2018.11.29
-chardet               3.0.4
-cssselect             1.0.3
-facebook-wda          0.2.1
-
 hrpc                  1.0.8
 
 idna                  2.8
