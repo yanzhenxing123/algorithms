@@ -22,7 +22,6 @@ def partition(arr, left, right):
     pivot = arr[left]
     while left < right:
         # 终止条件： left == right
-
         # 从右往左 <-
         while left < right and arr[right] >= pivot:
             # 终止条件 left == right 或者 右边比pivot小
@@ -38,6 +37,6 @@ def partition(arr, left, right):
 if __name__ == '__main__':
     # 洗牌
     # random.shuffle(nums)
-    nums = [1,2,3,1,1,10,2,3,4]
+    nums = [1, 2, 3, 1, 1, 10, 2, 3, 4]
     quick_sort(nums, 0, len(nums) - 1)
     print(nums)
