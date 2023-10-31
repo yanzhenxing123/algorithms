@@ -1,6 +1,5 @@
 """
 this is a test py
-丹斯
 """
 
 # 这是一个使用DataLoader的Demo
