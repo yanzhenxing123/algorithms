@@ -4,8 +4,6 @@ this is a test py
 
 # 这是一个使用DataLoader的Demo
 import torch.nn as nn
-import torch.nn.functional as F
-
 import torch
 import torch.utils.data as data
 
