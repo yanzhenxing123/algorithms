@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 print("aaa")
-=======
 """
 this is a test py
 """
@@ -56,4 +54,3 @@ for inputs, labels in flower_loader:
 # 我感觉这兼职就是一种折磨 对于我来说 不知道 为为什么
 
 print("aaa")
->>>>>>> 11c05c0ecf58bf12586279899c2dc706883f8f6d
