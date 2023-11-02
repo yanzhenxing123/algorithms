@@ -17,6 +17,7 @@ features = torch.tensor([
     [5.4, 1.7]
 ])
 
+
 # 标签：2表示玫瑰，1表示向日葵
 labels = torch.tensor([0, 0, 1, 1, 0, 1])
 
