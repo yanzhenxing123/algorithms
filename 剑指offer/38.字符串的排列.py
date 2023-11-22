@@ -63,6 +63,9 @@ class Solution:
 
 
 if __name__ == '__main__':
-    s = Solution2()
-    res = s.permutation("abc")
-    print(res)
+    import time
+    s = Solution()
+    start_time = time.time()
+    res = s.permutation("abcdefghijk")
+    end_time = time.time()
+    print(end_time-start_time)
