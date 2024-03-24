@@ -8,13 +8,19 @@ from typing import List
 
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
+        """
+        hashmap
+        :param nums:
+        :param target:
+        :return:
+        """
         # nums中可能有重复的数字 遍历一次即可 注意：enumerate得到(index, value)
         hashmap = {}
         for index, num in enumerate(nums):
             another = target - num
+            hashmap[num] = index
             if another in hashmap:
                 return [index, hashmap[another]]
-            hashmap[num] = index
 
 
 if __name__ == '__main__':
