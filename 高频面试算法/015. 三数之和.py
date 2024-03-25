@@ -10,7 +10,6 @@
 
 """
 
-
 from typing import List, Dict
 
 
@@ -35,6 +34,7 @@ class Solution:
                     right -= 1
         return res
 
+
 class Solution2:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         # [0, 0, 1, 1, 1, 1, 2, 3, 4, 5, 6]
@@ -47,7 +47,7 @@ class Solution2:
         # 固定一个数字，作为第一个数字，然后找到另外两个数
         for i in range(length):
             # 保证第一个数字是唯一的
-            if i > 0 and nums[i] == nums[i-1]:
+            if i > 0 and nums[i] == nums[i - 1]:
                 continue
 
             # 第一个数字 > 0，那么另外两个数字一定大于零
@@ -76,7 +76,6 @@ class Solution2:
                     left += 1
                     right -= 1
         return res
-
 
 
 if __name__ == '__main__':

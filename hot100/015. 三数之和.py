@@ -18,12 +18,37 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
 
 from typing import List
 
+
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        pass
+        res = list()
+        nums.sort()
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                # 去重
+                continue
+            cur_num = nums[i]
+            left, right = i + 1, len(nums) - 1  # 为什么从i，因为前面的已经完全考虑过了
+            while left < right:
+                if nums[left] + nums[right] > -cur_num:
+                    right -= 1
+                elif nums[left] + nums[right] < -cur_num:
+                    left += 1
+                else:
+                    # 要考虑去重
+                    tripe = [cur_num, nums[left], nums[right]]
+                    res.append(tripe)
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+        return res
 
 
 if __name__ == '__main__':
     s = Solution()
     nums = [-1, 0, 1, 2, -1, -4]
     res = s.threeSum(nums)
+    print(res)

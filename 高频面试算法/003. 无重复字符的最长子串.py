@@ -31,18 +31,20 @@ class Solution1:
         """
         :type s: str
         :rtype: int
+
         """
         st = {}
         i, ans = -1, 0
         for j in range(len(s)):
             if s[j] in st:
-                i = max(st[s[j]], i)
+                i = max(st[s[j]], i)  # 取max是不能让i回去
             ans = max(ans, j - i)
             st[s[j]] = j
+            print(st)
         return ans
 
 
 if __name__ == '__main__':
-    s = Solution()
-    res = s.lengthOfLongestSubstring("abcabcbb")
+    s = Solution1()
+    res = s.lengthOfLongestSubstring("abba")
     print(res)

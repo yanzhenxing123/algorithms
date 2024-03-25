@@ -50,6 +50,9 @@ class Solution:
         return max_length
 
 
+
+
+
 if __name__ == '__main__':
     s = Solution()
     nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
