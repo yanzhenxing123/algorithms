@@ -32,26 +32,23 @@ class Solution:
     def firstMissingPositive(self, nums: List[int]) -> int:
         """
         将位置变换
+        将0 < nums[i] <= len(nums)的数字放到自己的位置上
         :param nums:
         :return:
         """
-
         if not nums:
             return 1
         nums = [0] + nums
         i = 1
-        while i <= len(nums) - 1:
-            if i == nums[i] or nums[i] <= 0 or nums[i] >= len(nums):
-                i += 1
-                continue
-
-            if 0 < nums[i] <= len(nums):
-                if nums[nums[i]] == nums[i]:
-                    i += 1
-                    continue
+        while i < len(nums):
+            if 0 < nums[i] < len(nums) and nums[nums[i]] != nums[i]:  # 第一个条件
                 tmp = nums[nums[i]]
                 nums[nums[i]] = nums[i]
                 nums[i] = tmp
+            else:  # 第二个条件
+                i += 1
+                continue
+        # 返回结果
         for i in range(1, len(nums)):
             if i != nums[i]:
                 return i
@@ -60,6 +57,6 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    nums = [1, 1]
+    nums = [2]
     res = s.firstMissingPositive(nums=nums)
     print(res)
