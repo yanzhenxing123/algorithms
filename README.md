@@ -12,7 +12,7 @@ Summary of algorithm problem
 <a href="https://www.bilibili.com/video/BV1184y1w7aP"><strong>2.0介绍视频</strong></a>
 
 
-[![Video Title]()](https://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4?autoplay=1)
+[![Video Title]()](https://github.com/yanzhenxing123/Notes/blob/master/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4?autoplay=1)
 
 
 ## basis
