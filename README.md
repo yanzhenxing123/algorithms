@@ -4,9 +4,10 @@ Summary of algorithm problem
 
 ## 视频demo
 
-<video src="https://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4"></video>
 
-
+<video id="video" controls="" preload="none" poster="https://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/typora-on-mac/image-20240403092620792.png">
+      <source id="mp4" src="https://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4" type="video/mp4">
+</video>
 
 ## basis
 
