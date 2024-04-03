@@ -10,11 +10,13 @@
 
 """
 
+
 # Definition for singly-linked list.
 class ListNode:
     def __init__(self, x):
         self.val = x
         self.next = None
+
 
 class Solution:
     def hasCycle(self, head: ListNode) -> bool:
@@ -44,8 +46,6 @@ class Solution:
         return False
 
 
-
-
 if __name__ == '__main__':
     s = Solution()
     # 创建一个环形链表
@@ -58,5 +58,3 @@ if __name__ == '__main__':
         pos = pos.next
 
     res = s.hasCycle(head)
-
-
