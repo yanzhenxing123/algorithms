@@ -5,15 +5,14 @@ Summary of algorithm problem
 ## 视频demo
 
 <video width="320" height="240" controls>
-    <source src="https://ksdb-blogimg.oss-cn-beijing.aliyuncs.com/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4" type="video/mp4">
+    <source src="https://github.com/yanzhenxing123/algorithms/assets/61019432/0bac3844-392c-4c48-a50d-9d7defacf3fe" type="video/mp4">
 </video>
 
 
 <a href="https://www.bilibili.com/video/BV1184y1w7aP"><strong>2.0介绍视频</strong></a>
 
 
-[![Video Title]()](
-https://github.com/yanzhenxing123/algorithms/assets/61019432/0bac3844-392c-4c48-a50d-9d7defacf3fe?autoplay=1)
+[![视频demo]()](https://github.com/yanzhenxing123/algorithms/assets/61019432/0bac3844-392c-4c48-a50d-9d7defacf3fe?autoplay=1)
 
 
 ## basis
