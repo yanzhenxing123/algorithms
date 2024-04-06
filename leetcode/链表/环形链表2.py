@@ -17,6 +17,7 @@ class Solution:
             return None
 
         fast = slow = head
+        fast = slow.next
         flag = False
         while fast.next is not None and fast.next.next is not None:
             slow = slow.next
