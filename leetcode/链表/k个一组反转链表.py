@@ -13,17 +13,18 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def reverseKGroup(self, head: ListNode, k: int) -> ListNode:
-        dummy = ListNode(0)
+        dummy = ListNode(0)  # 头结点
         p = dummy
         while True:
             count = k
             stack = []
-            tmp = head
-            while count and tmp:
-                stack.append(tmp)
-                tmp = tmp.next
+            new_head = head
+            while count and new_head:
+                stack.append(new_head)
+                new_head = new_head.next
                 count -= 1
             # 注意,目前tmp所在k+1位置
             # 说明剩下的链表不够k个,跳出循环
@@ -35,7 +36,7 @@ class Solution:
                 p.next = stack.pop()
                 p = p.next
             # 与剩下链表连接起来
-            p.next = tmp
-            head = tmp
+            p.next = new_head
+            head = new_head
 
         return dummy.next
