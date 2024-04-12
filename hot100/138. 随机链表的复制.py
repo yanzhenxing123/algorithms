@@ -50,8 +50,6 @@ class Solution:
             p = p.next
             q = q.next
         q = dummy.next
-        print(random_nodes)
-        print(old_2_new)
         for random_node in random_nodes:
             if random_node:
                 q.random = old_2_new[random_node]
