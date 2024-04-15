@@ -18,7 +18,7 @@ class Solution:
         """
         递归实现
         1->2->3->None
-    pre cur
+        pre cur
         :param head:
         :return:
         """
@@ -31,6 +31,7 @@ class Solution:
             q = cur.next
             cur.next = pre
             return reverse(cur, q)
+
         res = reverse(None, head)
         return res
 
