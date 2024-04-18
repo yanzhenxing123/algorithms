@@ -15,7 +15,37 @@ from typing import Optional, List
 
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        """
+        第一种解法
+        :param root:
+        :return:
+        """
+        self.ans = 1
+
+        def depth(root: TreeNode):
+            """
+            获取深度，后序遍历
+            :param root:
+            :return:
+            """
+            if not root:
+                return 0
+            left = depth(root.left)
+            right = depth(root.right)
+
+            self.ans = max(self.ans, 1 + left + right)
+
+            return 1 + max(left, right)
+        depth(root)
+        return self.ans - 1
+
+    def diameterOfBinaryTree2(self, root: Optional[TreeNode]) -> int:
         def dfs(root: Optional[TreeNode]):
+            """
+            获取每个节点的深度
+            :param root:
+            :return:
+            """
             if not root:
                 return 0
             root.val = 1 + max(dfs(root.left), (dfs(root.right)))
@@ -28,6 +58,11 @@ class Solution:
         return self.res
 
     def dfs2(self, root: Optional[TreeNode]):
+        """
+        左右节点的深度之和就是直径
+        :param root:
+        :return:
+        """
         if root:
             if root.left and root.right:
                 depth = root.left.val + root.right.val
