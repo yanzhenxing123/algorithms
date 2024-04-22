@@ -5,6 +5,11 @@
 
 
 
+        1              2         3
+     2   3             3
+   3
+
+
 
 
 示例 1：
@@ -21,7 +26,18 @@
 from typing import List
 
 
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        self.res = []
+        self.dfs(nums, 0, [])
+        return self.res
 
+    def dfs(self, nums: List[int], index: int, path: List[int]):
+        self.res.append(path.copy())
+        for i in range(index, len(nums)):
+            path.append(nums[i])
+            self.dfs(nums, i + 1, path)
+            path.pop()
 
 
 if __name__ == '__main__':
