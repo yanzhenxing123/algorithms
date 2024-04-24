@@ -15,14 +15,50 @@
 
 """
 
-
-
 from typing import List
 
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        pass
+        self.res = []
+        self.dfs(n, [])
+        return self.res
+
+    def is_valid(self, string: str) -> bool:
+        """
+        判断括号是否合法
+        :param path:
+        :return:
+        """
+        li = []
+        for i in string:
+            if i == "(":
+                li.append(i)
+            else:
+                if not li:
+                    return False
+                j = li.pop()
+                if i == j:
+                    return False
+        if li:
+            return False
+        return True
+
+    def dfs(self, n: int, path: List[str]):
+        if len(path) == n * 2:
+            string = "".join(path)
+            if self.is_valid(string):
+                self.res.append(string)
+            print(string, self.is_valid(string))
+            return
+        for i in "()":
+            path.append(i)
+            if path[0] == ")":
+                path.pop()
+                break
+            self.dfs(n, path)
+            path.pop()
+
 
 if __name__ == '__main__':
     n = 3

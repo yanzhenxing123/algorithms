@@ -17,7 +17,9 @@ class Solution:
     def dfs(self, nums: List[int], index: int, path: List[int]):
         pass
 
-        
+
+
+
 if __name__ == '__main__':
     s = Solution()
     nums = [2, 3, 6, 7]
