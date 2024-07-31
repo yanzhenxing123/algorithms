@@ -95,7 +95,7 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    nums = [1, 1, 1]
-    k = 2
+    nums = [1, -1, 0]
+    k = 0
     res = s.subarraySum(nums, k)
     print(res)
