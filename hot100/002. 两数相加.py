@@ -1,7 +1,7 @@
 """
 @Time: 2024/4/6 22:06
 @Author: yanzx
-@Desc:
+@Desc: 链表的两数相加
 
 l1 = [2,4,3], l2 = [5,6,4]
 输出：[7,0,8]
@@ -18,6 +18,7 @@ import random
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         """

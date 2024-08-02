@@ -25,6 +25,7 @@ class Solution:
                 return [index, hashmap[another]]
 
 
+
 if __name__ == '__main__':
     s = Solution()
     nums = [2, 7, 11, 15]

@@ -66,5 +66,5 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     string = "bbbbb"
-    res = s.lengthOfLongestSubstring(string)
+    res = s.w(string)
     print(res)
