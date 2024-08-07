@@ -30,4 +30,7 @@ class Solution:
             return right
         return None
 
+if __name__ == '__main__':
+    pass
+
 

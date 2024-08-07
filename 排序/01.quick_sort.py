@@ -9,14 +9,6 @@
 import random
 
 
-def quick_sort(arr, left, right):
-    # 左闭右闭
-    if left < right:
-        mid = partition(arr, left, right)
-        quick_sort(arr, left, mid - 1)
-        quick_sort(arr, mid + 1, right)
-
-
 def partition(arr, left, right):
     # arr[left] 作为基准点
     pivot = arr[left]
@@ -32,6 +24,14 @@ def partition(arr, left, right):
         arr[right] = arr[left]
     arr[left] = pivot
     return right
+
+
+def quick_sort(arr, left, right):
+    # 左闭右闭
+    if left < right:
+        mid = partition(arr, left, right)
+        quick_sort(arr, left, mid - 1)
+        quick_sort(arr, mid + 1, right)
 
 
 if __name__ == '__main__':

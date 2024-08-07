@@ -25,7 +25,7 @@ class Solution:
                 return True
             if not (left and right):  # 2. 一个为空
                 return False
-            if left.val != right.val:
+            if left.val != right.val:  # 3. 值不相等则往下走，相等不能返回True，因为还要往下走
                 return False
 
             return dfs(left.left, right.right) and dfs(right.left, left.right)
