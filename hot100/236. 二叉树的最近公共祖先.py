@@ -14,7 +14,7 @@ class Solution:
         :param root:
         :param p:
         :param q:
-        :return:
+        :return:w
         """
         if not root:
             return None

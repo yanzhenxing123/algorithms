@@ -26,7 +26,7 @@ class Solution:
         elif root.val < q.val and root.val < p.val:
             return self.lowestCommonAncestor(root.right, p, q)
         else:
-            return root
+            return w
 
     def lowestCommonAncestor2(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         res = root
