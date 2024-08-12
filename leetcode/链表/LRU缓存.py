@@ -13,12 +13,11 @@
 import collections
 
 
-# 继承OrderDict(有序字典)实现(相当于LikedHashMap)
+# 继承OrderDict(有序字典) 实现(相当于LikedHashMap)
 class LRUCache1(collections.OrderedDict):
     '''
     最热的数据总是在最后面
     '''
-
     def __init__(self, capacity: int):
         super().__init__()
         self.capacity = capacity

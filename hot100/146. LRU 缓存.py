@@ -35,7 +35,6 @@ class LRUCache2:
 
     def put(self, key: int, value: int) -> None:
         if key in self.data:  # 1. 如果key存在则更新
-
             self.data.pop(key)
             self.data[key] = value
         else:  # 不存在：a.未满 b.已满
