@@ -3,6 +3,8 @@
 @Date: 2021/4/5 10:56
 @Description: 
 """
+
+
 class Solution:
     def replaceSpace(self, s: str) -> str:
         res = []
@@ -12,6 +14,7 @@ class Solution:
             else:
                 res.append(split)
         return "".join(res)
+
 
 if __name__ == '__main__':
     s = Solution()

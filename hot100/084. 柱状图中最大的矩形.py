@@ -3,7 +3,7 @@
 @Author: yanzx
 @Desc: 柱状图中最大的矩形
 
-使用的方法也是单调栈
+使用的方法也是单调栈，不会做，太难了
 """
 
 from typing import List
@@ -21,7 +21,8 @@ class Solution:
             height = heights[i]
             for j in range(i, len(heights)):
                 height = min(height, heights[j])
-                max_res = max(max_res, (j - i + 1) * height)
+                area = (j - i + 1) * height
+                max_res = max(max_res, area)
         return max_res
 
 
