@@ -16,15 +16,33 @@ from typing import List
 class Solution:
     def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
         """
-        与上题不同的是多了障碍物
+        与上题不同的是多了障碍物, 可以将障碍物设置为0即可
         :param obstacleGrid:
         :return:
         """
-        pass
+        if obstacleGrid[0][0] == 1:
+            return 0
+        m, n = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [[0] * n] * m
+        for i in range(m):
+            for j in range(n):
+                if i == 0 and j == 0:
+                    dp[0][0] = 1
+                elif obstacleGrid[i][j] == 1:  # 如果有障碍物，则dp设置为0
+                    dp[i][j] = 0
+                elif i == 0:  # 第一行 或 第一列
+                    dp[i][j] = dp[i][j-1]
+                elif j == 0:
+                    dp[i][j] = dp[i-1][j]
+                else:
+                    dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+        print(dp)
+        return dp[-1][-1]
 
 
 if __name__ == '__main__':
     s = Solution()
-    obstacleGrid = [[0, 0, 0], [0, 1, 0], [0, 0, 0]]
+    obstacleGrid = [[1, 0]]
+
     res = s.uniquePathsWithObstacles(obstacleGrid)
     print(res)
