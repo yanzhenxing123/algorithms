@@ -16,18 +16,33 @@ class Solution:
         :param s:
         :return:
         """
-        if len(s) <= 1:
-            return len(s)
-        d = {}
+        # if len(s) <= 1:
+        #     return len(s)
+        # d = {}
+        # max_length = 11   `
+        # slow = 0
+        # for fast in range(len(s)):
+        #     if s[fast] not in d:
+        #         d[s[fast]] = fast
+        #     else:
+        #         slow = max(slow, d[s[fast]] + 1)  #
+        #         d[s[fast]] = fast
+        #     max_length = max(fast - slow + 1, max_length)
+        # return max_length
+
+        length = len(s)
+        if length <= 1:
+            return length
+        char2maxIndex = {}  # 存储每个字符串最大的index
+        left = 0  # 记左边字符串的索引
         max_length = 1
-        slow = 0
-        for fast in range(len(s)):
-            if s[fast] not in d:
-                d[s[fast]] = fast
-            else:
-                slow = max(slow, d[s[fast]] + 1) #
-                d[s[fast]] = fast
-            max_length = max(fast - slow + 1, max_length)
+        for i in range(length):
+            # 便利存储
+            cur_char = s[i]
+            if cur_char in char2maxIndex:
+                left = max(char2maxIndex[cur_char] + 1, left)  # 取max是因为可能要更新的字符串已经在left的left了
+            char2maxIndex[cur_char] = i
+            max_length = max(i - left + 1, max_length)
         return max_length
 
     def lengthOfLongestSubstring2(self, s: str) -> int:
@@ -36,16 +51,20 @@ class Solution:
         :param s:
         :return:
         """
-        if not s or len(s) == 1:
-            return len(s)
-        fast = slow = 0  # 闭区间
+        length = len(s)
+        if length <= 1:
+            return length
+        # 维护一个没有重复字符串的pool
+        pool = []
+        pool.append(s[0])
         max_length = 1
-        while fast < len(s) - 1:
-            fast += 1
-            if s[fast] in s[slow: fast]:
-                i = s[slow: fast].index(s[fast])
-                slow = slow + i + 1
-            max_length = max(max_length, fast - slow + 1)
+        for i in range(1, length):
+            cur_char = s[i]
+            if cur_char in pool:
+                index = pool.index(cur_char)
+                pool = pool[index + 1:]
+            pool.append(cur_char)
+            max_length = max(max_length, len(pool))
         return max_length
 
 
