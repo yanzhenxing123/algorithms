@@ -9,13 +9,14 @@
 
 from typing import List
 
+
 class Solution:
     def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
         if len(matrix) == 0 or len(matrix[0]) == 0:
             return False
         flag = False
         n, m = len(matrix), len(matrix[0])
-        row, colomn = 0, m-1
+        row, colomn = 0, m - 1
         while row < n and colomn >= 0:
             root = matrix[row][colomn]
             if root == target:
@@ -30,11 +31,11 @@ class Solution:
 
 if __name__ == '__main__':
     matrix = [
-      [1,   4,  7, 11, 15],
-      [2,   5,  8, 12, 19],
-      [3,   6,  9, 16, 22],
-      [10, 13, 14, 17, 24],
-      [18, 21, 23, 26, 30]
+        [1, 4, 7, 11, 15],
+        [2, 5, 8, 12, 19],
+        [3, 6, 9, 16, 22],
+        [10, 13, 14, 17, 24],
+        [18, 21, 23, 26, 30]
     ]
 
     s = Solution()
