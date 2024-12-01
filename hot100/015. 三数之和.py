@@ -20,7 +20,7 @@ from typing import List
 
 
 class Solution:
-    def threeSum(self, nums: List[int]) -> List[List[int]]:
+    def threeSum1(self, nums: List[int]) -> List[List[int]]:
         res = list()
         nums.sort()
         for i in range(len(nums) - 2):
@@ -41,6 +41,33 @@ class Solution:
                     while left < right and nums[left] == nums[left + 1]:
                         left += 1
                     while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+        return res
+
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        if len(nums) < 3:
+            return []
+        res = []
+        nums.sort()
+        for i in range(1, len(nums) - 1):
+            cur_num = nums[i]
+            if cur_num > 1 and cur_num == nums[i - 1]:  # 去重中心数字的
+                continue
+            left = 0
+            right = len(nums) - 1
+            while left < i < right:
+                if nums[left] + nums[right] + cur_num > 0:
+                    right -= 1
+                elif nums[left] + nums[right] + cur_num < 0:
+                    left += 1
+                else:
+                    triple = [nums[left], cur_num, nums[right]]
+                    res.append(triple)
+                    while left < i and nums[left] == nums[left + 1]:
+                        left += 1
+                    while right > i and nums[right] == nums[right - 1]:
                         right -= 1
                     left += 1
                     right -= 1
