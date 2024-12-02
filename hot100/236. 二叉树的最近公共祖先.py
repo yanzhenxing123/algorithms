@@ -11,6 +11,7 @@ class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         """
         后续遍历，且要知道递归终止的条件
+        rootwei
         :param root:
         :param p:
         :param q:

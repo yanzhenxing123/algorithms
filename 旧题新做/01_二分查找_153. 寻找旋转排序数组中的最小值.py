@@ -15,7 +15,6 @@
 from typing import List
 
 
-
 class Solution:
     def findMin(self, nums: List[int]) -> int:
         """
@@ -40,6 +39,7 @@ class Solution:
             elif nums[mid] <= nums[right]:
                 right = mid
         return nums[min_index]
+
 
 if __name__ == '__main__':
     s = Solution()

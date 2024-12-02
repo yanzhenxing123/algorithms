@@ -32,7 +32,10 @@ class Solution:
         return res
 
     def dfs(self, grid: List[List[str]], i: int, j: int):
-        grid[i][j] = '0'
+        """
+        上下左右进行dfs
+        """
+        grid[i][j] = '0'  # 已经遍历
         if i > 0 and grid[i - 1][j] == '1':
             self.dfs(grid, i - 1, j)
         if i < self.row - 1 and grid[i + 1][j] == '1':
