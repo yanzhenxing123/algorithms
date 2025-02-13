@@ -17,41 +17,31 @@
 输入: nums = [0]
 输出: [0]
 
+思路：时间复杂度最好为O(n)
+遍历记录0的数量，并且把非零元素移动到前边
+
 """
 
 from typing import List
 
 
 class Solution:
+
     def moveZeroes(self, nums: List[int]) -> None:
         """
         Do not return anything, modify nums in-place instead.
         时间复杂度为o(n)
-        记录数组中有多少个0即可
-        """
-        j = 0
-        for i in range(len(nums)):
-            if nums[i] != 0:
-                nums[j] = nums[i]
-                j += 1
-        for k in range(j, len(nums)):
-            nums[k] = 0
-
-    def moveZeroes2(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        时间复杂度为o(n2)
         挪动数组
         """
-        left, right = 0, len(nums) - 1
-        while left < right:
-            if nums[left] == 0:
-                for i in range(left, right):
-                    nums[i] = nums[i + 1]
-                nums[right] = 0
-                right -= 1
-            else:
-                left += 1
+        if not nums:
+            return
+        index = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[index] = nums[i]
+                index += 1
+        for i in range(index, len(nums)):
+            nums[i] = 0
 
 
 if __name__ == '__main__':

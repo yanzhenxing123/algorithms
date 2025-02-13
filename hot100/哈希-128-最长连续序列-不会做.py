@@ -21,6 +21,10 @@
 
 不会做
 
+维护一个hash列表，记录的是当前元素的连续的值，然后更新端点(left和right的值)
+
+维护一个left和right
+
 """
 from typing import List
 
@@ -36,6 +40,7 @@ class Solution:
         hash_dict = {}
         for i in range(len(nums)):
             num = nums[i]
+            print(hash_dict)
             if num in hash_dict:
                 continue
             left = hash_dict.get(num - 1, 0)  # 左边的长度
@@ -49,12 +54,29 @@ class Solution:
             hash_dict[num + right] = cur_len
         return max_length
 
+    def longestConsecutive2(self, nums: List[int]) -> int:
+        """
+        官方题目给的最优解
+        """
+        longest_streak = 0
+        num_set = set(nums)
 
+        for num in num_set:
+            if num - 1 not in num_set:  # num-1没在num_set中说明此数字是序列中的第一个
+                current_num = num
+                current_streak = 1
 
+                while current_num + 1 in num_set:
+                    current_num += 1
+                    current_streak += 1
+
+                longest_streak = max(longest_streak, current_streak)
+
+        return longest_streak
 
 
 if __name__ == '__main__':
     s = Solution()
     nums = [0, 3, 7, 2, 5, 8, 4, 6, 0, 1]
-    res = s.longestConsecutive(nums)
+    res = s.longestConsecutive2(nums)
     print(res)
