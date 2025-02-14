@@ -65,13 +65,10 @@ class Solution:
             if num - 1 not in num_set:  # num-1没在num_set中说明此数字是序列中的第一个
                 current_num = num
                 current_streak = 1
-
                 while current_num + 1 in num_set:
                     current_num += 1
                     current_streak += 1
-
                 longest_streak = max(longest_streak, current_streak)
-
         return longest_streak
 
 
