@@ -34,7 +34,7 @@ class Solution:
         :return:
         """
         res = 0
-        d = {0: 1}
+        d = {0: 1}  # 合为0的子数组有几个
         pre = 0
         for i in range(len(nums)):
             pre += nums[i]
@@ -45,7 +45,9 @@ class Solution:
 
     def subarraySum1(self, nums: List[int], k: int) -> int:
         """
-        暴力前缀和，注意添加个0，不行
+        这个一定要写出来
+        暴力前缀和，注意添加个0
+        时间超出限制
         :param nums:
         :param k:
         :return:
@@ -64,6 +66,7 @@ class Solution:
 
     def subarraySum2(self, nums: List[int], k: int) -> int:
         """
+        错误的
         :param nums:
         :param k:
         :return:

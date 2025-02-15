@@ -1,10 +1,8 @@
 """
-@Time: 2024/3/25 14:53
-@Author: yanzx
-@Desc:
-给定两个字符串 s 和 p，找到 s 中所有 p 的 异位词 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+给定两个字符串 s 和 p，找到 s 中所有 p 的
+异位词的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
 
-异位词 指由相同字母重排列形成的字符串（包括相同的字符串）。
+
 
 示例 1:
 
@@ -22,7 +20,7 @@
 起始索引等于 1 的子串是 "ba", 它是 "ab" 的异位词。
 起始索引等于 2 的子串是 "ab", 它是 "ab" 的异位词。
 
-异味词可以使用ascii码
+
 
 """
 
@@ -32,14 +30,15 @@ from typing import List
 class Solution:
     def findAnagrams(self, s: str, p: str) -> List[int]:
         """
-        :param s:
-        :param p:
-        :return:
+        s：主串
+        p：子串
+        用子串去初始化s和p，然后再遍历s - p 这个字符串
         """
         res = []
         s_length, p_length = len(s), len(p)
         if not s or not p or p_length > s_length:
             return res
+        # 分别记录每个字符出现的次数
         p_li = [0] * 26
         s_li = [0] * 26
         for i in range(p_length):
@@ -55,33 +54,14 @@ class Solution:
             index_slow = ord(s[i - p_length]) - ord("a")
             s_li[index_fast] += 1
             s_li[index_slow] -= 1
-            if p_li == s_li:
+            if p_li == s_li:  # 说明二者的元素相同
+                print(p_li)
+                print(s_li)
                 res.append(i - p_length + 1)
-        return res
-
-    def findAnagrams2(self, s: str, p: str) -> List[int]:
-        """
-        暴力求解 超出时间限制
-        :param s:
-        :param p:
-        :return:
-        """
-        res = []
-        if not s or not p:
-            return res
-        s_length, p_length = len(s), len(p)
-        p_sorted = "".join(sorted(p))
-        for i in range(0, s_length - p_length + 1):
-            tmp_str = s[i:i + p_length]
-            tmp_sorted_str = "".join(sorted(tmp_str))
-            if tmp_sorted_str == p_sorted:
-                res.append(i)
         return res
 
 
 if __name__ == '__main__':
     s = Solution()
-    string = "abab"
-    p = "ab"
-    res = s.findAnagrams(string, p)
+    res = s.findAnagrams("cbaebabacd", "abc")
     print(res)
