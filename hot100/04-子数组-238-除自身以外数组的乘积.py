@@ -24,6 +24,9 @@ class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         """
         不能使用除法, 算出来左边元素和右边元素的乘积
+        left_arr[i]: 当前元素左边元素的乘积
+        right_arr[i]: 当前元素右边元素的乘积
+        res[i] = left_arr[i] * right_arr[i]
         :param nums:
         :return:
         """

@@ -29,26 +29,6 @@ class Solution:
         return max_len
 
 
-# 最优解
-class Solution1:
-    def lengthOfLongestSubstring(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
-        max_len = 0
-        inde = -1
-        st = {}
-        for j in range(len(s)):
-            char = [j]
-            if s[j] in st:
-                i = max(st[s[j]], i)  # 取max是不能让i回去
-            max_len = max(max_len, j - i)
-            st[s[j]] = j
-            print(st)
-        return max_len
-
-
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
@@ -63,7 +43,7 @@ class Solution:
         cur_len = 0
         for i in range(n):
             cur_len += 1
-            while s[i] in pool:
+            while s[i] in pool:  # 保证当前元素不存在set中 也就是找到最左边不是当前元素的元素
                 pool.remove(s[left])
                 left += 1
                 cur_len -= 1

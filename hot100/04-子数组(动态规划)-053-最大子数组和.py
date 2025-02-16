@@ -11,6 +11,8 @@
 
 dp = [-2, 1, -2, 4, 3, 5, 6, 1, 5]
 到这个nums[i]的时候前面子串的最大值
+
+动态规划 dp[i] = max(dp[i-1] + nums[i], nums[i])
 """
 
 from typing import List

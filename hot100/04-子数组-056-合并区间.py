@@ -11,6 +11,9 @@
 输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
 输出：[[1,6],[8,10],[15,18]]
 解释：区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+
+
+按照第一个间排序 然后合并即可
 """
 
 from typing import List
@@ -19,7 +22,7 @@ from typing import List
 class Solution:
     def merge(self, intervals: List[List[int]]) -> List[List[int]]:
         """
-        排序再合并，简单题
+        按照第一个key排序再合并，简单题
         :param intervals:
         :return:
         """
