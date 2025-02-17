@@ -46,6 +46,7 @@ class Solution:
     def swapPairs2(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
         递归实现 最优解
+        1->2->3->4->5->6->7->8
         :param head:
         :return:
         """

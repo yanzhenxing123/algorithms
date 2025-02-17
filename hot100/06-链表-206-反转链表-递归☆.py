@@ -59,6 +59,27 @@ class Solution:
 
         return new_head
 
+    def reverseList(self, head: ListNode) -> ListNode:
+        """
+        不会 需要背住
+        1->2->3->4->none
+        4->3->None
+        4->3->2->None
+        :param head:
+        :return:
+        """
+        # 递归终止条件：如果链表为空或只有一个节点，直接返回头节点
+        if not head or not head.next:
+            return head
+        # 递归反转剩余的链表
+        new_head = self.reverseList(head.next)  # new_head没用，只是作为返回结果
+        # 将当前节点的下一个节点的 next 指针指向当前节点
+        head.next.next = head
+        # 将当前节点的 next 指针设置为 None，避免形成环
+        head.next = None
+        # 返回新的头节点
+        return new_head
+
 
 if __name__ == '__main__':
     head = create_list([1, 2, 3])
