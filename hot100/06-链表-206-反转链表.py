@@ -8,11 +8,12 @@ from typing import Optional
 from utils.linked_list import print_list, create_list, ListNode
 
 
-# Definition for singly-linked list.
+## Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
 #         self.val = val
 #         self.next = next
+
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
@@ -26,10 +27,15 @@ class Solution:
             return head
 
         def reverse(pre, cur):
+            """
+            :param pre: 前一个
+            :param cur: 当前
+            :return:
+            """
             if not cur:
                 return pre
-            q = cur.next
-            cur.next = pre
+            q = cur.next  # 往后指
+            cur.next = pre  # 往前指
             return reverse(cur, q)
 
         res = reverse(None, head)
@@ -44,10 +50,12 @@ class Solution:
         new_head = None
         p = head
         while p:
-            q = p.next
-            p.next = new_head
-            new_head = p
-            p = q
+            # 先头删
+            node = p
+            p = p.next
+            # 再头插（新链表）
+            node.next = new_head
+            new_head = node
 
         return new_head
 

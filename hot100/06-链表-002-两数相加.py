@@ -32,7 +32,7 @@ class Solution:
         if not l2:
             return l1
         carry = 0
-        new_head = ListNode(0)
+        new_head = ListNode(0)  # 作为显式头结点
         p = new_head
         while l1 or l2:
             l1_val = l1.val if l1 else 0
@@ -45,6 +45,7 @@ class Solution:
             l2 = l2.next if l2 else None
         if carry:
             p.next = ListNode(carry)
+        print_list(new_head)
         return new_head.next
 
 

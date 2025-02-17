@@ -1,7 +1,7 @@
 """
 @Time: 2024/3/28 10:36
 @Author: yanzx
-@Desc: 
+@Desc:
 """
 from utils.linked_list import ListNode
 from typing import Optional
@@ -16,26 +16,29 @@ from typing import Optional
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
         """
-        1. 判断是否有环（队尾是否是同一个），并记录长度 length_a, length_b
-        2. 如何找环？假设B长，则让先走B length_b - length_a个，然后一起走得到第一个一样的就是
+        1. 并记录长度 length_a, length_b
+        2. 假设B长，则让先走B length_b - length_a个，然后一起走判断是否相交
         :param headA:
         :param headB:
         :return:
         """
         if not headA or not headB:
             return None
-
         p1, p2 = headA, headB
+        pre_p1 = None
+        pre_p2 = None
         length_a = 0
         length_b = 0
         while p1:
             length_a += 1
+            pre_p1 = p1
             p1 = p1.next
 
         while p2:
             length_b += 1
+            pre_p2 = p2
             p2 = p2.next
-        if p1 != p2:  # 无环
+        if pre_p1 != pre_p2:  # 无环
             return None
         p1, p2 = headA, headB
         delta = abs(length_a - length_b)

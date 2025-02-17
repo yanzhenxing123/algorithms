@@ -45,15 +45,14 @@ class Solution:
 
     def swapPairs2(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
-        递归实现
+        递归实现 最优解
         :param head:
         :return:
         """
         if head is None or head.next is None:
             return head
-
         new_head = head.next
-        head.next = self.swapPairs(new_head.next)
+        head.next = self.swapPairs2(new_head.next)
         new_head.next = head
         return new_head
 
@@ -62,5 +61,5 @@ if __name__ == '__main__':
     nums = [1, 2, 3, 4]
     head = create_list(nums)
     s = Solution()
-    res = s.swapPairs(head)
+    res = s.swapPairs2(head)
     print_list(res)
