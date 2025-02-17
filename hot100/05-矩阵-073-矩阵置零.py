@@ -3,6 +3,9 @@
 @Author: yanzx
 @Desc:
 输入：
+给定一个 m x n 的矩阵，如果一个元素为 0 ，则将其所在行和列的所有元素都设为 0 。请使用 原地 算法。
+
+
 matrix = [[1,1,1],
           [1,0,1],
           [1,1,1]]
@@ -19,6 +22,8 @@ class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
         """
         Do not return anything, modify matrix in-place instead.
+        1. 遍历矩阵，记录0元素的行和列
+        2. 遍历这些行和列，置为0
         """
         if not matrix:
             return
@@ -39,6 +44,7 @@ class Solution:
         for j in d['col']:
             for i in range(rows):
                 matrix[i][j] = 0
+
 
 
 if __name__ == '__main__':

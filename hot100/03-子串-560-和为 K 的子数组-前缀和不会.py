@@ -31,10 +31,17 @@ class Solution:
         暴力前缀和，注意添加个0
         :param nums:
         :param k:
+        nums = [1, -1, 0]
+        k = 0
+        d = {0: 1}
+        i = 0, num = 1,  res = 0,  d = {0: 1, 1: 1},
+        i = 1, num =-1,  res = 1,  d = {0: 2, 1: 1},
+        i = 2, num = 0,  res = 3,  d = {0: 3, 1: 1},
+
         :return:
         """
         res = 0
-        d = {0: 1}  # 合为0的子数组有几个
+        d = {0: 1}  # 合为x的子数组有几个，首先初始化和为0的子数组有1个
         pre = 0
         for i in range(len(nums)):
             pre += nums[i]

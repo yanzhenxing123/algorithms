@@ -41,7 +41,7 @@ class Solution:
         nums = [0] + nums
         i = 1
         while i < len(nums):
-            if 0 < nums[i] < len(nums) and nums[nums[i]] != nums[i]:  # 第一个条件
+            if 0 < nums[i] < len(nums) and nums[nums[i]] != nums[i]:  # 第一个条件，元素不超过长度 且 要放的位置上不是当前元素
                 tmp = nums[nums[i]]
                 nums[nums[i]] = nums[i]
                 nums[i] = tmp
