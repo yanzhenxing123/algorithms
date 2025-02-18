@@ -78,11 +78,12 @@ class Solution:
             if max_node == head:
                 head = max_node.next
             else:
+                # 删除
                 max_node_pre.next = max_node.next
+            # 头插
             max_node.next = new_head
             new_head = max_node
 
-            # 头插
 
         return new_head
 

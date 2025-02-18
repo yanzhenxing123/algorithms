@@ -30,12 +30,13 @@ class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         """
         存储random nodes，并且存储旧链表和新链表一一对应的关系
+        1. 遍历原始链表
         :param head:
         :return:
         """
         if not head:
             return head
-        old_2_new = {}  # 存储一一对应的node
+        old2new = {}  # 存储hash(node): new_node
         p = head
         dummy = Node(0)
         q = dummy
@@ -46,13 +47,14 @@ class Solution:
             else:
                 random_nodes.append(None)
             q.next = Node(p.val)
-            old_2_new[hash(p)] = q.next
+            old2new[hash(p)] = q.next
             p = p.next
             q = q.next
+
         q = dummy.next
         for random_node in random_nodes:
             if random_node:
-                q.random = old_2_new[random_node]
+                q.random = old2new[random_node]
             else:
                 q.random = None
             q = q.next
