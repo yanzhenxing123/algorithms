@@ -18,19 +18,19 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[int]:
-        if root:
-            queue = deque()
-            queue.append(root)
-            res = []
-            while queue:
-                node = queue.popleft()
-                res.append(node.val)
-                if node.left is not None:
-                    queue.append(node.left)
-                if node.right is not None:
-                    queue.append(node.right)
-            return res
-        return []
+        if not root:
+            return []
+        queue = deque()
+        queue.append(root)
+        res = []
+        while queue:
+            node = queue.popleft()
+            res.append(node.val)
+            if node.left is not None:
+                queue.append(node.left)
+            if node.right is not None:
+                queue.append(node.right)
+        return res
 
 
 if __name__ == '__main__':

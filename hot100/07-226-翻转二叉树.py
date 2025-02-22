@@ -13,6 +13,11 @@ from typing import Optional, List
 
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """
+        先序遍历
+        :param root:
+        :return:
+        """
         if not root:
             return None
         right = root.right

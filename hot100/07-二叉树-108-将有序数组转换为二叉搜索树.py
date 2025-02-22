@@ -12,6 +12,11 @@ from typing import Optional, List
 
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        """
+        和二分一起，注意边界点
+        :param nums:
+        :return:
+        """
         if not nums:
             return None
         if len(nums) == 1:

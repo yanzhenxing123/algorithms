@@ -31,10 +31,8 @@ class Solution:
                         q.append(i.left)
                     if i.right is not None:
                         q.append(i.right)
-
                 queue = q
                 res.append(tmp_res)
-
             return res
         return []
 

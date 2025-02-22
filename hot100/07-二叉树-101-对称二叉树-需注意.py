@@ -10,6 +10,11 @@ import copy
 
 class Solution:
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        """
+        左边和右边一起判断，需要一个新的函数或者方法func(left, right)
+        :param root:
+        :return:
+        """
         # 先镜像反转，再看是否一样
         if not root:
             return True
@@ -28,13 +33,13 @@ class Solution:
             if left.val != right.val:  # 3. 值不相等则往下走，相等不能返回True，因为还要往下走
                 return False
 
-            return dfs(left.left, right.right) and dfs(right.left, left.right)
+            return dfs(left.left, right.right) and dfs(left.right, right.left)
 
         return dfs(root.left, root.right)
 
 
 if __name__ == '__main__':
-    root = create_tree([1, 2, 3, 4, 5])
+    root = create_tree([1, 2, 2, 2, 2, 2, 2])
     s = Solution()
     res = s.isSymmetric(root)
     print(res)

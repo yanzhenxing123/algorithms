@@ -14,6 +14,31 @@ from collections import deque
 
 class Solution:
     def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        """
+        pass
+        :param root:
+        :return:
+        """
+        if not root:
+            return []
+        res = []
+        queue = deque()
+        queue.append(root)
+        while queue:
+            vals = []
+            next_queue = deque()
+            for node in queue:
+                vals.append(node.val)
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            res.append(vals)
+            queue = next_queue
+        return res
+
+    def levelOrder1(self, root: Optional[TreeNode]) -> List[List[int]]:
         res = []
         res_d = {}
         if not root:
