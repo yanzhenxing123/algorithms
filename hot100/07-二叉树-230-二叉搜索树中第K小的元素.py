@@ -1,7 +1,8 @@
 """
 @Time: 2024/4/14 11:07
 @Author: yanzx
-@Desc: 
+@Desc:
+一直往左，然后就是最小的元素
 """
 
 from utils.binary_tree import TreeNode, create_tree, floor_print

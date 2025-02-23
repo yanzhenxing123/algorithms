@@ -6,6 +6,7 @@
 
 from utils.binary_tree import TreeNode, create_tree, floor_print
 from typing import Optional, List
+import collections
 
 
 class Solution:
@@ -21,9 +22,29 @@ class Solution:
         inorder(root)
         return res
 
+    def inorderTraversal_2(self, root: Optional[TreeNode]) -> List[int]:
+        """
+        非递归
+        :param root:
+        :return:
+        """
+        if not root:
+            return []
+        res = []
+        stack = []
+        while root or stack:
+            while root:
+                stack.append(root)
+                root = root.left
+            node = stack.pop() # 最小的
+            res.append(node.val)
+            root = node.right
+        return res
+
+
 
 if __name__ == '__main__':
     root = create_tree([1, 2, 3, 4, 5])
     s = Solution()
-    res = s.inorderTraversal(root)
+    res = s.inorderTraversal_2(root)
     print(res)

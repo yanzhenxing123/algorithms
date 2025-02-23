@@ -17,6 +17,29 @@ from collections import deque
 #         self.right = right
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        queue = deque()
+        queue.append(root)
+        level_vals = []
+        res = []
+        while queue:
+            vals = []
+            next_queue = deque()
+            for node in queue:
+                vals.append(node.val)
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            queue = next_queue
+            level_vals.append(vals)
+        for vals in level_vals:
+            res.append(vals[-1])
+        return res
+
+    def rightSideView_1(self, root: Optional[TreeNode]) -> List[int]:
         """
         层序遍历
         每一行取最后一个

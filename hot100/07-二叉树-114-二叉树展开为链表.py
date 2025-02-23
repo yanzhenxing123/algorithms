@@ -19,10 +19,13 @@ from collections import deque
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
         """
         Do not return anything, modify root in-place instead.
+        先遍历存储，然后修改右指针
+
         """
         if not root:
             return None
@@ -38,3 +41,24 @@ class Solution:
         for i in range(len(nodes) - 1):
             nodes[i].left = None
             nodes[i].right = nodes[i + 1]
+
+
+class Solution_2:
+    def __init__(self):
+        self.preNode = None
+
+    def flatten(self, root: TreeNode) -> None:
+        """
+        不使用额外的空间，O(h), h为树的深度
+        先序遍历：中 左 右
+        反先序遍历: 右 中 左
+        :param root:
+        :return:
+        """
+        if not root:
+            return
+        self.flatten(root.right)
+        self.flatten(root.left)
+        root.left = None
+        root.right = self.preNode
+        self.preNode = root
