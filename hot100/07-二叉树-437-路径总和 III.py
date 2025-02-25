@@ -13,11 +13,23 @@ from typing import Optional, List
 class Solution:
 
     def pathSum(self, root: TreeNode, targetSum: int) -> int:
+        """
+        两个前序遍历的嵌套
+        :param root:
+        :param targetSum:
+        :return:
+        """
         self.res = 0
         self.nodePathSums(root, targetSum)
         return self.res
 
     def nodePathSums(self, root: TreeNode, targetSum):
+        """
+        遍历每个节点
+        :param root:
+        :param targetSum:
+        :return:
+        """
         if root:
             self.ret = 0
             self.nodePaths(root, 0, targetSum)  # 获取
@@ -27,7 +39,7 @@ class Solution:
 
     def nodePaths(self, root: TreeNode, num: int, targetSum: int):
         """
-        一个节点出发有多少个满足条件的
+        从当前节点出发有多少个满足条件的
         :return:
         """
         if root:
@@ -36,3 +48,7 @@ class Solution:
                 self.ret += 1
             self.nodePaths(root.left, num, targetSum)
             self.nodePaths(root.right, num, targetSum)
+
+
+
+

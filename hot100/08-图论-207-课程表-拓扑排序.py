@@ -30,7 +30,6 @@ class Solution:
                 indegrees[other_node] -= 1
                 if indegrees[other_node] == 0:
                     stack.append(other_node)
-
         if sum(indegrees) == -1 * numCourses:
             return True
         return False

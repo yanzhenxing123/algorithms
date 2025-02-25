@@ -34,6 +34,7 @@ class Solution:
             left = dfs(root.left)
             right = dfs(root.right)
             child_max = max(left, right)
+            # 向上返回的是左右节点的最大值(大于0)，然后加上当前节点
             res = root.val if child_max < 0 else child_max + root.val  # 如果左右都小于0的话就返回自己
             tmp = root.val
             if left > 0:

@@ -25,11 +25,11 @@ class Solution:
         def dfs(root):
             if not root:
                 return 0
-            left = dfs(root.left) + 1
-            right = dfs(root.right) + 1
+            left = dfs(root.left)
+            right = dfs(root.right)
             diameter = left + right
             self.res = max(self.res, diameter)
-            return max(right, right)
+            return max(left, right) + 1
 
         dfs(root)
         return self.res
