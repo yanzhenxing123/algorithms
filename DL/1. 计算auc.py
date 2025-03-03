@@ -5,6 +5,7 @@
 """
 
 import numpy as np
+import torch
 
 
 def get_roc_auc1(y_true, y_score):
@@ -14,6 +15,7 @@ def get_roc_auc1(y_true, y_score):
     :param y_score:
     :return:
     """
+
     gt_pred = list(zip(y_true, y_score))
     probs = []
     pos_samples = [x for x in gt_pred if x[0] == 1]
@@ -28,6 +30,7 @@ def get_roc_auc1(y_true, y_score):
                 probs.append(0.5)
             else:
                 probs.append(0)
+
     return np.mean(probs)
 
 
@@ -38,8 +41,22 @@ def get_roc_auc2(y_true, y_score):
     :param y_score:
     :return:
     """
-    ranks = enumerate(sorted(zip(y_true, y_score), key=lambda x: x[-1]), start=1)
-    pos_ranks = [x[0] for x in ranks if x[1][0] == 1]
+    ranks = list(enumerate(sorted(zip(y_true, y_score), key=lambda x: x[-1]), start=1))
+
+    """
+    ranks = [(1, (0, 0.1)),
+             (2, (0, 0.4)),
+             (3, (1, 0.6)),
+             (4, (1, 0.6)),
+             (5, (0, 0.7)),
+             (6, (1, 0.7)),
+             (7, (0, 0.8)),
+             (8, (1, 0.8)),
+             (9, (1, 0.9)),
+             (10, (1, 0.9))]
+    """
+
+    pos_ranks = [x[0] for x in ranks if x[1][0] == 1]  # [3, 4, 6, 8, 9, 10]
     M = sum(y_true)
     N = len(y_true) - M
     auc = (sum(pos_ranks) - M * (M + 1) / 2) / (M * N)
@@ -52,4 +69,3 @@ if __name__ == '__main__':
 
     print(get_roc_auc1(y_true, y_score))
     print(get_roc_auc2(y_true, y_score))
-

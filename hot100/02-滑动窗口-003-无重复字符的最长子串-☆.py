@@ -40,15 +40,26 @@ class Solution:
         pool = set()
         n = len(s)
         max_len = 0
-        cur_len = 0
         for i in range(n):
-            cur_len += 1
-            while s[i] in pool:  # 保证当前元素不存在set中 也就是找到最左边不是当前元素的元素
+            while s[i] in pool:  # 保证当前元素不存在set中 也就是找到最左边不是当前元素的元素 也就是维护一个公共低劣d
                 pool.remove(s[left])
                 left += 1
-                cur_len -= 1
-            max_len = max(max_len, cur_len)
             pool.add(s[i])
+            max_len = max(max_len, len(pool))
+        return max_len
+
+    def ershua(self, s: str) -> int:
+        max_len = 0
+        if not s or len(s) == 1:
+            return 1
+        left = 0
+        pool = set()
+        for i in range(len(s)):
+            while s[i] in pool:
+                pool.remove(s[left])
+                left += 1
+            pool.add(s[i])
+            max_len = max(len(pool), max_len)
         return max_len
 
 

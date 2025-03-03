@@ -20,9 +20,9 @@ class Solution:
         :param target:
         :return:
         """
-        # 1. 找到最小的值
+        # 1. 找到最小的值 最小值肯定在右边 所以mid在右边的时候 right = mid
         left, right = 0, len(nums) - 1
-        min_index = 1
+        min_index = 0
         while left <= right:
             mid = left + (right - left) // 2
             # 如果中间的比左边大并且比右边小，则说明有序，并且min_index = left
@@ -33,6 +33,8 @@ class Solution:
                 left = mid + 1
             elif nums[mid] < nums[right]:  # min mid
                 right = mid
+
+        # 找到min_index
         if min_index == 0:
             left, right = 0, len(nums) - 1
         elif nums[0] <= target:

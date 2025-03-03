@@ -28,6 +28,12 @@ import collections
 
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        """
+        最优解 代码最少
+        :param nums:
+        :param k:
+        :return:
+        """
         deque = collections.deque()
         res, n = [], len(nums)
         for i, j in zip(range(1 - k, n + 1 - k), range(n)):

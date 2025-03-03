@@ -20,10 +20,18 @@
 
 from typing import List
 
+
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-
-        pass
+        if len(prices) < 1:
+            return prices[0]
+        res = 0
+        min_price = prices[0]
+        for price in prices[1:]:
+            if min_price > price:
+                min_price = price
+            res = max(res, price - min_price)
+        return res
 
 
 if __name__ == '__main__':
