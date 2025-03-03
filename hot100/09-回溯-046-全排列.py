@@ -29,6 +29,7 @@ from typing import List
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
         self.res = []
+        self.flags = [False] * len(nums)
         self.dfs(nums, 0, [])
         return self.res
 
@@ -38,15 +39,13 @@ class Solution:
             return
 
         for i in range(index, len(nums)):
-            if nums[i] in path:
+            if self.flags[i]:
                 continue
             path.append(nums[i])
+            self.flags[i] = True
             self.dfs(nums, 0, path)
+            self.flags[i] = False
             path.pop()
-
-
-
-
 
 
 if __name__ == '__main__':
