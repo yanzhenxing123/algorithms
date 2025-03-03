@@ -7,11 +7,23 @@
 dp[i][j]：text[0:i] 和 text[0:j] 最大的公共子序列
 
 
+       a, b, c, d, e
+    0  0  0  0  0  0
+a,  0  1  1  1  1  1
+c,  0  1  1  2  2  2
+d,  0  1  1  2  3  3
+
 """
 
 
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
+        """
+        和最长重复子数组差不多
+        :param text1:
+        :param text2:
+        :return:
+        """
         if not text1 or not text2:
             return 0
         m = len(text1)
@@ -30,7 +42,6 @@ class Solution:
                     dp[i][j] = dp[i - 1][j - 1] + 1
                 else:
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
-
         return dp[-1][-1]
 
 
