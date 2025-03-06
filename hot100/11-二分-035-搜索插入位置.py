@@ -19,7 +19,6 @@ class Solution:
                 right = mid - 1
             else:
                 return mid
-
         return left
 
 
