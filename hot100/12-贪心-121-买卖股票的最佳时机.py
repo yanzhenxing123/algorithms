@@ -20,7 +20,8 @@ from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
         """
-        找到前边的min_price，计算max_profit
+        1. 找到前边的min_price，
+        2. 计算max_profit
         :param prices:
         :return:
         """

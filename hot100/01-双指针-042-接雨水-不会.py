@@ -38,6 +38,7 @@ class Solution:
 
     def trap2(self, height: List[int]) -> int:
         """
+        这个一定要写出来
         获取此点的左边最大和右边最大，如果自身大就是自己，然后取min做减法
         :param height:
         :return:

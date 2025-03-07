@@ -15,13 +15,12 @@ class Solution:
             return True
         length, right_most = len(nums), 0
         for i in range(len(nums)):
-            if i <= right_most:
+            if i <= right_most:  # i必须在能达到位置的左边
                 right_most = max(right_most, i + nums[i])
                 if right_most >= length - 1:
                     return True
             else:
-                break
-        return False
+                return False
 
     def canJump1(self, nums: List[int]) -> bool:
         """

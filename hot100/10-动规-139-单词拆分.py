@@ -48,7 +48,7 @@ class Solution:
         if s[1] in wordDict:
             dp[0] = True
         for i in range(0, n):  # 固定当前字符
-            for j in range(i + 1, n + 1):
+            for j in range(i + 1, n + 1):  # 看后边的单词内
                 if i == 0 and (s[i:j] in wordDict):
                     dp[j - 1] = True
                 elif dp[i - 1] and (s[i:j] in wordDict):
