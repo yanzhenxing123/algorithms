@@ -61,33 +61,33 @@ class Solution2:
                 elif nums[i] + nums[left] + nums[right] < 0:
                     left += 1
                 else:
-                    tmp = [nums[i], nums[left], nums[right]]
-                    # 使用set方法进行去重
-                    tmp_str = list(map(str, tmp))
-                    tmp_str_ = "-".join(tmp_str)
-                    if tmp_str_ not in s:
-                        res.append(tmp)
-                        s.add(tmp_str_)
-                    left += 1
-                    right -= 1
+                    # """
+                    # 暴力解法
+                    # if tmp not in res:
+                    #     res.append(tmp)
+                    # """
+                    # tmp = [nums[i], nums[left], nums[right]]
+                    # # 使用set方法进行去重
+                    # tmp_str = list(map(str, tmp))
+                    # tmp_str_ = "-".join(tmp_str)
+                    # if tmp_str_ not in s:
+                    #     res.append(tmp)
+                    #     s.add(tmp_str_)
+                    # left += 1
+                    # right -= 1
 
-                    """
-                    暴力解法
-                    if tmp not in res:
-                        res.append(tmp)
-                    """
                     # 官方给的：
                     # 去重，确定另一个数，那么第三数字一定确定
                     # 保证每一趟第二个数字是唯一的
-                    # while left < right and nums[left] == nums[left + 1]:
-                    #     left += 1
-                    #
-                    # # 保证每一趟第三个数字是唯一的
-                    # while left < right and nums[right] == nums[right - 1]:
-                    #     right -= 1
-                    # res.append(tmp)
-                    # left += 1
-                    # right -= 1
+                    tmp = [nums[i], nums[left], nums[right]]
+                    res.append(tmp)
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    # 保证每一趟第三个数字是唯一的
+                    while left < right and nums[right] == nums[right - 1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
         return res
 
 

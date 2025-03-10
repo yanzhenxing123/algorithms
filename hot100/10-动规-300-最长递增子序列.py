@@ -46,10 +46,11 @@ class Solution:
         dp = [1] * len(nums)
         res = 1
         for i in range(1, len(nums)):
-            for j in range(0, i + 1):
+            for j in range(0, i):  # 下三角进行遍历
                 if nums[i] > nums[j]:
                     dp[i] = max(dp[j] + 1, dp[i])
             res = max(dp[i], res)
+            print(dp)
         return res
 
 
