@@ -24,14 +24,16 @@ class Solution:
         left, right = 0, len(nums) - 1
         min_index = 0
         while left <= right:
-            mid = left + (right - left) // 2
+            mid = (left + right) // 2
             # 如果中间的比左边大并且比右边小，则说明有序，并且min_index = left
             if nums[left] <= nums[mid] <= nums[right]:
                 min_index = left
                 break
             if nums[left] <= nums[mid]:  # mid min
                 left = mid + 1
-            elif nums[mid] < nums[right]:  # min mid
+            # elif nums[mid] < nums[right]:  # min mid
+            #     right = mid
+            else:
                 right = mid
 
         # 找到min_index
@@ -43,6 +45,46 @@ class Solution:
             left, right = min_index, len(nums) - 1
         while left <= right:
             mid = left + (right - left) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
+
+    def search_2nd(self, nums: List[int], target: int) -> int:
+        """
+        二刷
+        :param nums:
+        :param target:
+        :return:
+        """
+        left, right = 0, len(nums) - 1
+        # 找到最小值的索引
+        min_index = 0
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[left] <= nums[mid] <= nums[right]:  # 有序就行
+                min_index = left
+                break
+            elif nums[left] <= nums[mid]:
+                left = mid + 1
+            else:
+                right = mid
+
+        if min_index == 0:
+            left = 0
+            right = len(nums) - 1
+        elif nums[0] <= target:
+            left = 0
+            right = min_index - 1
+        else:
+            left = min_index
+            right = len(nums) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
             if nums[mid] == target:
                 return mid
             elif nums[mid] < target:

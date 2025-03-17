@@ -20,7 +20,7 @@ class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         """
         和最长重复子数组差不多
-        :param text1:
+        :param text1
         :param text2:
         :return:
         """
