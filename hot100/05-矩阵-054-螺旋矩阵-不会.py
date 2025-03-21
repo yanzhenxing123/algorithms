@@ -16,6 +16,7 @@
 输出：[1,2,3,4,8,12,11,10,9,5,6,7]
 
 不会
+
 """
 from typing import List
 
@@ -25,8 +26,8 @@ class Solution:
         """
         模拟这个即可
         关键是如何去遍历
-        # 从左到右
-        d
+        # 从左到右 从上到下 从右到左 从下到上
+
         for i in range(left, right + 1):
             if index == n:
                 break

@@ -13,13 +13,9 @@ def partition(arr, left, right):
     # arr[left] 作为基准点
     pivot = arr[left]
     while left < right:
-        # 终止条件： left == right
-        # 从右往左 <-
         while left < right and arr[right] >= pivot:
-            # 终止条件 left == right 或者 右边比pivot小
             right -= 1
         arr[left] = arr[right]
-        # 从左往右 ->
         while left < right and arr[left] <= pivot:
             left += 1
         arr[right] = arr[left]

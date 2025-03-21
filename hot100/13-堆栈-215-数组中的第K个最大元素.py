@@ -12,25 +12,46 @@ import heapq
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
         """
+        最优解
         也是快排的思想，random进行选择递归
         时间复杂度为O(n)
         """
         pivot = random.choice(nums)
-        la, eq, sm = [], [], []  # 大、等、中
+        la, eq, sm = [], [], []  # 大、等、小
         for num in nums:
             if num > pivot:
-                la.append(num)
+                la.append(num)  # 比pivot大的
             elif num == pivot:
                 eq.append(num)
             else:
-                sm.append(num)
+                sm.append(num)  # 比pivot小的
 
         if len(la) < k <= len(la) + len(eq):  # 递归终止条件
             return pivot
-        if len(la) >= k:  # 目标元素在左边
+        if len(la) >= k:  # 目标元素在la中
             return self.findKthLargest(la, k)
-        else:  # 目标元素在右边
+        else:  # 目标元素sm中，不可能在eq中
             return self.findKthLargest(sm, k - len(la) - len(eq))  # 减去 la和eq中的个数
+
+    def findKthLargest_2nd(self, nums: List[int], k: int) -> int:
+        pivot = random.choice(nums)
+        lagers = []
+        equals = []
+        smallers = []
+        for num in nums:
+            if num > pivot:
+                lagers.append(num)
+            elif num == pivot:
+                equals.append(num)
+            else:
+                smallers.append(num)
+
+        if len(lagers) < k <= len(lagers) + len(equals):
+            return pivot
+        if len(lagers) >= k:
+            return self.findKthLargest_2nd(lagers, k)
+        else:
+            return self.findKthLargest_2nd(smallers, k - len(lagers) - len(equals))
 
     def findKthLargest1(self, nums: List[int], k: int) -> int:
         """
@@ -50,7 +71,7 @@ class Solution:
 
     def findKthLargest2(self, nums: List[int], k: int) -> int:
         """
-        使用快排的思想
+        使用快排的思想，通过不了, 超出时间限制
         :param nums:
         :param k:
         :return:
@@ -69,7 +90,7 @@ class Solution:
             nums[left] = pivot
             return left
 
-        def topk_split(nums, left, right, k):
+        def topk_split(nums, left, right, K):
             """
             直到第k个左边都小，右边都大
             :param nums:
@@ -78,19 +99,21 @@ class Solution:
             :param k:
             :return:
             """
-            if left <= right:
-                index = partition(nums, left, right)
-                if index == k:
-                    return
-                if index < k:  # 右边
-                    topk_split(nums, index + 1, right, k)
-                else:  # 左边
-                    topk_split(nums, left, index - 1, k)
+
+            while left <= right:
+                pivot_index = partition(nums, left, right)
+                if pivot_index == K:
+                    return pivot_index
+                if pivot_index < K:  # K在右边
+                    left = pivot_index + 1
+                else:
+                    right = pivot_index - 1
 
         left = 0
         right = len(nums) - 1
-        topk_split(nums, left, right, len(nums) - k)
-        res = nums[len(nums) - k]
+        K = len(nums) - k
+        topk_split(nums, left, right, K)
+        res = nums[K]
         return res
 
 
