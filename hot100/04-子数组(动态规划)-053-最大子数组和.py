@@ -13,6 +13,9 @@ dp = [-2, 1, -2, 4, 3, 5, 6, 1, 5]
 到这个nums[i]的时候前面子串的最大值
 
 动态规划 dp[i] = max(dp[i-1] + nums[i], nums[i])
+
+
+# 非常简单的一道题
 """
 
 from typing import List
@@ -24,6 +27,7 @@ class Solution:
         dp = [nums[0]]
         for i in range(1, len(nums)):
             dp.append(max(nums[i], dp[-1] + nums[i]))
+
         return max(dp)
 
 
