@@ -66,10 +66,47 @@ class Solution:
         while head:
             node = head
             head = head.next
-
             node.next = new_head
             new_head = node
         return new_head
+
+    def reverseKGroup_2nd(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # 先将链表进行分割，然后进行翻转
+        if not head or not head.next or k == 1:
+            return head
+        p = head
+        head_li = []
+        end_head = None
+        while p:
+            tmp_head = p
+            pre = None
+            count = 0
+            for i in range(k):
+                if p:
+                    pre = p
+                    p = p.next
+                    count += 1
+            if count == k:  # 说明这一组要翻转
+                head_li.append(tmp_head)
+                pre.next = None
+            else:  # 最后一组特殊处理
+                end_head = tmp_head
+
+        # 最head_li中的head进行翻转
+        new_head_li = []
+        for tmp_head in head_li:
+            new_head = self.reverse_list(tmp_head)
+            new_head_li.append(new_head)
+        for i in range(len(new_head_li)):
+            new_head = new_head_li[i]
+            p = new_head
+            while p.next:
+                p = p.next
+            if i == len(new_head_li) - 1:  # 对最后一个特殊处理
+                p.next = end_head
+            else:
+                p.next = new_head_li[i + 1]
+        return new_head_li[0]
 
     def reverseKGroup1(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         """
