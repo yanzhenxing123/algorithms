@@ -33,6 +33,7 @@ class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
         最优解，用left记录左端点，且使用for i 中的i记录为右端点
+        并且pool中只包含 left：i 中的所有字符串，且不重复
         """
         if not s:
             return 0
@@ -48,7 +49,7 @@ class Solution:
             max_len = max(max_len, len(pool))
         return max_len
 
-    def ershua(self, s: str) -> int:
+    def lengthOfLongestSubstring_2nd(self, s: str) -> int:
         max_len = 0
         if not s or len(s) == 1:
             return 1
@@ -61,6 +62,20 @@ class Solution:
             pool.add(s[i])
             max_len = max(len(pool), max_len)
         return max_len
+
+    def lengthOfLongestSubstring_3st(self, s: str) -> int:
+        if not s or len(s) == 1:
+            return len(s)
+        res = 0
+        left = 0
+        pool = set()
+        for i in range(len(s)):
+            while s[i] in pool:  # 当前要加入的元素一定不在pool中
+                pool.remove(s[left])
+                left += 1
+            pool.add(s[i])
+            res = max(len(pool), res)
+        return res
 
 
 if __name__ == '__main__':
