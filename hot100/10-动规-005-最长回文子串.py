@@ -77,6 +77,38 @@ class Solution:
 
         return s[max_left: max_right + 1]
 
+    def longestPalindrome_dp(self, s: str) -> str:
+        """
+        使用动态规划方法
+        :param s:
+        :return:
+        """
+        n = len(s)
+        if n < 2:
+            return s
+
+        # 初始化 dp 表
+        dp = [[False] * n for _ in range(n)]
+        start, max_len = 0, 1  # 初始化为第一个字符，长度为1
+
+        # 单个字符一定是回文
+        for i in range(n):
+            dp[i][i] = True
+
+        # 填表，按子串长度从小到大
+        for length in range(2, n + 1):  # 子串长度从2到n
+            for i in range(n):  # 子串起始位置
+                j = i + length - 1  # 子串结束位置
+                if j >= n:  # 越界检查
+                    break
+                if s[i] == s[j]:
+                    if length == 2 or dp[i + 1][j - 1]:
+                        dp[i][j] = True
+                        if length > max_len:
+                            start = i
+                            max_len = length
+        return s[start:start + max_len]
+
 
 if __name__ == '__main__':
     s = Solution()
