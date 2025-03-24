@@ -35,23 +35,24 @@ class Solution:
 
     def findKthLargest_2nd(self, nums: List[int], k: int) -> int:
         pivot = random.choice(nums)
-        lagers = []
-        equals = []
-        smallers = []
+        la = []
+        eq = []
+        sm = []
+
         for num in nums:
             if num > pivot:
-                lagers.append(num)
+                la.append(num)
             elif num == pivot:
-                equals.append(num)
+                eq.append(num)
             else:
-                smallers.append(num)
+                sm.append(num)
 
-        if len(lagers) < k <= len(lagers) + len(equals):
+        if len(la) < k <= len(la) + len(eq):
             return pivot
-        if len(lagers) >= k:
-            return self.findKthLargest_2nd(lagers, k)
+        if len(la) >= k:
+            return self.findKthLargest_2nd(la, k)
         else:
-            return self.findKthLargest_2nd(smallers, k - len(lagers) - len(equals))
+            return self.findKthLargest(sm, k - len(la) - len(eq))
 
     def findKthLargest1(self, nums: List[int], k: int) -> int:
         """
