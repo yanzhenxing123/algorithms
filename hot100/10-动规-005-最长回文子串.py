@@ -39,7 +39,6 @@ class Solution:
                     max_right = right
                 left -= 1
                 right += 1
-
         # 以空洞为中心
         for i in range(len(s) - 1):
             left = i
@@ -50,8 +49,36 @@ class Solution:
                     max_right = right
                 left -= 1
                 right += 1
+        return s[max_left: max_right + 1]
+
+    def longestPalindrome_2nd(self, s: str) -> str:
+        if len(s) <= 1:
+            return s
+        # 1. 遍历字母为中心
+        max_left, max_right = 0, 0
+        for i in range(1, len(s)):
+            left, right = i - 1, i + 1
+            while left >= 0 and right <= len(s) - 1 and s[left] == s[right]:
+                if right - left > max_right - max_left:
+                    max_left = left
+                    max_right = right
+                left -= 1
+                right += 1
+
+        # 2. 遍历空洞为中心
+        for i in range(0, len(s)):
+            left, right = i, i + 1
+            while left >= 0 and right <= len(s) - 1 and s[left] == s[right]:
+                if right - left > max_right - max_left:
+                    max_left = left
+                    max_right = right
+                left -= 1
+                right += 1
 
         return s[max_left: max_right + 1]
 
-# class Solution:
-#     def longestPalindrome(self, s: str) -> str:
+
+if __name__ == '__main__':
+    s = Solution()
+    res = s.longestPalindrome("abccv")
+    print(res)
