@@ -65,26 +65,22 @@ class Solution:
         min_index = 0
         while left <= right:
             mid = (left + right) // 2
-            if nums[left] <= nums[mid] <= nums[right]:  # 有序就行
+            if nums[left] <= nums[mid] <= nums[right]:
                 min_index = left
                 break
             elif nums[left] <= nums[mid]:
                 left = mid + 1
             else:
                 right = mid
-
         if min_index == 0:
-            left = 0
-            right = len(nums) - 1
-        elif nums[0] <= target:
-            left = 0
-            right = min_index - 1
+            left, right = 0, len(nums) - 1
+        elif target >= nums[0]:
+            left, right = 0, min_index - 1
         else:
-            left = min_index
-            right = len(nums) - 1
+            left, right = min_index, len(nums) - 1
 
         while left <= right:
-            mid = (left + right) // 2
+            mid = left + (right - left) // 2
             if nums[mid] == target:
                 return mid
             elif nums[mid] < target:
