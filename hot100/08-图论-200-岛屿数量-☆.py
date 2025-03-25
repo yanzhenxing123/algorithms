@@ -20,7 +20,6 @@ class Solution:
     """重新写一遍，比较重要"""
 
     def numIslands(self, grid: List[List[str]]) -> int:
-
         def dfs(grid, row, col, i, j):
             grid[i][j] = '0'
             # 上下左右去回溯
@@ -45,35 +44,34 @@ class Solution:
                     res += 1
         return res
 
+    def numIslands_2nd(self, grid: List[List[str]]) -> int:
+        """
+        二刷，其实就是联通分量的数量
+        :param grid:
+        :return:
+        """
 
-# class Solution:
-#     def numIslands(self, grid: List[List[str]]) -> int:
-#         # 进行dfs
-#         if not grid:
-#             return 0
-#         row, col = len(grid), len(grid[0])
-#         self.row, self.col = row, col
-#         res = 0
-#         for i in range(row):
-#             for j in range(col):
-#                 if grid[i][j] == '1':
-#                     res += 1
-#                     self.dfs(grid, i, j)
-#         return res
-#
-#     def dfs(self, grid: List[List[str]], i: int, j: int):
-#         """
-#         上下左右进行dfs
-#         """
-#         grid[i][j] = '0'  # 已经遍历
-#         if i > 0 and grid[i - 1][j] == '1':
-#             self.dfs(grid, i - 1, j)
-#         if i < self.row - 1 and grid[i + 1][j] == '1':
-#             self.dfs(grid, i + 1, j)
-#         if j > 0 and grid[i][j - 1] == '1':
-#             self.dfs(grid, i, j - 1)
-#         if j < self.col - 1 and grid[i][j + 1] == '1':
-#             self.dfs(grid, i, j + 1)
+        def dfs(grid: List[List[str]], i: int, j: int):
+            grid[i][j] = '0'
+            m, n = len(grid), len(grid[0])
+
+            # 上下左右回溯
+            if i > 0 and grid[i - 1][j] == '1':
+                dfs(grid, i - 1, j)
+            if i < m - 1 and grid[i + 1][j] == '1':
+                dfs(grid, i + 1, j)
+            if j > 0 and grid[i][j - 1] == '1':
+                dfs(grid, i, j - 1)
+            if j < n - 1 and grid[i][j + 1] == '1':
+                dfs(grid, i, j + 1)
+        res = 0
+        m, n = len(grid), len(grid[0])
+        for i in range(m):
+            for j in range(n):
+                if grid[i][j] == '1':
+                    dfs(grid, i, j)
+                    res += 1
+        return res
 
 
 if __name__ == '__main__':
