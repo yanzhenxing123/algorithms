@@ -32,6 +32,33 @@ class Solution:
         p.next = list1 if not list2 else list2
         return new_head.next
 
+    def mergeTwoLists_2nd(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        if not list1:
+            return list2
+        if not list2:
+            return list1
+
+        dumpy = ListNode(0)
+        p_1 = list1
+        p_2 = list2
+        q = dumpy
+        while p_1 and p_2:
+            if p_1.val >= p_2.val:
+                q.next = p_1
+                p_1 = p_1.next
+            else:
+                q.next = p_2
+                p_2 = p_2.next
+            q = q.next
+
+        if not p_1:
+            q.next = p_2
+        if not p_2:
+            q.next = p_1
+        return dumpy.next
+
+
+
 
 if __name__ == '__main__':
     s = Solution()

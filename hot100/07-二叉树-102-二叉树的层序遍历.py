@@ -33,29 +33,33 @@ class Solution:
                     next_queue.append(node.left)
                 if node.right:
                     next_queue.append(node.right)
-
             res.append(vals)
             queue = next_queue
         return res
 
-    def levelOrder1(self, root: Optional[TreeNode]) -> List[List[int]]:
-        res = []
-        res_d = {}
+    def levelOrder_2nd(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
-            return res
+            return []
+        res = []
         q = deque()
-        q.append((root, 1))
+        q.append(root)
         while q:
-            node, depth = q.popleft()
-            if depth not in res_d:
-                res_d[depth] = [node.val]
-            else:
-                res_d[depth].append(node.val)
-            if node.left:
-                q.append([node.left, depth + 1])
-            if node.right:
-                q.append([node.right, depth + 1])
-        return list(res_d.values())
+            next_queue = deque()
+            vals = []
+            for node in q:
+                vals.append(node.val)
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            res.append(vals)
+            q = next_queue
+
+        return res
+
+
+
 
 
 if __name__ == '__main__':

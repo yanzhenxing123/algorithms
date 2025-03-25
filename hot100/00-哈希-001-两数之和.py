@@ -26,6 +26,17 @@ class Solution:
                 return [index, num2index[another_num]]
             num2index[num] = index
 
+    def twoSum_2nd(self, nums: List[int], target: int) -> List[int]:
+        num2index=  {}
+
+        for index, num in enumerate(nums):
+            another_num = target- num
+            if another_num in num2index:
+                return [index, num2index[another_num]]
+            num2index[num] = index
+
+
+
 
 
 if __name__ == '__main__':
