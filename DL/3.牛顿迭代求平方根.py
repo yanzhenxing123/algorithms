@@ -28,6 +28,10 @@ def sqrt_newton(S, tolerance=1e-7, max_iterations=1000):
     return x  # 如果没有在最大迭代次数内收敛，返回当前结果
 
 
+
+# todo 二分方法
+
+
 # 示例：求平方根
 S = 3
 result = sqrt_newton(S)
