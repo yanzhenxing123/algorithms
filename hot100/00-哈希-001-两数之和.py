@@ -27,16 +27,25 @@ class Solution:
             num2index[num] = index
 
     def twoSum_2nd(self, nums: List[int], target: int) -> List[int]:
-        num2index=  {}
+        num2index = {}
 
         for index, num in enumerate(nums):
-            another_num = target- num
+            another_num = target - num
             if another_num in num2index:
                 return [index, num2index[another_num]]
             num2index[num] = index
 
-
-
+    def twoSum_3nd(self, nums: List[int], target: int) -> List[int]:
+        """
+        遍历一遍，存储在num2index字典
+        """
+        num2index = {}
+        for index, num in enumerate(nums):
+            another_num = target - num
+            if another_num in num2index:
+                another_index = num2index[another_num]
+                return [another_index, index]
+            num2index[num] = index
 
 
 if __name__ == '__main__':
