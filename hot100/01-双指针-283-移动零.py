@@ -43,6 +43,18 @@ class Solution:
         for i in range(index, len(nums)):
             nums[i] = 0
 
+    def moveZeroes_2(self, nums: List[int]) -> None:
+        if not nums:
+            return
+        index = 0
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                continue
+            nums[index] = nums[i]
+            index += 1
+        for i in range(index, len(nums)):
+            nums[i] = 0
+
 
 if __name__ == '__main__':
     s = Solution()

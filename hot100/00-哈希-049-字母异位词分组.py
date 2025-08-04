@@ -59,6 +59,20 @@ class Solution:
             res.append(value)
         return res
 
+    def groupAnagrams2(self, strs: List[str]) -> List[List[str]]:
+        if not strs:
+            return []
+        data = {}
+        res = []
+        for s in strs:
+            key = "".join(sorted(list(s)))
+            if key not in data:
+                data[key] = []
+            data[key].append(s)
+        for value in data.values():
+            res.append(value)
+        return res
+
     def groupAnagrams1(self, strs: List[str]) -> List[List[str]]:
         """
         使用矩阵形式

@@ -46,3 +46,22 @@ class Solution:
                 while left < right and height[left] <= h:
                     left += 1
         return max_area
+
+    def maxArea_2(self, height: List[int]) -> int:
+        """
+        maxArea_2
+        :param height:
+        :return:
+        """
+        if not height or len(height) == 1:
+            return 0
+        left, right = 0, len(height) - 1
+        max_area = 0
+        while left < right:
+            cur_area = (right - left) * min(height[left], height[right])
+            max_area = max(cur_area, max_area)
+            if height[left] <= height[right]:
+                left += 1
+            else:
+                right -= 1
+        return max_area

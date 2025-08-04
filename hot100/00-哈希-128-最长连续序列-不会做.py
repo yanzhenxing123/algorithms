@@ -56,6 +56,24 @@ class Solution:
             hash_dict[num + right] = cur_len
         return max_length
 
+    def longestConsecutive3(self, nums: List[int]) -> int:
+        if not nums or len(nums) == 1:
+            return len(nums)
+        hash_dict = {}
+        max_len = 0
+        for num in nums:
+            if num in hash_dict:
+                continue
+            left = hash_dict.get(num - 1, 0)
+            right = hash_dict.get(num + 1, 0)
+            cur_len = 1 + left + right
+            max_len = max(max_len, cur_len)
+            # 更新端点值
+            hash_dict[num] = cur_len
+            hash_dict[num + right] = cur_len
+            hash_dict[num - left] = cur_len
+        return max_len
+
     def longestConsecutive2(self, nums: List[int]) -> int:
         """
         官方题目给的最优解

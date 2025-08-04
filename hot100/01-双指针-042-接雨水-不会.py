@@ -48,7 +48,7 @@ class Solution:
         res = 0
         left_max_arr = [height[0]] + [0 for _ in range(len(height) - 1)]
         right_max_arr = [0 for _ in range(len(height) - 1)] + [height[-1]]
-        for i in range(1, len(height)):  # 从做到右
+        for i in range(1, len(height)):  # 从左到右
             left_max_arr[i] = max(height[i], left_max_arr[i - 1])
         for j in range(len(height) - 2, -1, -1):
             right_max_arr[j] = max(height[j], right_max_arr[j + 1])
