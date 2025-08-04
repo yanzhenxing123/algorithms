@@ -36,6 +36,21 @@ class Solution:
                 right_max = max(height[right], right_max)
         return res
 
+    def trap_3rd(self, height: List[int]) -> int:
+        if len(height) < 3:
+            return 0
+        left_max_arr = [height[0]] + [0 for _ in range(len(height) - 1)]
+        right_max_arr = [0 for _ in range(len(height) - 1)] + [height[-1]]
+        res = 0
+        for i in range(1, len(height)):
+            left_max_arr[i] = max(height[i], left_max_arr[i - 1])
+        for i in range(len(height) - 2, -1, -1):
+            right_max_arr[i] = max(height[i], right_max_arr[i + 1])
+        for i in range(len(height)):
+            cur_value = min(left_max_arr[i], right_max_arr[i]) - height[i]
+            res += cur_value
+        return res
+
     def trap2(self, height: List[int]) -> int:
         """
         这个一定要写出来
