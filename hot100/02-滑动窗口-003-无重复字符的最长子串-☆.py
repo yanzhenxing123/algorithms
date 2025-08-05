@@ -49,6 +49,26 @@ class Solution:
             max_len = max(max_len, len(pool))
         return max_len
 
+    def lengthOfLongestSubstring_4st(self, s: str) -> int:
+        """
+        子串的长度
+        :param s:
+        :return:
+        """
+        if not s or len(s) == 1:
+            return len(s)
+        max_len = 1
+        pool = set()
+        left = 0
+        pool.add(s[left])
+        for i in range(1, len(s)):
+            while s[i] in pool:
+                pool.remove(s[left])
+                left += 1
+            pool.add(s[i])
+            max_len = max(max_len, len(pool))
+        return max_len
+
     def lengthOfLongestSubstring_2nd(self, s: str) -> int:
         max_len = 0
         if not s or len(s) == 1:
