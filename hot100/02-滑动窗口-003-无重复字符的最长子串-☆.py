@@ -11,7 +11,7 @@
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         """
-        维护一个窗口 pool
+        维护一个窗口 pool, 暴力解法
         pool = pool[index + 1: ]
         """
         if not s or len(s) == 1:
@@ -63,7 +63,7 @@ class Solution:
             max_len = max(len(pool), max_len)
         return max_len
 
-    def lengthOfLongestSubstring_3st(self, s: str) -> int:
+    def lengthOfLongestSubstring_3rd(self, s: str) -> int:
         if not s or len(s) == 1:
             return len(s)
         res = 0
