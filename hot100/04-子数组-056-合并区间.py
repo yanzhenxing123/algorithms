@@ -44,6 +44,28 @@ class Solution:
                 res.append(interval_right)
         return res
 
+    def merge_2(self, intervals: List[List[int]]) -> List[List[int]]:
+        if not intervals or len(intervals) == 1:
+            return intervals
+        intervals = sorted(intervals, key=lambda x: x[0])
+        res = []
+        res.append(intervals[0])
+        for i in range(1, len(intervals)):
+            right = intervals[i]
+            left = res[-1]
+            if left[1] < right[0]:
+                res.append(right)
+            else:
+                res.pop()
+                new_interval = []
+                new_interval.append(left[0])
+                if left[1] < right[1]:
+                    new_interval.append(right[1])
+                else:
+                    new_interval.append(left[1])
+                res.append(new_interval)
+        return res
+
 
 if __name__ == '__main__':
     s = Solution()

@@ -35,6 +35,56 @@ import copy
 
 class Solution:
 
+    def minWindow_2nd(self, s: str, t: str) -> str:
+        """
+        滑动窗口
+        :param s: 字符串
+        :param t: 子串
+        :return:
+        """
+
+        def check(d: dict):
+            '''
+            不能用sum，因为有负数
+            '''
+            # Check if all values in dictionary are <= 0 (meaning we have enough characters)
+            for value in d.values():
+                if value > 0:
+                    return False
+            return True
+
+        if not s or len(s) < len(t):
+            return ""
+
+        # Create dictionary to count characters in t
+        d = {}
+        for i in range(len(t)):
+            d[t[i]] = d.get(t[i], 0) + 1
+
+        left = 0
+        right = 0
+        res = ""
+
+        # Initialize the first character
+        if s[0] in d:
+            d[s[0]] -= 1
+
+        while left <= right and right < len(s):
+            if check(d):  # Found a valid window
+                # Update result if this is a smaller valid window
+                if not res or len(res) > len(s[left: right + 1]):
+                    res = s[left: right + 1]
+
+                # Try to shrink window from left
+                if s[left] in d:
+                    d[s[left]] += 1
+                left += 1
+            else:  # Need to expand window to right
+                right += 1
+                if right < len(s) and s[right] in d:
+                    d[s[right]] -= 1
+        return res
+
     def minWindow(self, s: str, t: str) -> str:
         d = {}
         for item in t:

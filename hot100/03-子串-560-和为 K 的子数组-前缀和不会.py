@@ -44,10 +44,51 @@ class Solution:
         d = {0: 1}  # 合为x的子数组有几个，首先初始化和为0的子数组有1个
         pre = 0
         for i in range(len(nums)):
+            # pre - another = k 可以说明有子串在其中
             pre += nums[i]
             another = pre - k
             res += d.get(another, 0)
             d[pre] = d.get(pre, 0) + 1
+        return res
+
+    def subarraySum_3rd_opt(self, nums: List[int], k: int) -> int:
+        """
+        非暴力解法
+        :param nums:
+        :param k:
+        :return:
+        """
+        if not nums:
+            return 0
+        pre_sum = [0]
+        res = 0
+        for i in range(len(nums)):
+            pre_sum.append(sum(nums[:i + 1]))
+        d = {0: 1}  # 存储前缀和为x的个数
+        for i in range(len(nums)):
+            pre = pre_sum[i]
+            another = pre - k
+            res += d.get(another, 0)
+            d[pre] = d.get(pre, 0) + 1
+        return res
+
+    def subarraySum_3rd(self, nums: List[int], k: int) -> int:
+        """
+        暴力解法通过不了
+        :param nums:
+        :param k:
+        :return:
+        """
+        if not nums:
+            return 0
+        pre_sum = [0]
+        res = 0
+        for i in range(len(nums)):
+            pre_sum.append(sum(nums[:i + 1]))
+        for i in range(0, len(pre_sum) - 1):
+            for j in range(i + 1, len(pre_sum)):
+                if pre_sum[j] - pre_sum[i] == k:
+                    res += 1
         return res
 
     def subarraySum1(self, nums: List[int], k: int) -> int:

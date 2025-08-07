@@ -29,6 +29,8 @@ from collections import deque
 
 
 class Solution:
+
+
     def firstMissingPositive(self, nums: List[int]) -> int:
         """
         将位置变换
@@ -36,12 +38,14 @@ class Solution:
         :param nums:
         :return:
         """
+
         if not nums:
             return 1
         nums = [0] + nums
         i = 1
         while i < len(nums):
             if 0 < nums[i] < len(nums) and nums[nums[i]] != nums[i]:  # 第一个条件，元素不超过长度 且 要放的位置上不是当前元素
+                # 把当前元素放到要放的位置
                 tmp = nums[nums[i]]
                 nums[nums[i]] = nums[i]
                 nums[i] = tmp
@@ -53,6 +57,15 @@ class Solution:
             if i != nums[i]:
                 return i
         return len(nums)
+
+    def firstMissingPositive_2nd(self, nums: List[int]) -> int:
+        """
+        2nd solution
+        :param nums:
+        :return:
+        """
+        for i in range(len(nums))
+        pass
 
 
 if __name__ == '__main__':

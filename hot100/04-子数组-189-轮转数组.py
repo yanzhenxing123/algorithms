@@ -40,9 +40,49 @@ class Solution:
         for j in range(len(end_arr)):
             nums[j] = end_arr[j]
 
+    def rotate_2(self, nums: List[int], k: int) -> None:
+        n = len(nums)
+        k %= n
+
+        front_arr = nums[:n - k]
+        end_arr = nums[n - k:]
+
+        nums[:k] = end_arr
+        nums[k:] = front_arr
+
+    def rotate_no_space(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        n = len(nums)
+        k %= n
+
+        # 1. 整体翻转
+        i, j = 0, n - 1
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
+        print(nums)
+        # 2. 前边翻转
+        i, j = 0, k - 1
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
+        print(nums)
+        # 3. 后边翻转
+        i, j = k, n - 1
+        while i < j:
+            nums[i], nums[j] = nums[j], nums[i]
+            i += 1
+            j -= 1
+        print(nums)
+
+
 if __name__ == '__main__':
     s = Solution()
     nums = [1, 2, 3, 4, 5, 6, 7]
     k = 3
-    res = s.rotate(nums, k)
+    res = s.rotate_no_space(nums, k)
     print(nums)
