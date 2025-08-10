@@ -24,7 +24,9 @@
 [[7,4,1],
 [8,5,2],
 [9,6,3]]
+
 """
+
 
 from typing import List
 
@@ -48,10 +50,28 @@ class Solution:
                 matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
                 left += 1
                 right -= 1
-                
-    def rotate(self, matrix: List[List[int]]) -> None:
-        pass
-                
+
+    def rotate_2(self, matrix: List[List[int]]) -> None:
+        """
+        先转置，再每行反转
+        Args:
+            matrix (List[List[int]]): _description_
+        """
+        if not matrix:
+            return None
+        # 1. 先转置
+        rows, cols = len(matrix), len(matrix[0])
+        for i in range(rows):
+            for j in range(i+1, cols):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
+
+        # 2. 按照行转置
+        for i in range(rows):
+            left, right = 0, cols - 1
+            while left < right:
+                matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
+                left += 1
+                right -= 1
 
 
 if __name__ == '__main__':
@@ -60,5 +80,5 @@ if __name__ == '__main__':
               [4, 5, 6],
               [7, 8, 9]]
 
-    res = s.rotate(matrix)
+    res = s.rotate_2(matrix)
     print(matrix)
