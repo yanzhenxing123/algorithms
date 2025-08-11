@@ -59,6 +59,44 @@ class Solution:
                 q.random = None
             q = q.next
         return dummy.next
+    
+    def copyRandomList_2nd(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        """
+        1. 先复制next指针
+        2. 存储旧的和新的node的映射 old2new = {id()}
+        3. 复制random指针
+        Args:
+            head (Optional[Node]): _description_
+
+        Returns:
+            Optional[Node]: _description_
+        """
+        old2new = {}
+        dummy = Node(0)
+        p = dummy
+        q = head
+        while q:
+            node =  Node(q.val)
+            p.next = node
+            old2new[hash(q)] = node
+            
+            p = p.next
+            q = q.next
+        p = dummy.next
+        q = head
+        while p:
+            if q.random:
+                p.random = old2new[hash(q.random)]
+            else:
+                p.random = None
+            p = p.next
+            q = q.next
+        return dummy.next
+        
+            
+            
+                    
+
 
 
 if __name__ == '__main__':
