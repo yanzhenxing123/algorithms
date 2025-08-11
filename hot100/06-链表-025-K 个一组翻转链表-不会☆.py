@@ -69,7 +69,7 @@ class Solution:
 
     def reverseKGroup_3rd(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         """
-        和24题一样，分组进行
+        和24题一样，分组进行,最优版本
         Args:
             head (Optional[ListNode]): _description_
             k (int): _description_
@@ -84,18 +84,18 @@ class Solution:
         node_li = []
         while p:
             tmp_head = p
+            count = 0
             for i in range(k):
                 if p:
                     pre = p
                     p = p.next
-            if i == k - 1:
+                    count+=1 
+            if count == k:
                 pre.next = None
                 # 翻转
                 new_tmp_head = self.reverse_list(tmp_head)
             else:
                 new_tmp_head = tmp_head
-                
-            
             node_li.append(new_tmp_head)   
         
         for i in range(len(node_li) - 1):
@@ -105,11 +105,6 @@ class Solution:
             p.next = node_li[i+1]
         return node_li[0]
             
-        
-                
-                
-
-        
             
         
 
