@@ -7,7 +7,15 @@ k 是一个正整数，它的值小于或等于链表的长度。如果节点总
 你不能只是单纯的改变节点内部的值，而是需要实际进行节点交换。
 
 dummy -> 1 -> 2 -> 3 -> 4 -> 5
-   p
+
+
+最后一组如果不满足就不用翻转
+
+
+链表-025-K 个一组翻转链表-☆.py
+
+链表-024-两两交换链表中的节点.py
+   
 """
 from typing import Optional
 from utils.linked_list import ListNode, create_list, print_list
@@ -58,6 +66,52 @@ class Solution:
             else:
                 p.next = new_li[i + 1]
         return new_li[0]
+
+    def reverseKGroup_3rd(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        """
+        和24题一样，分组进行
+        Args:
+            head (Optional[ListNode]): _description_
+            k (int): _description_
+
+        Returns:
+            Optional[ListNode]: _description_
+        """
+        if not head or not head.next or k  == 1:
+            return head
+        # 1. 分组
+        p = head
+        node_li = []
+        while p:
+            tmp_head = p
+            for i in range(k):
+                if p:
+                    pre = p
+                    p = p.next
+            if i == k - 1:
+                pre.next = None
+                # 翻转
+                new_tmp_head = self.reverse_list(tmp_head)
+            else:
+                new_tmp_head = tmp_head
+                
+            
+            node_li.append(new_tmp_head)   
+        
+        for i in range(len(node_li) - 1):
+            p = node_li[0]
+            while p.next:
+                p = p.next
+            p.next = node_li[i+1]
+        return node_li[0]
+            
+        
+                
+                
+
+        
+            
+        
 
     def reverse_list(self, head):
         if not head:

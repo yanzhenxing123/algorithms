@@ -45,36 +45,48 @@ class Solution:
             tmp_head.next.next = new_li[i + 1]
         return new_li[0]
 
-    # def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
-    #     if not head or not head.next:
-    #         return head
-    #     head1 = head
-    #     head2 = head.next
-    #     p1 = head1
-    #     p2 = head2
-    #     while p2:  # 分开
-    #         p1.next = p2.next
-    #         if p2.next:
-    #             p2.next = p2.next.next
-    #         p1 = p1.next
-    #         p2 = p2.next
-    #     p1 = head1
-    #     p2 = head2
-    #     new_head = ListNode(0)
-    #     p = new_head
-    #     while p1 and p2:  # 合并
-    #         p1_next = p1.next
-    #         p2_next = p2.next
-    #         p.next = p2
-    #         p.next.next = p1
-    #         p1 = p1_next
-    #         p2 = p2_next
-    #         p = p.next.next
-    #     if p1:
-    #         p.next = p1
-    #     if p2:
-    #         p.next = p2
-    #     return new_head.next
+
+    def swapPairs_2nd(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        两个组在一起，然后分组翻转，再链接
+        Args:
+            head (Optional[ListNode]): _description_
+
+        Returns:
+            Optional[ListNode]: _description_
+        """
+        if not head or not head.next:
+            return head
+        # 两组放在一起
+        p = head
+        node_li = []
+        while p:
+            node_li.append(p)
+            p = p.next
+            if p:
+                node = p.next
+                p.next = None
+                p = node
+        reverse_node_li = []
+        for node in node_li:
+            # 翻转
+            if not node.next:
+                reverse_node_li.append(node)
+                break
+            next_node = node.next
+            node.next = None
+            next_node.next = node
+            reverse_node_li.append(next_node)
+        for i in range(len(reverse_node_li)-1):
+            node = reverse_node_li[i]
+            node.next.next = reverse_node_li[i+1]
+        return reverse_node_li[0]
+            
+            
+            
+            
+
+
 
     def swapPairs2(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """

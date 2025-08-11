@@ -101,7 +101,7 @@ class Solution:
             new_head = node
         
         while head:
-            if head.next != new_head.next:
+            if head.val != new_head.val:
                 return False
             
             head = head.next
