@@ -10,7 +10,6 @@ from utils.linked_list import print_list, create_list, ListNode
 
 
 
-
 class Solution:
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         """
@@ -57,10 +56,34 @@ class Solution:
             new_head = node
 
         return new_head
+    
+    def reverseList_2nd(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        使用递归的方法
+        Args:
+            head (Optional[ListNode]): _description_
+
+        Returns:
+            Optional[ListNode]: _description_
+        """
+        if not head:
+            return
+        def reverse(pre, cur):
+            if not cur:
+                return pre
+            next_node = cur.next
+            cur.next = pre
+            return reverse(cur, next_node)
+        
+        new_head = reverse(None, head)
+        return new_head
+        
+        
+    
 
 
 if __name__ == '__main__':
     head = create_list([1, 2, 3])
     s = Solution()
-    new_head = s.reverseList(head)
+    new_head = s.reverseList_2nd(head)
     print_list(new_head)

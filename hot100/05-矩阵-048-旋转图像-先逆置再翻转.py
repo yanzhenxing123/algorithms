@@ -27,7 +27,6 @@
 
 """
 
-
 from typing import List
 
 
@@ -62,7 +61,7 @@ class Solution:
         # 1. 先转置
         rows, cols = len(matrix), len(matrix[0])
         for i in range(rows):
-            for j in range(i+1, cols):
+            for j in range(i + 1, cols):
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
         # 2. 按照行转置
@@ -72,7 +71,6 @@ class Solution:
                 matrix[i][left], matrix[i][right] = matrix[i][right], matrix[i][left]
                 left += 1
                 right -= 1
-
 
 if __name__ == '__main__':
     s = Solution()
