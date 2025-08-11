@@ -15,7 +15,7 @@ class Solution:
         最优解
         p1先走n+1个，然后和p2一起走
         p2就是要删除节点的前一个
-        1 2 3 4 5 6 
+        1 2 3 4 5 
         :param head:
         :param n:
         :return:
@@ -31,6 +31,26 @@ class Solution:
             p2 = p2.next
         p2.next = p2.next.next
         return head
+    
+    
+    def removeNthFromEnd_2nd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if not head:
+            return None
+        dummy = ListNode(0)
+        dummy.next = head
+        fast = dummy
+        for _ in range(n+1):
+            fast = fast.next
+        slow = dummy
+        while fast:
+            slow = slow.next
+            fast = fast.next
+        slow.next = slow.next.next
+        
+        return dummy.next
+        
+        
+
 
 
 class Solution:
@@ -56,6 +76,8 @@ class Solution:
             cur = cur.next
         cur.next = cur.next.next
         return dummy.next
+    
+    
 
 
 if __name__ == '__main__':

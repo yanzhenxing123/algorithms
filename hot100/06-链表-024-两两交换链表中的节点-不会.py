@@ -22,7 +22,7 @@ class Solution:
             return None
         p = head
         li = []
-        while p:
+        while p: # 两个放一组
             li.append(p)
             p = p.next
             if p:
