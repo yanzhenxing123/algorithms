@@ -31,7 +31,7 @@ class Solution:
 
         return False
 
-    def hasCycle2(self, head: ListNode) -> bool:
+    def hasCycle_2nd(self, head: ListNode) -> bool:
         if not head:
             return False
 

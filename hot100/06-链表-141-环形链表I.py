@@ -27,6 +27,20 @@ class Solution:
             if fast == slow:
                 return True
         return False
+    
+    def hasCycle_2nd(self, head: Optional[ListNode]) -> bool:
+        if not head:
+            return False
+        dummy = ListNode(0)
+        dummy.next = head
+        slow = fast = dummy
+        while fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+            if fast == slow:
+                return True
+        return False
+        
 
 
 if __name__ == '__main__':
