@@ -47,6 +47,33 @@ class Solution:
             p.next = ListNode(carry)
         print_list(new_head)
         return new_head.next
+    
+    def addTwoNumbers_2nd(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        if not l1:
+            return l2
+        if not l2:
+            return l1
+        dummy = ListNode(0)
+        p = dummy
+        carry = 0
+        while l1 or l2:
+            l1_val = l1.val if l1 else 0
+            l2_val = l2.val if l2 else 0
+            node_val = (l1_val + l2_val + carry) % 10
+            carry = (l1_val + l2_val + carry) // 10 # 进位的
+            node = ListNode(node_val)
+            p.next = node
+            p = p.next
+            if l1:
+                l1 = l1.next
+            if l2:
+                l2 = l2.next
+        if carry:
+            node = ListNode(carry)
+            p.next = node
+        return dummy.next
+        
+
 
 
 if __name__ == '__main__':

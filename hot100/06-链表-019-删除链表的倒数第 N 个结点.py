@@ -12,8 +12,10 @@ import random
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         """
+        最优解
         p1先走n+1个，然后和p2一起走
         p2就是要删除节点的前一个
+        1 2 3 4 5 6 
         :param head:
         :param n:
         :return:
