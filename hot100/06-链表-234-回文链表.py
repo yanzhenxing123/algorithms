@@ -67,6 +67,54 @@ class Solution:
             head = head.next
             new_head = new_head.next
         return True
+    
+    def isPalindrome_2nd(self, head: Optional[ListNode]) -> bool:
+        """
+        找到中点，翻转后边的, 然后判断
+        Args:
+            head (Optional[ListNode]): _description_
+
+        Returns:
+            bool: _description_
+        """
+        if not head or not head.next:
+            return True
+        
+        p = head
+        length = 0
+        while p:
+            length += 1
+            p = p.next
+        mid_len = length // 2
+        p = head
+        for _ in range(mid_len - 1):
+            p = p.next
+        another_head = p.next
+        p.next = None
+        # 翻转链表
+        new_head = None # 反转后的新头
+        while another_head:
+            node = another_head
+            another_head = another_head.next
+            
+            node.next = new_head
+            new_head = node
+        
+        while head:
+            if head.next != new_head.next:
+                return False
+            
+            head = head.next
+            new_head = new_head.next
+        
+        return True
+            
+            
+        
+        
+            
+        
+
 
 
 if __name__ == '__main__':
