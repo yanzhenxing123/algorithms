@@ -15,7 +15,17 @@ class Solution:
         left = self.maxDepth(root.left)
         right = self.maxDepth(root.right)
         return max(left, right) + 1
+    
+    
+    def maxDepth_2nd(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        left = self.maxDepth(root.left)
+        right = self.maxDepth(root.right)
+        return max(left, right) + 1
+        
 
+    
 
 if __name__ == '__main__':
     root = create_tree([1, 2, 3, 4, 5])

@@ -25,6 +25,23 @@ class Solution:
         root.left = self.invertTree(right)
         root.right = self.invertTree(left)
         return root
+    
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """
+        一定要会
+        Args:
+            root (Optional[TreeNode]): _description_
+
+        Returns:
+            Optional[TreeNode]: _description_
+        """
+        if not root:
+            return None
+        right = root.right
+        left = root.left
+        root.left = self.invertTree(right)
+        root.right = self.invertTree(left)
+        return root
 
 
 if __name__ == '__main__':

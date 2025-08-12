@@ -21,8 +21,19 @@ class Solution:
 
         inorder(root)
         return res
+    
+    def inorderTraversal_2nd(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        def inorder(node: Optional[TreeNode]):
+            if not node:
+                return
+            inorder(node.left)
+            res.append(node.val)
+            inorder(node.right)
+        inorder(root)
+        return res
 
-    def inorderTraversal_2(self, root: Optional[TreeNode]) -> List[int]:
+    def inorderTraversal_recur(self, root: Optional[TreeNode]) -> List[int]:
         """
         非递归
         :param root:
@@ -36,11 +47,10 @@ class Solution:
             while root:
                 stack.append(root)
                 root = root.left
-            node = stack.pop() # 最小的
+            node = stack.pop()  # 最小的
             res.append(node.val)
             root = node.right
         return res
-
 
 
 if __name__ == '__main__':

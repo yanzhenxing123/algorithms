@@ -36,6 +36,28 @@ class Solution:
             return dfs(left.left, right.right) and dfs(left.right, right.left)
 
         return dfs(root.left, root.right)
+    
+    
+    def isSymmetric_2nd(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        
+        # 入参需要时left和right
+        def dfs(left: Optional[TreeNode], right: Optional[TreeNode]):
+            if not left and not right:
+                return True
+            if not left or not right:
+                return False
+            if left.val != right.val:
+                return False
+            
+            return dfs(left.left, right.right) and dfs(left.right, right.left)
+        return dfs(root.left, root.right)
+                
+        
+        
+
+    
 
 
 if __name__ == '__main__':
