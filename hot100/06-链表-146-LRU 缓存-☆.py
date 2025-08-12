@@ -44,6 +44,40 @@ class LRUCache2:
             self.data[key] = value
 
 
+class LRUCache_2nd:
+    """
+    使用字典（python3.6之后变得有序，使用iter进行删除元素）, 访问过和新加入的都放到最后
+    这个一定要会
+    """
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.data = {}
+
+
+    def get(self, key: int) -> int:
+        if key in self.data:
+            value = self.data.pop(key)
+            self.data[key] = value
+            return value
+        return -1
+        
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.data:
+            value = self.data.pop(key)
+            self.data[key] = value
+        else:
+            if self.capacity == len(self.data):
+                k = next(iter(self.data))
+                self.data.pop(k)
+            self.data[key] = value
+            
+            
+    
+
+
+
 # 同时维护双端链表和哈希表
 class ListNode:
     def __init__(self, key, value):
