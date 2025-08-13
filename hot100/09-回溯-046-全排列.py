@@ -46,6 +46,13 @@ class Solution:
             self.dfs(nums, 0, path)
             self.flags[i] = False
             path.pop()
+            
+    def permute_2nd(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        res = []
+        flags = [False] * 
+
 
 
 if __name__ == '__main__':

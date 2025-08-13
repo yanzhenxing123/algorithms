@@ -31,6 +31,24 @@ class Solution:
             return right
         return None
     
+    
+    def lowestCommonAncestor_2nd(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if not root:
+            return None
+        if root is p or root is q:
+            return root
+        left = self.lowestCommonAncestor_2nd(root.left, p, q)
+        right = self.lowestCommonAncestor_2nd(root.right, p, q)
+        if left and right:
+            return root
+        if left:
+            return left
+        if right:
+            return right
+        return None
+    
+
+
 
 if __name__ == '__main__':
     pass
