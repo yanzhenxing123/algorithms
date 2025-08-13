@@ -37,6 +37,7 @@ class Solution:
         将0 < nums[i] <= len(nums)的数字放到自己的位置上
         :param nums:
         :return:
+        感觉还行吧 
         """
 
         if not nums:
@@ -64,8 +65,8 @@ class Solution:
         :param nums:
         :return:
         """
-        for i in range(len(nums))
-        pass
+        for i in range(len(nums)):
+            pass
 
 
 if __name__ == '__main__':

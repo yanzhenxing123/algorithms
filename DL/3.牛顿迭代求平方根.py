@@ -29,10 +29,33 @@ def sqrt_newton(S, tolerance=1e-7, max_iterations=1000):
 
 
 
-# todo 二分方法
+def binary_search_sqrt(n, tolerance=1e-6):
+    """
+    使用二分法计算一个数的平方根。
+
+    :param n: 输入的数
+    :param tolerance: 收敛的误差容忍度
+    :return: n 的平方根
+    """
+    if n < 0:
+        raise ValueError("不能计算负数的平方根")
+    if n == 0:
+        return 0
+    # 确定二分查找的左右边界
+    left = 0.0
+    right = max(1.0, n)
+
+    while (right - left) > tolerance:
+        mid = (left + right) / 2
+        mid_squared = mid * mid
+        if mid_squared < n:
+            left = mid
+        else:
+            right = mid
+    return (left + right) / 2
 
 
 # 示例：求平方根
-S = 3
-result = sqrt_newton(S)
+S = 4
+result = binary_search_sqrt(S)
 print(f"The square root of {S} is approximately {result}")

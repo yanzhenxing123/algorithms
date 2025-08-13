@@ -25,7 +25,10 @@ print(v.shape)
 
 res = torch.softmax((q @ k.T) / math.sqrt(10), dim=1) @ v
 
+
+
 print(res)
+
 
 # res = (q @ k.T) / math.sqrt(10) @ v
 # print(res)

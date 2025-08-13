@@ -63,6 +63,7 @@ class Solution:
             result.append(que.front())  # 记录对应的最大值
         return result
 
+
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         """
@@ -119,6 +120,7 @@ class Solution:
                 q.append(i)
             else:
                 while q and nums[q[-1]] < nums[i]:
+
                     q.pop()
                 q.append(i)
             # 2. 去除对首
@@ -154,7 +156,6 @@ class Solution:
                     s.remove(i - 1)
                 if nums[i + k - 1] == max_num:
                     s.add(i + k - 1)
-
                 if not s:
                     max_num = nums[i]
                     s.add(i)
