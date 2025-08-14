@@ -23,6 +23,8 @@ def partition(arr, left, right):
     return right
 
 
+
+
 def quick_sort(arr, left, right):
     # 左闭右闭
     if left < right:

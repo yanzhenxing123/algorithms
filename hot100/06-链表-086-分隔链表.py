@@ -28,3 +28,6 @@ class Solution:
         right_head.next = None
         right.next = None
         return left_head.next
+
+
+        

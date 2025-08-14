@@ -18,8 +18,17 @@
 解释：图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
 示例 2：
 
+
 输入：height = [1,1]
 输出：1
+
+算法思路：
+1. 双指针法：左右指针从数组两端开始
+2. 计算当前容器面积：min(height[left], height[right]) * (right - left)
+3. 移动较矮的指针：因为容器容量由较矮的边决定，移动较矮指针才可能找到更大面积
+4. 时间复杂度：O(n)，空间复杂度：O(1)
+
+核心思想：贪心策略 - 每次移动较矮的指针，因为移动较高的指针不可能得到更大的面积
 """
 
 from typing import List
@@ -65,3 +74,42 @@ class Solution:
             else:
                 right -= 1
         return max_area
+
+    def main():
+        
+        pass
+
+if __name__ == '__main__':
+    # 测试用例
+    s = Solution()
+
+    # 测试用例1
+    height1 = [1, 8, 6, 2, 5, 4, 8, 3, 7]
+    result1 = s.maxArea_2(height1)
+    print(f"输入: {height1}")
+    print(f"输出: {result1}")
+    print(f"预期: 49")
+    print()
+
+    # 测试用例2
+    height2 = [1, 1]
+    result2 = s.maxArea_2(height2)
+    print(f"输入: {height2}")
+    print(f"输出: {result2}")
+    print(f"预期: 1")
+    print()
+
+    # 测试用例3
+    height3 = [4, 3, 2, 1, 4]
+    result3 = s.maxArea_2(height3)
+    print(f"输入: {height3}")
+    print(f"输出: {result3}")
+    print(f"预期: 16")
+    print()
+
+    # 测试用例4
+    height4 = [1, 2, 1]
+    result4 = s.maxArea_2(height4)
+    print(f"输入: {height4}")
+    print(f"输出: {result4}")
+    print(f"预期: 2")

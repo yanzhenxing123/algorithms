@@ -105,7 +105,9 @@ class Solution:
             p.next = node_li[i+1]
         return node_li[0]
             
-            
+    def main():
+        """_summary_
+        """
         
 
     def reverse_list(self, head):
