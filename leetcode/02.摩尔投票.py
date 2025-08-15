@@ -38,6 +38,8 @@ def f(nums):
         if value == max(count_dict.values()):
             return key
 
+    
+
 
 if __name__ == '__main__':
     nums = [1, 2, 3,3,3, 4]

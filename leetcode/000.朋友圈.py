@@ -24,6 +24,7 @@
 from typing import List
 
 
+
 class Solution:
     def findCircles(self, matrix: List[List[int]]) -> int:
         res = 0
