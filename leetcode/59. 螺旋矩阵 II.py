@@ -9,8 +9,19 @@ from typing import List
 
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
+        """
+        就是这个
+        Args:
+            n (int): _description_
+
+        Returns:
+            List[List[int]]: _description_
+        """
+
+
         if n == 0:
             return []
+
         num = 1
         target_index = n*n
         left, right, top, bottom = 0, n-1, 0, n-1
