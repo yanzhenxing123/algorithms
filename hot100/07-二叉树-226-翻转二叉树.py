@@ -7,6 +7,7 @@
 4    5
 """
 
+
 from utils.binary_tree import TreeNode, create_tree, floor_print
 from typing import Optional, List
 
@@ -14,9 +15,7 @@ from typing import Optional, List
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         """
-        先序遍历
-        :param root:
-        :return:
+        递归法，先序遍历
         """
         if not root:
             return None
@@ -25,22 +24,22 @@ class Solution:
         root.left = self.invertTree(right)
         root.right = self.invertTree(left)
         return root
-    
-    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
-        """
-        一定要会
-        Args:
-            root (Optional[TreeNode]): _description_
 
-        Returns:
-            Optional[TreeNode]: _description_
+    def invertTree_bfs(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        """
+        层序遍历（BFS，队列）
         """
         if not root:
             return None
-        right = root.right
-        left = root.left
-        root.left = self.invertTree(right)
-        root.right = self.invertTree(left)
+        from collections import deque
+        queue = deque([root])
+        while queue:
+            node = queue.popleft()
+            node.left, node.right = node.right, node.left
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
         return root
 
 

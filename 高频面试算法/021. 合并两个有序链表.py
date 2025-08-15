@@ -34,7 +34,6 @@ class Solution:
             pos2 = pos2.next
         pos = head
 
-
         while pos1 is not None and pos2 is not None:
             if pos1.val <= pos2.val:
                 pos.next = pos1
