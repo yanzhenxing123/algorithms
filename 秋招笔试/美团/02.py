@@ -58,7 +58,7 @@ def gaussian_naive_bayes(train, test):
 
 if __name__ == "__main__":
     # 读取输入
-    input_str = sys.stdin.read()
+    input_str = input()
     data = json.loads(input_str)
 
     train = data["train"]
