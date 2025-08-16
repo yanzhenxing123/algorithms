@@ -49,6 +49,7 @@ def solve():
 
     max_score = 0
     for i in range(n):
+
         max_score = max(max_score, dp[i][i + n - 1])
     print(max_score)
 

@@ -28,6 +28,26 @@ class Solution:
         node.right = self.sortedArrayToBST(nums[mid+1:right + 1])
         return node
 
+    def sortedArrayToBST_2(self, nums: List[int]) -> Optional[TreeNode]:
+        """
+        前序便利的递归操作
+        :param nums:
+        :return:
+        """
+        if not nums:
+            return None
+        if len(nums) == 1:
+            return TreeNode(nums[0])
+        left, right = 0, len(nums) - 1
+        mid = (left + right) // 2
+        node = TreeNode(nums[mid])
+
+        node.left = self.sortedArrayToBST_2(nums[:mid])
+        node.right = self.sortedArrayToBST_2(nums[mid+1:])
+        return node
+
+
+
 
 if __name__ == '__main__':
     s = Solution()

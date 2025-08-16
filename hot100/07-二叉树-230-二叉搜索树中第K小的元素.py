@@ -33,3 +33,5 @@ class Solution:
             if k == 0:
                 return node.val
             root = node.right
+        # 如果没有找到第k小的元素，返回-1
+        return -1
