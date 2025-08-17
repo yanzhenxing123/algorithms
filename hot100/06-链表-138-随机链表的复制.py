@@ -59,7 +59,7 @@ class Solution:
                 q.random = None
             q = q.next
         return dummy.next
-    
+
     def copyRandomList_2nd(self, head: 'Optional[Node]') -> 'Optional[Node]':
         """
         1. 先复制next指针
@@ -76,10 +76,10 @@ class Solution:
         p = dummy
         q = head
         while q:
-            node =  Node(q.val)
+            node = Node(q.val)
             p.next = node
             old2new[hash(q)] = node
-            
+
             p = p.next
             q = q.next
         p = dummy.next
@@ -92,11 +92,6 @@ class Solution:
             p = p.next
             q = q.next
         return dummy.next
-        
-            
-            
-                    
-
 
 
 if __name__ == '__main__':

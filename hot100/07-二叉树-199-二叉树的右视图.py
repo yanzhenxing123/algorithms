@@ -19,6 +19,11 @@ from collections import deque
 
 class Solution:
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        """
+        算是最优解了
+        :param root:
+        :return:
+        """
         if not root:
             return []
         queue = deque()
@@ -40,6 +45,31 @@ class Solution:
         for vals in level_vals:
             res.append(vals[-1])
         return res
+
+
+    def rightSideView_2nd(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        res = []
+        node_vals = []
+        q = [root]
+        while q:
+            next_queue = deque()
+            cur_level_vals = []
+            for node in q:
+                cur_level_vals.append(node.val)
+                if node.left:
+                    next_queue.append(node.left)
+                if node.right:
+                    next_queue.append(node.right)
+
+            q = next_queue
+            node_vals.append(cur_level_vals)
+        for level_vals in node_vals:
+            res.append(level_vals[-1])
+        return res
+
+
 
     def rightSideView_1(self, root: Optional[TreeNode]) -> List[int]:
         """

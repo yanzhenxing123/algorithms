@@ -86,3 +86,46 @@ class Solution:
         left.next = right_head
 
         return dummy.next
+
+    def reverseBetween_2nd(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        """
+        翻转链表2，面试考了两次
+        :param head:
+        :param left:
+        :param right:
+        0 -> 1 -> 2 -> 3 -> 4 -> 5
+        :return:
+        """
+        if not head or not head.next or left == right:
+            return head
+        dummy = ListNode(0)
+        dummy.next = head
+        mid_head_pre = dummy
+        for i in range(left - 1):
+            mid_head_pre = mid_head_pre.next
+
+        mid_head = mid_head_pre.next
+
+        mid_tail = dummy
+        for i in range(right):
+            mid_tail = mid_tail.next
+        mid_tail_next = mid_tail.next
+        mid_tail.next = None
+
+        # 翻转
+        new_mid_head = None
+        p = mid_head
+        while p:
+            # 先头删
+            node = p
+            p = node.next
+
+            # 头插
+            node.next = new_mid_head
+            new_mid_head = node
+        # 新链表 头：new_left_head 尾巴：mid_head
+
+        mid_head_pre.next = new_mid_head
+        mid_head.next = mid_tail_next
+
+        return dummy.next
