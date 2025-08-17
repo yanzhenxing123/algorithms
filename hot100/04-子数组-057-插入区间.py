@@ -52,6 +52,12 @@ class Solution:
         return res
 
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        """
+        找到要插入的位置，然后合并
+        :param intervals:
+        :param newInterval:
+        :return:
+        """
         if not intervals:
             intervals.append(newInterval)
             return intervals
@@ -65,13 +71,42 @@ class Solution:
             return res
 
         for i, j in zip(range(0, len(intervals) - 1), range(1, len(intervals))):
-            if intervals[i][0] <= newInterval[0] and newInterval[0] <= intervals[j][0]:
+            if intervals[i][0] <= newInterval[0] <= intervals[j][0]:
                 break
 
         left_intervals = intervals[:i]
         intervals_to_merge = [intervals[i]] + [newInterval] + intervals[j:]
         right_intervals = self.merge(intervals_to_merge)
         return left_intervals + right_intervals
+
+    def insert_by_default(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        """
+        官方给的题解
+        :param intervals:
+        :param newInterval:
+        :return:
+        """
+        left, right = newInterval
+        placed = False
+        ans = list()
+        for li, ri in intervals:
+            if li > right:
+                # 在插入区间的右侧且无交集
+                if not placed:
+                    ans.append([left, right])
+                    placed = True
+                ans.append([li, ri])
+            elif ri < left:
+                # 在插入区间的左侧且无交集
+                ans.append([li, ri])
+            else:
+                # 与插入区间有交集，计算它们的并集
+                left = min(left, li)
+                right = max(right, ri)
+
+        if not placed:
+            ans.append([left, right])
+        return ans
 
 
 if __name__ == '__main__':

@@ -30,7 +30,7 @@ class Solution:
 
     def sortedArrayToBST_2(self, nums: List[int]) -> Optional[TreeNode]:
         """
-        前序便利的递归操作
+        前序便利的递归操作，现需半年里
         :param nums:
         :return:
         """

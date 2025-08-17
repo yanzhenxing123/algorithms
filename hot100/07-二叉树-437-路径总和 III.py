@@ -6,8 +6,7 @@
 
 路径 不需要从根节点开始，也不需要在叶子节点结束，但是路径方向必须是向下的（只能从父节点到子节点）。
 """
-from utils.binary_tree import TreeNode, create_tree, floor_print
-from typing import Optional, List
+from utils.binary_tree import TreeNode
 
 
 class Solution:
@@ -49,6 +48,36 @@ class Solution:
             self.nodePaths(root.left, num, targetSum)
             self.nodePaths(root.right, num, targetSum)
 
+    def pathSum_2(self, root: TreeNode, targetSum: int) -> int:
+        """
+        比较暴力的解法
+        :param root:
+        :param targetSum:
+        :return:
+        """
 
+        self.cur_node_res = 0
+        self.res = 0
 
+        def dfs(root):
+            if not root:
+                return
+            self.cur_node_res = 0
+            dfs_cur_node(root, 0)
+            self.res += self.cur_node_res
+            dfs(root.left)
+            dfs(root.right)
 
+        def dfs_cur_node(root, cur_total_sum):
+            """当前节点为根节点有多少个满足的"""
+            if not root:
+                return
+            cur_total_sum += root.val
+            if cur_total_sum == targetSum:
+                self.cur_node_res += 1
+            dfs_cur_node(root.left, cur_total_sum)
+            dfs_cur_node(root.right, cur_total_sum)
+
+        dfs(root)
+
+        return self.res
