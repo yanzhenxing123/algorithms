@@ -68,10 +68,69 @@ class Solution:
         return False
 
 
+    def exist_2nd(self, board: List[List[str]], word: str) -> bool:
+        """
+        图的DFS
+        :param board:
+        :param word:
+        :return:
+        """
+        if not board:
+            return False
+        row, column = len(board), len(board[0])
+
+
+        def dfs(board, i, j, word, path):
+            if len(path) == len(word):
+                string = "".join(path)
+                if string == word:
+                    return True
+                return False
+            tmp = board[i][j]
+            board[i][j] = "#"  # 代表走过
+            if i > 0 and board[i - 1][j] != "#":  # 上
+                path.append(board[i - 1][j])
+                if dfs(board, i - 1, j, word, path):
+                    return True
+                path.pop()
+
+            if i < row - 1 and board[i + 1][j] != "#":  # 下
+                path.append(board[i + 1][j])
+                if dfs(board, i + 1, j, word, path):
+                    return True
+                path.pop()
+
+            if j > 0 and board[i][j - 1] != "#":  # 左
+                path.append(board[i][j - 1])
+                if dfs(board, i, j - 1, word, path):
+                    return True
+                path.pop()
+
+            if j < column - 1 and board[i][j + 1] != "#":  # 右
+                path.append(board[i][j + 1])
+                if dfs(board, i, j + 1, word, path):
+                    return True
+                path.pop()
+
+            board[i][j] = tmp
+            return False
+
+
+        for i in range(row):
+            for j in range(column):
+                if dfs(board, i, j, word, [board[i][j]]):
+                    return True
+        return False
+
+
 if __name__ == '__main__':
     s = Solution()
-    board = [["a", "a", "b", "a", "a", "b"], ["a", "a", "b", "b", "b", "a"], ["a", "a", "a", "a", "b", "a"],
-             ["b", "a", "b", "b", "a", "b"], ["a", "b", "b", "a", "b", "a"], ["b", "a", "a", "a", "a", "b"]]
+    board = [["a", "a", "b", "a", "a", "b"],
+             ["a", "a", "b", "b", "b", "a"],
+             ["a", "a", "a", "a", "b", "a"],
+             ["b", "a", "b", "b", "a", "b"],
+             ["a", "b", "b", "a", "b", "a"],
+             ["b", "a", "a", "a", "a", "b"]]
     word = "bbbaabbbbbab"
     res = s.exist(board, word)
     print(res)

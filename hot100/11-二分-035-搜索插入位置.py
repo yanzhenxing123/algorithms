@@ -3,7 +3,7 @@
 @Author: yanzx
 @Desc: left就是最终位置
 
-
+tips:
 在二分查找中，如果目标值 target 不在数组中，最终的 left 和 right 的位置会满足以下关系：
 
 **left 的位置**：left 会指向第一个大于 target 的元素的位置。

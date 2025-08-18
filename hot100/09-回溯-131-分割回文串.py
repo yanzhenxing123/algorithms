@@ -9,8 +9,7 @@ from typing import List
 
 class Solution:
     def partition(self, s: str) -> List[List[str]]:
-        self.length = len(
-            s)
+        self.length = len(s)
         self.res = []
         self.dfs(s, 1, [])
         return self.res
