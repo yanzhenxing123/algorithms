@@ -73,6 +73,10 @@ class Solution:
                     res += 1
         return res
 
+    def numIslands_3rd(self, grid: List[List[str]]) -> int:
+        pass
+
+
 
 if __name__ == '__main__':
     s = Solution()

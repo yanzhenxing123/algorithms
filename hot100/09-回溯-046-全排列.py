@@ -51,7 +51,7 @@ class Solution:
         if not nums:
             return []
         res = []
-        flags = [False] * 
+        flags = [False] *
 
 
 

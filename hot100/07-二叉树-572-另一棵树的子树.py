@@ -17,6 +17,12 @@ class TreeNode:
 
 class Solution:
     def isSubtree(self, root: Optional[TreeNode], subRoot: Optional[TreeNode]) -> bool:
+        """
+        其实也是两个便利，和路径总和有点像
+        :param root:
+        :param subRoot:
+        :return:
+        """
         if not root:
             return not subRoot
         flag = self.isSameTree(root, subRoot)
