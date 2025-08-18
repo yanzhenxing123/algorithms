@@ -21,9 +21,20 @@ from collections import deque
 
 class Solution:
     def orangesRotting(self, grid: List[List[int]]) -> int:
+        """其实就是广度优先遍历，需注意，res初始化为-1
+        1. 先去腐烂 上下左右，记录分钟数
+        2. 检查是否还有完好的，有的话返回-1
+        3. 如果刚开始就没有橘子，返回0
+
+        Args:
+            grid (List[List[int]]): _description_
+
+        Returns:
+            int: _description_
+        """
         if not grid:
             return 0
-        q = deque()
+        q = deque()  # 存储所有腐烂(值为2)的节点
         row, col = len(grid), len(grid[0])
         for i in range(row):
             for j in range(col):
@@ -33,7 +44,7 @@ class Solution:
         while q:
             li = []
             for i in range(len(q)):
-                li.append(q.popleft())
+                li.append(q.popleft())  # 一次bfs
 
             for i, j in li:
                 if i > 0 and grid[i - 1][j] == 1:
@@ -52,6 +63,54 @@ class Solution:
 
         for i in range(row):
             for j in range(col):
+                if grid[i][j] == 1:
+                    return -1
+
+        if res == -1:
+            return 0
+        return res
+
+    def orangesRotting_2nd(self, grid: List[List[int]]) -> int:
+        """ 第二次答题
+        Args:
+            grid (List[List[int]]): _description_
+
+        Returns:
+            int: _description_
+        """
+        if not grid:
+            return 0
+        q = deque()
+        rows, cols = len(grid), len(grid[0])
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == 2:
+                    q.append((i, j))
+
+        res = -1
+        while q:
+            nodes = []
+            while q:
+                nodes.append(q.popleft())
+
+            for i, j in nodes:
+                if i > 0 and grid[i-1][j] == 1:
+                    q.append((i-1, j))
+                    grid[i-1][j] = 2
+                if i < rows-1 and grid[i+1][j] == 1:
+                    q.append((i+1, j))
+                    grid[i+1][j] = 2
+                if j > 0 and grid[i][j-1] == 1:
+                    q.append((i, j-1))
+                    grid[i][j-1] = 2
+                if j < cols-1 and grid[i][j+1] == 1:
+                    q.append((i, j+1))
+                    grid[i][j+1] = 2
+
+            res += 1
+
+        for i in range(rows):
+            for j in range(cols):
                 if grid[i][j] == 1:
                     return -1
         if res == -1:

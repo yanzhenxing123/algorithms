@@ -74,8 +74,31 @@ class Solution:
         return res
 
     def numIslands_3rd(self, grid: List[List[str]]) -> int:
-        pass
+        def dfs(grid, i, j):
+            grid[i][j] = '0'
+            # 上下左右递归操作
+            if i > 0 and grid[i-1][j] == '1':
+                dfs(grid, i-1, j)
+            if i < rows - 1 and grid[i + 1][j] == '1':
+                dfs(grid, i+1, j)
+            if j > 0 and grid[i][j-1] == '1':
+                dfs(grid, i, j-1)
+            if j < cols-1 and grid[i][j+1] == '1':
+                dfs(grid, i, j+1)
 
+        if not grid:
+            return 0
+        
+        rows = len(grid)
+        cols = len(grid[0])
+        res = 0
+        for i in range(rows):
+            for j in range(cols):
+                if grid[i][j] == '1':
+                    dfs(grid, i, j)
+                    res += 1
+                    
+        return res
 
 
 if __name__ == '__main__':
@@ -86,5 +109,5 @@ if __name__ == '__main__':
         ["0", "0", "1", "0", "0"],
         ["0", "0", "0", "1", "1"]
     ]
-    res = s.numIslands(grid)
+    res = s.numIslands_3rd(grid)
     print(res)
