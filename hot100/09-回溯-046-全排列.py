@@ -47,11 +47,11 @@ class Solution:
             self.flags[i] = False
             path.pop()
             
-    def permute_2nd(self, nums: List[int]) -> List[List[int]]:
-        if not nums:
-            return []
-        res = []
-        flags = [False] *
+    # def permute_2nd(self, nums: List[int]) -> List[List[int]]:
+    #     if not nums:
+    #         return []
+    #     res = []
+    #     flags = [False] *
 
 
 
