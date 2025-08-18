@@ -39,6 +39,27 @@ class Solution:
             self.dfs(nums, i + 1, path)
             path.pop()
 
+    def subsets_2nd(self, nums: List[int]) -> List[List[int]]:
+        """
+        index = i + 1
+        :param nums:
+        :return:
+        """
+        if not nums:
+            return [[]]
+
+        res = []
+
+        def dfs(nums, index, path):
+            res.append(path.copy())
+            for i in range(index, len(nums)):
+                path.append(nums[i])
+                dfs(nums, i + 1, path)
+                path.pop()
+
+        dfs(nums, 0, [])
+        return res
+
 
 if __name__ == '__main__':
     s = Solution()
