@@ -57,6 +57,10 @@ class Solution:
             q = next_queue
 
         return res
+    
+    def levelOrder_3rd(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
 
 
 
