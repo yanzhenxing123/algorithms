@@ -87,7 +87,7 @@ class Solution:
 
         def dfs(nums, index, path):
             """                                                 也就是在这剪枝
-                         1                                         1                       2
+                         1                                         1（剪枝）                 2
             1           1           2                     1       1      2          1      1      2
         1  1  2      1  1  2       1  1  2
             """
