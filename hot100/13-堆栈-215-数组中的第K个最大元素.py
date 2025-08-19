@@ -33,15 +33,23 @@ class Solution:
         else:  # 目标元素sm中，不可能在eq中
             return self.findKthLargest(sm, k - len(la) - len(eq))  # 减去 la和eq中的个数
 
-
-
     def findKthLargest_3rd(self, nums: List[int], k: int) -> int:
+        la, eq, sm = [], [], []
+        pivot = random.choice(nums)
+        for num in nums:
+            if num > pivot:
+                la.append(num)
+            elif num == pivot:
+                eq.append(num)
+            else:
+                sm.append(num)
 
-
-
-
-
-
+        if len(la) < k <= len(eq) + len(la):
+            return pivot
+        elif len(la) >= k:
+            return self.findKthLargest_3rd(la, k)
+        else:
+            return self.findKthLargest_3rd(sm, k - len(eq) - len(la))
 
     def findKthLargest_2nd(self, nums: List[int], k: int) -> int:
         pivot = random.choice(nums)
@@ -63,7 +71,6 @@ class Solution:
             return self.findKthLargest_2nd(la, k)
         else:
             return self.findKthLargest(sm, k - len(la) - len(eq))
-
 
     def findKthLargest2(self, nums: List[int], k: int) -> int:
         """

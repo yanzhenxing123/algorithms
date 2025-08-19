@@ -94,7 +94,7 @@ class Solution:
         # 单个字符一定是回文
         for i in range(n):
             dp[i][i] = True
-
+        print(dp)
         # 填表，按子串长度从小到大
         for length in range(2, n + 1):  # 子串长度从2到n
             for i in range(n):  # 子串起始位置
@@ -112,5 +112,5 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    res = s.longestPalindrome("abccv")
+    res = s.longestPalindrome_dp("abccv")
     print(res)
