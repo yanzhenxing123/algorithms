@@ -108,8 +108,7 @@ class Solution:
             new_head = new_head.next
         
         return True
-            
-            
+    
         
         
             

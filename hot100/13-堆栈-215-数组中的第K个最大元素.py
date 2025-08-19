@@ -33,6 +33,16 @@ class Solution:
         else:  # 目标元素sm中，不可能在eq中
             return self.findKthLargest(sm, k - len(la) - len(eq))  # 减去 la和eq中的个数
 
+
+
+    def findKthLargest_3rd(self, nums: List[int], k: int) -> int:
+
+
+
+
+
+
+
     def findKthLargest_2nd(self, nums: List[int], k: int) -> int:
         pivot = random.choice(nums)
         la = []
@@ -54,21 +64,6 @@ class Solution:
         else:
             return self.findKthLargest(sm, k - len(la) - len(eq))
 
-    def findKthLargest1(self, nums: List[int], k: int) -> int:
-        """
-        使用堆, 容量为k的小跟堆存储最大的元素，堆顶元素就是要的结果
-        :param nums:
-        :param k:
-        :return:
-        """
-        min_heap = []
-        for num in nums:
-            if len(min_heap) < k:
-                heapq.heappush(min_heap, num)
-            else:
-                if num > min_heap[0]:
-                    heapq.heapreplace(min_heap, num)
-        return min_heap[0]
 
     def findKthLargest2(self, nums: List[int], k: int) -> int:
         """
@@ -110,12 +105,33 @@ class Solution:
                 else:
                     right = pivot_index - 1
 
+        def topk_split_recursive(nums, left, right, K):
+            if left > right:
+                return -1
+            pivot_index = partition(nums, left, right)
+            if pivot_index == K:
+                return pivot_index
+            elif pivot_index < K:
+                return topk_split_recursive(nums, pivot_index + 1, right, K)
+            else:
+                return topk_split_recursive(nums, left, pivot_index - 1, K)
+
         left = 0
         right = len(nums) - 1
         K = len(nums) - k
         topk_split(nums, left, right, K)
         res = nums[K]
         return res
+
+    def findKthLargest_by_heap(self, nums: List[int], k: int) -> int:
+        # 先将前k个元素入堆
+        heap = [nums[i] for i in range(0, k)]
+        heapq.heapify(heap)
+        for i in range(k, len(nums)):
+            if nums[i] > heap[0]:
+                heapq.heappop(heap)  # 弹出堆顶元素
+                heapq.heappush(heap, nums[i])  # nums[i] 入堆
+        return heap[0]
 
 
 if __name__ == '__main__':

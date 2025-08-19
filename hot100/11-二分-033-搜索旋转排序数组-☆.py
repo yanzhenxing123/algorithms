@@ -53,6 +53,44 @@ class Solution:
                 right = mid - 1
         return -1
 
+    def search_3rd(self, nums: List[int], target: int) -> int:
+        """
+        三刷
+        :param nums:
+        :param target:
+        :return:
+        """
+        if not nums:
+            return -1
+        left, right = 0, len(nums) - 1
+        min_index = 0
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[left] <= nums[mid] <= nums[right]:
+                min_index = left
+                break
+            elif nums[left] <= nums[mid]:
+                left = mid + 1
+            else:
+                right = mid
+        # 判断target在哪，和最后一个相比
+        if min_index == 0:
+            left, right = 0, len(nums) - 1
+        elif target > nums[-1]:  # target在左边
+            left, right = 0, min_index - 1
+        else:
+            left, right = min_index, len(nums) - 1
+
+        while left <= right:
+            mid = (left + right) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] < target:
+                left = mid + 1
+            else:
+                right = mid - 1
+        return -1
+
     def search_2nd(self, nums: List[int], target: int) -> int:
         """
         二刷
@@ -65,7 +103,7 @@ class Solution:
         min_index = 0
         while left <= right:
             mid = (left + right) // 2
-            if nums[left] <= nums[mid] <= nums[right]:
+            if nums[left] <= nums[mid] <= nums[right]:  # 终止条件有序
                 min_index = left
                 break
             elif nums[left] <= nums[mid]:
