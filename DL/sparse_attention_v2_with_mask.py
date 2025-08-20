@@ -201,6 +201,7 @@ def sparse_multihead_attention_fast_v2(query_sparse,
         dense_layer_K = tf.keras.layers.Dense(num_heads * size_per_head, use_bias=False)  # 用于 K 的映射
         dense_layer_V = tf.keras.layers.Dense(num_heads * v_size_per_head, use_bias=False)  # 用于 V 的映射
 
+
     # 对 Q/K/V 进行映射
     q_values = dense_layer_Q(q_values)  # [B, F, D] -> [B, F, H * D_h]
     k_values = dense_layer_K(k_values)  # [B, T, D] -> [B, T, H * D_h]

@@ -43,6 +43,25 @@ class Solution:
 
         return dp[target]
 
+    def canPartition_2nd(self, nums):
+        total_sum = sum(nums)
+        if total_sum % 2 != 0:
+            return False
+        target = total_sum // 2
+        n = len(nums)
+        dp = [[False] * (target + 1) for _ in range(n + 1)]
+        dp[0][0] = True  # 空子集的和为0
+
+        for i in range(1, n + 1):
+            num = nums[i - 1]
+            for j in range(target + 1):
+                if j < num:
+                    dp[i][j] = dp[i - 1][j]
+                else:
+                    dp[i][j] = dp[i - 1][j] or dp[i - 1][j - num]
+
+        return dp[n][target]
+
 
 if __name__ == '__main__':
     s = Solution()

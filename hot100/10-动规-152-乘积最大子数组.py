@@ -31,6 +31,11 @@ from typing import List
 
 class Solution:
     def maxProduct(self, nums: List[int]) -> int:
+        """
+        记录最小值和最大值
+        :param nums:
+        :return:
+        """
         if not nums:
             return 0
         if len(nums) == 1:
