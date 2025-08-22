@@ -36,6 +36,7 @@ def get_roc_auc1(y_true, y_score):
     return np.mean(probs)
 
 
+
 def get_roc_auc2(y_true, y_score):
     """
     用公式计算
