@@ -1,71 +1,106 @@
+import json
 import numpy as np
 import pandas as pd
-import json
-import sys
+from sklearn.cluster import DBSCAN
+from sklearn.preprocessing import StandardScaler
 
+def dbscan_anomaly_detector(input_json):
+    """
+    DBSCAN异常检测器
+    
+    实现步骤：
+    1. 将train和test数据合并后进行标准化
+    2. 在标准化后的合并数据上应用DBSCAN聚类
+    3. 对簇标签进行重映射（按质心第一个维度排序）
+    4. 输出test数据的重映射标签
+    
+    Args:
+        input_json (str): JSON格式的输入字符串
+        
+    Returns:
+        list: 测试样本的聚类标签
+    """
+    # 解析输入JSON
+    data = json.loads(input_json)
+    train_data = np.array(data['train'])
+    test_data = np.array(data['test'])
+    
+    # 1. 数据预处理：将train和test数据连接
+    combined_data = np.vstack([train_data, test_data])
+    
+    # 2. 标准化：使用StandardScaler对合并后的数据进行一次fit_transform
+    scaler = StandardScaler()
+    combined_scaled = scaler.fit_transform(combined_data)
+    
+    # 3. DBSCAN聚类：在合并后的标准化数据上应用
+    dbscan = DBSCAN(
+        eps=0.3,
+        min_samples=3,
+        metric='euclidean',
+        algorithm='auto'
+    )
+    
+    # 在合并后的标准化数据上拟合DBSCAN
+    dbscan.fit(combined_scaled)
+    
+    # 获取所有数据的聚类标签
+    all_labels = dbscan.labels_
+    
+    # 分离train和test的标签
+    train_labels = all_labels[:len(train_data)]
+    test_labels = all_labels[len(train_data):]
+    
+    # 4. 簇标签重映射
+    # 获取所有非异常簇的标签（从所有数据中）
+    unique_labels = np.unique(all_labels)
+    non_outlier_labels = unique_labels[unique_labels != -1]
+    
+    if len(non_outlier_labels) > 0:
+        # 计算每个簇的质心（使用所有数据）
+        centroids = []
+        for label in non_outlier_labels:
+            cluster_points = combined_scaled[all_labels == label]
+            centroid = np.mean(cluster_points, axis=0)
+            centroids.append((label, centroid))
+        
+        # 按第一个维度排序簇
+        centroids.sort(key=lambda x: x[1][0])
+        
+        # 创建标签映射字典
+        label_mapping = {}
+        for new_label, (old_label, _) in enumerate(centroids):
+            label_mapping[old_label] = new_label
+        
+        # 异常点保持-1标签
+        label_mapping[-1] = -1
+        
+        # 重映射test标签
+        test_labels_remapped = [int(label_mapping[label]) for label in test_labels]
+        
+        return test_labels_remapped
+    else:
+        # 如果没有找到有效簇，所有test点都标记为异常
+        return [-1] * len(test_data)
 
-def gaussian_naive_bayes(train, test):
-    # 转换为 numpy 数组
-    train_data = np.array(train)
-    test_data = np.array(test)
-
-    # 分离特征和标签
-    X_train = train_data[:, :-1]
-    y_train = train_data[:, -1]
-
-    # 获取类别
-    classes = np.unique(y_train)
-    n_classes = len(classes)
-    n_features = X_train.shape[1]
-
-    # 计算先验概率
-    priors = np.zeros(n_classes)
-    for i, c in enumerate(classes):
-        priors[i] = np.sum(y_train == c) / len(y_train)
-
-    # 计算每个类别的均值和方差
-    means = np.zeros((n_classes, n_features))
-    variances = np.zeros((n_classes, n_features))
-
-    for i, c in enumerate(classes):
-        X_c = X_train[y_train == c]
-        means[i, :] = np.mean(X_c, axis=0)
-        variances[i, :] = np.var(X_c, axis=0, ddof=0)
-
-    # 处理方差为 0 的情况
-    variances[variances == 0] = 1e-9
-
-    # 预测
-    predictions = []
-    for x in test_data:
-        log_probs = []
-        for i, c in enumerate(classes):
-            # 计算对数后验概率
-            log_prior = np.log(priors[i])
-            log_likelihood = -0.5 * np.sum(
-                np.log(2 * np.pi * variances[i, :]) +
-                ((x - means[i, :]) ** 2) / variances[i, :]
-            )
-            log_prob = log_prior + log_likelihood
-            log_probs.append(log_prob)
-
-        # 选择概率最大的类别
-        pred = classes[np.argmax(log_probs)]
-        predictions.append(int(pred))
-
-    return predictions
-
+def main():
+    """
+    主函数：处理标准输入并输出结果
+    """
+    try:
+        # 读取标准输入
+        input_line = input().strip()
+        
+        # 调用异常检测器
+        result = dbscan_anomaly_detector(input_line)
+        print(result)
+        
+        # 输出结果（确保符合JSON格式，逗号后有空格）
+        # print(json.dumps(result, separators=(', ', '')))
+        
+    except Exception as e:
+        # 错误处理
+        print(f"Error: {e}")
+        return
 
 if __name__ == "__main__":
-    # 读取输入
-    input_str = input()
-    data = json.loads(input_str)
-
-    train = data["train"]
-    test = data["test"]
-
-    # 预测
-    predictions = gaussian_naive_bayes(train, test)
-
-    # 输出结果
-    print(json.dumps(predictions))
+    main()
