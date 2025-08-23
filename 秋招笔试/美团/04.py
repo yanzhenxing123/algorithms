@@ -1,6 +1,8 @@
 import sys
+
 sys.setrecursionlimit(1 << 20)
 from collections import defaultdict
+
 
 class FinalOptimizedTreeRedPoints:
     def __init__(self, n):
@@ -16,8 +18,8 @@ class FinalOptimizedTreeRedPoints:
         self.paths = [[] for _ in range(n + 1)]
 
         # 对每个重心的全局统计
-        self.cnt = [0] * (n + 1)          # 红点数
-        self.sumDist = [0] * (n + 1)      # 到该重心的距离和
+        self.cnt = [0] * (n + 1)  # 红点数
+        self.sumDist = [0] * (n + 1)  # 到该重心的距离和
 
         # 对每个 (centroid, child_block_id) 的子块统计（容斥）
         self.subCnt = defaultdict(int)
@@ -136,6 +138,7 @@ class FinalOptimizedTreeRedPoints:
             if red_status[i - 1] == 1:
                 self._activate(i)
 
+
 # ---------------- I/O ----------------
 def solve():
     input = sys.stdin.readline
@@ -157,6 +160,7 @@ def solve():
             tree.toggle_red_point(v)
         else:  # t == 2
             print(tree.calculate_distance_sum(v))
+
 
 if __name__ == "__main__":
     solve()

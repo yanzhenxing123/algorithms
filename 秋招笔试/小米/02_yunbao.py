@@ -1,5 +1,16 @@
 import sys
 
+"""
+3
+1 1
+2
+5 1
+1 2 4 7 8
+5 3
+6 4 7 10 5
+
+"""
+
 
 def can_achieve(x, h, k):
     n = len(h)
@@ -37,9 +48,11 @@ def main():
             else:
                 left = mid + 1
 
-        results.append(str(ans))
+        # results.append(str(ans))
 
-    print("\n".join(results))
+        print(ans)
+
+    # print("\n".join(results))
 
 
 if __name__ == "__main__":
