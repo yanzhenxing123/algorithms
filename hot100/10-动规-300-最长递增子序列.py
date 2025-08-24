@@ -25,6 +25,15 @@
 输出：1
 
 
+[0, 1, 0, 3, 2, 3]
+[0, 1, 0, 3, 2, 3]
+[0, 1, 0, 3, 2, 3]
+[0, 1, 0, 3, 2, 3]
+[0, 1, 0, 3, 2, 3]
+
+
+
+
 
 """
 
@@ -40,7 +49,7 @@ class Solution:
         """
         if not nums:
             return 0
-        dp = [1] * len(nums)
+        dp = [1] * len(nums) # dp[i] 到当前位置最长严格递增子序列的长度
         res = 1
         for i in range(1, len(nums)):
             for j in range(0, i):  # 下三角进行遍历
@@ -50,9 +59,25 @@ class Solution:
             print(dp)
         return res
 
+    def lengthOfLIS_2nd(self, nums: List[int]) -> int:
+        """
+        固定当前值，检查之前的值，也就是下三角遍历
+        :param nums:
+        :return:
+        """
+        if not nums:
+            return 0
+        dp = [1] * len(nums)
+
+        for i in range(1, len(nums)):
+            for j in range(0, i):
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[j] + 1, dp[i])
+
+        return max(dp)
 
 if __name__ == '__main__':
-    nums = [0, 1, 0, 3, 2, 3]
+    nums = [0, 1, 0, 3, 2, 1]
     s = Solution()
     res = s.lengthOfLIS(nums)
     print(res)

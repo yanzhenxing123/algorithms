@@ -28,25 +28,76 @@ import collections
 from collections import deque
 
 
-class MyQueue:  # 单调队列（从大到小
+class MyQueue2nd:
     def __init__(self):
-        self.queue = deque()  # 这里需要使用deque实现单调队列，直接使用list会超时
+        """
+        实现单调队列（从大到小），有以下几个功能
+        1. push(value)
+        2. pop(value)
+        3. front()
+        """
+        self.queue = deque()
 
-    # 每次弹出的时候，比较当前要弹出的数值是否等于队列出口元素的数值，如果相等则弹出。
-    # 同时pop之前判断队列当前是否为空。
     def pop(self, value):
-        if self.queue and value == self.queue[0]:
-            self.queue.popleft()  # list.pop()时间复杂度为O(n),这里需要使用collections.deque()
+        if self.queue and value == self.queue[0]:  # 注意是if而不是while，每次删除一个元素
+            self.queue.popleft()
 
-    # 如果push的数值大于入口元素的数值，那么就将队列后端的数值弹出，直到push的数值小于等于队列入口元素的数值为止。
-    # 这样就保持了队列里的数值是单调从大到小的了。
     def push(self, value):
         while self.queue and value > self.queue[-1]:
             self.queue.pop()
         self.queue.append(value)
 
-    # 查询当前队列里的最大值 直接返回队列前端也就是front就可以了。
     def front(self):
+        return self.queue[0]
+
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        if not nums:
+            return []
+        res = []
+        que = MyQueue2nd()
+        for i in range(k):
+            que.push(nums[i])
+        res.append(que.front())
+        for i in range(k, len(nums)):
+            que.pop([nums[i - k]])
+            que.push(nums[i])
+            res.append(que.front())
+        return res
+
+
+class MyQueue:  # 单调队列（从大到小
+    def __init__(self):
+        self.queue = deque()  # 这里需要使用deque实现单调队列，直接使用list会超时
+
+    def pop(self, value):
+        """
+            # 每次弹出的时候，比较当前要弹出的数值是否等于队列出口元素的数值，如果相等则弹出。
+    # 同时pop之前判断队列当前是否为空。
+        :param value:
+        :return:
+        """
+        if self.queue and value == self.queue[0]:
+            self.queue.popleft()  # list.pop()时间复杂度为O(n),这里需要使用collections.deque()
+
+    def push(self, value):
+        """
+            # 如果push的数值大于入口元素的数值，那么就将队列后端的数值弹出，直到push的数值小于等于队列入口元素的数值为止。
+    # 这样就保持了队列里的数值是单调从大到小的了。
+        :param value:
+        :return:
+        """
+        while self.queue and value > self.queue[-1]:
+            self.queue.pop()
+        self.queue.append(value)
+
+    def front(self):
+        """
+    # 查询当前队列里的最大值 直接返回队列前端也就是front就可以了。
+
+        :return:
+        """
         return self.queue[0]
 
 
@@ -120,7 +171,6 @@ class Solution:
                 q.append(i)
             else:
                 while q and nums[q[-1]] < nums[i]:
-
                     q.pop()
                 q.append(i)
             # 2. 去除对首

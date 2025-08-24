@@ -30,7 +30,7 @@ class Solution:
         n = len(text2)
         dp = [
             [0 for _ in range((n + 1))] for _ in range(m + 1)
-        ]
+        ]  # dp[i][j]：text[0:i] 和 text[0:j] 最大的公共子序列
 
         text1 = " " + text1
         text2 = " " + text2
@@ -43,6 +43,8 @@ class Solution:
                 else:
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - 1])
         return dp[-1][-1]
+
+
 
 
 if __name__ == '__main__':

@@ -36,7 +36,19 @@
 
 class Solution:
     def decodeString(self, s: str) -> str:
-        stack, res, multi = [], "", 0
+        """
+        四种不同的情况：
+        1. 数字: 转化为整数 multi = multi* 10 + int(c)
+        2. 字符：延长当前字符串 res += c
+        3. 左括号: 当前状态入栈 stack.append(（数字，总字符）)
+        4. 右括号：栈弹出 cur_multi, last_res = stack.pop() ; res = last_res + res * multi
+
+        :param s:
+        :return:
+        """
+        stack = []
+        res = ""
+        multi = 0
         for c in s:
             if c == '[':
                 stack.append((multi, res))
@@ -50,6 +62,8 @@ class Solution:
                 res += c
             print(stack)
         return res
+
+
 
 if __name__ == '__main__':
     s = Solution()
