@@ -16,6 +16,58 @@
 输入：s = "cbbd"
 输出："bb"
 
+
+对于一个子串而言，如果它是回文串，并且长度大于 2，那么将它首尾的两个字母去除之后，它仍然是个回文串。例如对于字符串 “ababa”，如果我们已经知道 “bab” 是回文串，那么 “ababa” 一定是回文串，这是因为它的首尾两个字母都是 “a”。
+
+根据这样的思路，我们就可以用动态规划的方法解决本题。我们用 P(i,j) 表示字符串 s 的第 i 到 j 个字母组成的串（下文表示成 s[i:j]）是否为回文串：
+
+P(i,j)={
+true,
+false,
+​
+
+如果子串 S
+i
+​
+ …S
+j
+​
+  是回文串
+其它情况
+​
+
+这里的「其它情况」包含两种可能性：
+
+s[i,j] 本身不是一个回文串；
+
+i>j，此时 s[i,j] 本身不合法。
+
+那么我们就可以写出动态规划的状态转移方程：
+
+P(i,j)=P(i+1,j−1)∧(S
+i
+​
+ ==S
+j
+​
+ )
+也就是说，只有 s[i+1:j−1] 是回文串，并且 s 的第 i 和 j 个字母相同时，s[i:j] 才会是回文串。
+
+上文的所有讨论是建立在子串长度大于 2 的前提之上的，我们还需要考虑动态规划中的边界条件，即子串的长度为 1 或 2。对于长度为 1 的子串，它显然是个回文串；对于长度为 2 的子串，只要它的两个字母相同，它就是一个回文串。因此我们就可以写出动态规划的边界条件：
+
+{
+P(i,i)=true
+P(i,i+1)=(S
+i
+​
+ ==S
+i+1
+​
+ )
+​
+
+根据这个思路，我们就可以完成动态规划了，最终的答案即为所有 P(i,j)=true 中 j−i+1（即子串长度）的最大值。注意：在状态转移方程中，我们是从长度较短的字符串向长度较长的字符串进行转移的，因此一定要注意动态规划的循环顺序。
+
 """
 
 
@@ -80,6 +132,7 @@ class Solution:
     def longestPalindrome_dp(self, s: str) -> str:
         """
         使用动态规划方法
+        dp[i][j]：表示s[i:j+1]是否为回文串
         :param s:
         :return:
         """
@@ -98,7 +151,7 @@ class Solution:
         # 填表，按子串长度从小到大
         for length in range(2, n + 1):  # 子串长度从2到n
             for i in range(n):  # 子串起始位置
-                j = i + length - 1  # 子串结束位置
+                j = i + length - 1  # 子串结束位置，之所以要减1，是因为s[i:j]：j是闭区间
                 if j >= n:  # 越界检查
                     break
                 if s[i] == s[j]:
@@ -110,7 +163,41 @@ class Solution:
         return s[start:start + max_len]
 
 
+    def longestPalindrome_dp_2nd(self, s: str) -> str:
+        """
+        1. 先固定长度，再固定字符
+
+        :param s:
+        :return:
+        """
+        n = len(s)
+        if n < 2:
+            return s
+        dp = [[False] * n for _ in range(n)]
+        start = 0
+        max_len = 1
+
+        for i in range(n):
+            dp[i][i] = True
+
+        for L in range(2, n + 1): # 先固定长度
+            for i in range(n): # 再看字符
+                j = i + L - 1
+                print(i, j)
+                if j >= n:
+                    break
+                if s[i] != s[j]:
+                    continue
+                if L == 2 or dp[i + 1][j-1]:
+                    dp[i][j] = True
+                    if L > max_len:
+                        start = i
+                        max_len = L
+        return s[start: start+max_len]
+
+
+
 if __name__ == '__main__':
     s = Solution()
-    res = s.longestPalindrome_dp("abccv")
+    res = s.longestPalindrome_dp_2nd("abccv")
     print(res)
