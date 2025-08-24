@@ -228,7 +228,7 @@ def main():
         a = list(map(int, input().split()))
         
         # 计算结果 - 使用优化后的模拟方法
-        result = solve_deep_sea_simulation_optimized(n, k, a)
+        result = solve_deep_sea_simulation_optimized`   (n, k, a)
         
         # 输出结果
         print(result)
