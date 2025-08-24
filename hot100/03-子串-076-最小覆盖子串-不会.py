@@ -71,6 +71,45 @@ class Solution:
 
 
 
+    def minWindow_2nd(self, s: str, t: str) -> str:
+        d = {}
+        for char in t:
+            d[char] = d.get(char, 0) + 1
+
+        def check(d: dict):
+            for value in d.values():
+                if value > 0:
+                    return False
+            return True
+
+        left, right = 0, 0
+        res = ""
+        if s[right] in d:
+            d[s[right]] -= 1
+
+        while left <= right and right < len(s): # 1. 先check
+            # 先向左扩展
+            flag = check(d)
+            cur_str = s[left:right+1]
+            if flag: # 向左扩展
+                if not res or len(res) > len(cur_str):
+                    res = cur_str
+                left += 1
+                if s[left] in d:
+                    d[s[left]] += 1
+            else:
+                right += 1
+                if s[right] in d:
+                    d[s[right]] -= 1
+        return res
+
+
+
+
+
+
+
+
 if __name__ == '__main__':
     s = Solution()
     string = "bba"
