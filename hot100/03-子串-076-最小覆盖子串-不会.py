@@ -40,13 +40,14 @@ class Solution:
         d = {}
         for item in t:
             d[item] = d.get(item, 0) + 1
+        print(d)
         res = ""
         left, right = 0, 0
         if s[right] in d:
             d[s[right]] -= 1
         while left <= right and right < len(s):
             tmp_str = s[left: right + 1]
-            # 判断是否满足条件
+            # 1. 判断是否满足条件 very key
             flag = True
             for key, value in d.items():
                 if value > 0:
@@ -66,6 +67,8 @@ class Solution:
                     if s[right] in d:
                         d[s[right]] -= 1
         return res
+
+
 
 
 if __name__ == '__main__':
