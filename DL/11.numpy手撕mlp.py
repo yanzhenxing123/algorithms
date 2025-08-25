@@ -13,35 +13,31 @@ class Relu:
 class LinearLayer:
     def __init__(self, input_c, output_c):
         # y = x @ w + b
-        # self.w = np.random.rand(input_c, output_c)
         self.w = np.random.rand(input_c, output_c) * 0.001  # 这里乘上0.001是为了防止结果太大，梯度爆炸
         self.b = np.zeros(output_c)
 
     def forward(self, x):
         self.x = x  # 这里保存输入，为了后续在反向传播中计算梯度
-        # y = x @ w + b
-        return np.dot(x, self.w) + self.b
+        return np.dot(x, self.w) + self.b  # y = x @ w + b
 
     def backward(self, grad_output, lr):
+        """
         # linear层的梯度计算，涉及三个参数，x，w，b，为 dx, dw, db
         # 其中，dw和db是为了更新w和b
         # dx是为了计算下一层的梯度，链式法则
-
+        :param grad_output: 是下一个的梯度
+        :param lr:
+        :return:
+        """
         # y = x @ w + b
         # dl / dx = dl / dy * dy / dx = grad_output * w
-        # 这里要注意矩阵的维度要对齐
-        grad_input = np.dot(grad_output, self.w.T)
-
+        grad_input = np.dot(grad_output, self.w.T)  # 这里要注意矩阵的维度要对齐
         # dl / dw = dl / dy * dy / dw = grad_output * x
-        # 这里要注意矩阵的维度要对齐
-        w_grad = np.dot(self.x.T, grad_output)
-
+        w_grad = np.dot(self.x.T, grad_output)  # 这里要注意矩阵的维度要对齐
         b_grad = np.sum(grad_output, axis=0)
-
         # 更新w和b的参数
         self.w -= lr * w_grad
         self.b -= lr * b_grad
-
         return grad_input
 
 
@@ -90,7 +86,7 @@ if __name__ == '__main__':
 
     # print(mlp_model.layers)
 
-    for i in range(10):
+    for i in range(100):
         print(f'[Epoch: {i} / 100]', end='   ')
         res = mlp_model.forward(input_data)
 

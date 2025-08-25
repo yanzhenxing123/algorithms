@@ -1,7 +1,7 @@
 """
 @Author: yanzx
-@Time: 2025/8/25 22:34 
-@Description: 
+@Time: 2025/8/25 22:34
+@Description: 修正后的 MLP 演示
 """
 import numpy as np
 
@@ -33,12 +33,16 @@ def simple_mlp_demo():
         Z2 = A1 @ W2 + b2  # [4, 3] @ [3, 1] + [1, 1] = [4, 1]
         A2 = 1 / (1 + np.exp(-Z2))  # [4, 1]
 
-        # 反向传播
-        dZ2 = A2 - y  # [4, 1] - [4, 1] = [4, 1]
+        # 反向传播 - 修正后的版本
+        dA2 = A2 - y  # [4, 1] - [4, 1] = [4, 1] - 损失函数对 A2 的梯度
+        dZ2 = dA2 * A2 * (1 - A2)  # [4, 1] - 损失函数对 Z2 的梯度
+
         dW2 = A1.T @ dZ2  # [3, 4] @ [4, 1] = [3, 1]
         db2 = np.sum(dZ2, axis=0, keepdims=True)  # [1, 1]
 
-        dZ1 = dZ2 @ W2.T * A1 * (1 - A1)  # [4, 1] @ [1, 3] * [4, 3] = [4, 3]
+        dA1 = dZ2 @ W2.T  # [4, 1] @ [1, 3] = [4, 3] - 损失函数对 A1 的梯度
+        dZ1 = dA1 * A1 * (1 - A1)  # [4, 3] - 损失函数对 Z1 的梯度
+
         dW1 = X.T @ dZ1  # [2, 4] @ [4, 3] = [2, 3]
         db1 = np.sum(dZ1, axis=0, keepdims=True)  # [1, 3]
 
