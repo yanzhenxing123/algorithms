@@ -214,8 +214,8 @@ def sparse_multihead_attention_fast_v2(query_sparse,
     k_values = dense_layer_K(k_values)  # [B, T, D] -> [B, T, H * D_h]
     v_values = dense_layer_V(v_values)  # [B, T, V] -> [B, T, H * V_h]
 
-    q_batch_ids = tf.cast(q_indices[:, 0], tf.int32)
-    k_batch_ids = tf.cast(k_indices[:, 0], tf.int32)
+    q_batch_ids = q_indices[:, 0]
+    k_batch_ids = k_indices[:, 0]
     batch_eq_mask = tf.equal(tf.expand_dims(q_batch_ids, axis=1), tf.expand_dims(k_batch_ids, axis=0))  # [Nq, Nk]
     valid_indices = tf.where(batch_eq_mask)  # [P, 2]
 
@@ -233,7 +233,7 @@ def sparse_multihead_attention_fast_v2(query_sparse,
     selected_k = tf.gather(key_layer, valid_k_ids)  # [P, H, D_h]
 
     scores = tf.reduce_sum(selected_q * selected_k, axis=-1)  # [P, H]
-    d_k_sqrt = tf.cast(tf.math.sqrt(tf.cast(size_per_head, tf.float32)), scores.dtype)
+    d_k_sqrt = tf.math.sqrt(size_per_head)
 
     scores = scores / d_k_sqrt  # 除以根号下 d_k
     retuen_raw_scores = True

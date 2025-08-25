@@ -56,6 +56,13 @@ def binary_search_sqrt(n, tolerance=1e-6):
 
 
 # 示例：求平方根
-S = 4
-result = binary_search_sqrt(S)
-print(f"The square root of {S} is approximately {result}")
+if __name__ == '__main__':
+    S = 4
+    result = sqrt_newton(S)
+    print(f"The sqrt_newton square root of {S} is approximately {result}")
+
+
+    S = 4
+    result = binary_search_sqrt(S)
+    print(f"The binary_search_sqrt square root of {S} is approximately {result}")
+
