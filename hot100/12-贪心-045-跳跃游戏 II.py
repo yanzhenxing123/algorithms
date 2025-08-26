@@ -40,6 +40,28 @@ class Solution:
                     right_most = j + nums[j]
         return count
 
+    def jump_2nd(self, nums: List[int]) -> int:
+        if len(nums) <= 1:
+            return 0
+        count = 0
+        index = 0
+        length = len(nums)
+        right_most = 0
+        while index < length - 1:
+            # 1. 跳
+            right_most = index + nums[index]
+            count += 1
+            if right_most >= length - 1:
+                return count
+            # 2. 更新最大的right_most
+            for j in range(index + 1, right_most + 1):
+                cur_jump_dis = j + nums[j]
+                if cur_jump_dis >= right_most:
+                    index = j
+                    right_most = cur_jump_dis
+
+        return count
+
 
 if __name__ == '__main__':
     s = Solution()

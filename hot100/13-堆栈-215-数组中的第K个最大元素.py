@@ -133,7 +133,7 @@ class Solution:
     def findKthLargest_by_heap(self, nums: List[int], k: int) -> int:
         # 先将前k个元素入堆
         heap = [nums[i] for i in range(0, k)]
-        heapq.heapify(heap)
+        heapq.heapify(heap) # 这是跟堆
         for i in range(k, len(nums)):
             if nums[i] > heap[0]:
                 heapq.heappop(heap)  # 弹出堆顶元素
@@ -144,4 +144,4 @@ class Solution:
 if __name__ == '__main__':
     s = Solution()
     nums = [3, 2, 1, 5, 6, 4]
-    s.findKthLargest(nums, 2)
+    s.findKthLargest_by_heap(nums, 3)
