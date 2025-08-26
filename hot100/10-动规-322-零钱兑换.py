@@ -45,6 +45,25 @@ class Solution:
                 print(dp)
         return dp[amount] if dp[amount] != float('inf') else -1
 
+    def coinChange_2nd(self, coins: List[int], amount: int) -> int:
+        if amount == 0:
+            return 0
+        if not coins or min(coins) > amount:
+            return -1
+        dp = [float("inf")] * (amount + 1)
+
+        dp[0] = 0
+
+        for coin in coins:
+            for j in range(coin, amount+1):
+                dp[j] = min(dp[j-coin] + 1, dp[j])
+        if dp[-1] != float('inf'):
+            return dp[-1]
+        else:
+            return -1
+
+
+
 
 if __name__ == '__main__':
     coins = [1, 2, 5]

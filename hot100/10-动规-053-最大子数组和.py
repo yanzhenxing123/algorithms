@@ -22,6 +22,11 @@ from typing import List
 
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
+        """
+        这种算法叫kadane算法
+        :param nums:
+        :return:
+        """
         if not nums:
             return 0
         dp = [nums[0]]
