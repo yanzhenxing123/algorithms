@@ -15,9 +15,6 @@
 """
 import sys
 
-import sys
-
-
 def solve() -> None:
     t = int(input().strip())  # 输入测试用例数
     out_lines = []
@@ -26,35 +23,28 @@ def solve() -> None:
         n = int(input().strip())  # 每个测试用例的矩阵行数
         a = [list(map(int, input().split())) for _ in range(n)]  # 读取矩阵
 
-        # 用于存储每行的前缀和
-        prefix = [[0] * (n + 1) for _ in range(n)]
-        row_sum = [0] * n
+        # dp[i][j] 代表在第 i 行选择第 j 列时的最大路径值
+        dp = [[-float('inf')] * n for _ in range(n)]  # 初始化为负无穷
 
-        # 计算前缀和
-        for i in range(n):
-            ps = 0
+        # 初始化第一行的 dp 为第一行的值
+        for j in range(n):
+            dp[0][j] = a[0][j]
+
+        # 动态规划填充 dp 数组
+        for i in range(1, n):
             for j in range(n):
-                ps += a[i][j]
-                prefix[i][j + 1] = ps
-            row_sum[i] = ps
+                # 从上一行的 j-1 或 j+1 列选择最大值来更新当前行
+                if j > 0:
+                    dp[i][j] = max(dp[i][j], dp[i-1][j-1] + a[i][j])
+                if j < n - 1:
+                    dp[i][j] = max(dp[i][j], dp[i-1][j+1] + a[i][j])
 
-        # 结果变量初始化
-        ans = float('-inf')
-
-        # 遍历每一列，并计算跨行的最佳选择
-        for c in range(1, n + 1):
-            base = prefix[0][c - 1]
-            for i in range(n):
-                if (i + 1) % 2 == 1:  # 奇数行（1-indexed）
-                    tail = row_sum[i] - prefix[i][c - 1]
-                else:  # 偶数行（1-indexed）
-                    tail = prefix[i][c]
-                ans = max(ans, base + tail)
+        # 从最后一行选择最大值
+        ans = max(dp[n-1])
 
         out_lines.append(str(ans))
 
     sys.stdout.write("\n".join(out_lines) + "\n")
-
 
 if __name__ == "__main__":
     solve()
