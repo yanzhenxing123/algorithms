@@ -115,7 +115,6 @@ class Solution:
         for i in range(n):
             dp[i][0] = True
 
-        dp[0][nums[0]] = True
         for i in range(1, n):
             num = nums[i]  # 当前值
             for j in range(1, target + 1):
@@ -128,7 +127,14 @@ class Solution:
 
         return dp[n - 1][target]
 
-    def canPartition_2rd(self, nums):
+    def canPartition_3rd(self, nums):
+        """
+        是01背包
+        dp[i][j]: 表示从数组的 [0,i] 下标范围内选取若干个正整数（可以是 0 个）
+        ，是否存在一种选取方案使得被选取的正整数的和等于 j。初始时，dp 中的全部元素都是 false。
+        :param nums:
+        :return:
+        """
         sum_num = sum(nums)
         target = sum_num // 2
         if len(nums) < 2 or sum_num % 2 == 1 or max(nums) > target:
@@ -137,20 +143,21 @@ class Solution:
         dp = [[False] * (target + 1) for _ in range(n)]  # 多一列0
 
         for i in range(n):
-            dp[i][0] = True
-        dp[0][nums[0]] = True  # 只能选第一个元素
-        for i in range(1, n):
+            dp[i][0] = True # 将第一列都初始化为0
+
+        for i in range(0, n):
             num = nums[i]
             for j in range(1, target + 1):
                 if j >= num:  # 可选可不选
                     dp[i][j] = dp[i - 1][j] or dp[i - 1][j - num]
                 else:
                     dp[i][j] = dp[i - 1][j]
+        print(dp)
         return dp[-1][-1]
 
 
 if __name__ == '__main__':
     s = Solution()
     nums = [1, 5, 11, 5]
-    res = s.canPartition_2nd(nums)
+    res = s.canPartition_3rd(nums)
     print(res)

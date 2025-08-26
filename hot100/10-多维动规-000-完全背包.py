@@ -56,6 +56,19 @@ class Solution:
                     dp[i][j] = max(dp[i - 1][j], dp[i][j - weights[i]] + values[i])
         return dp[-1][-1]
 
+    def knapsack_complete_1dim(self, weights, values, capacity):
+        """
+        dp[j]: 表示容量为j的背包最大价值
+        遍历顺序：先物品，再背包(正序)
+        """
+        dp = [0] * (capacity + 1)
+        n = len(weights)
+        for i in range(n):
+            for j in range(1, capacity + 1):
+                if j >= weights[i]:
+                    dp[j] = max(dp[j], dp[j - weights[i]] + values[i])
+        return dp[-1]
+
     def knapsack_complete_dfs(self, weights, values, capacity):
         """
         使用回溯暴力解
@@ -66,6 +79,7 @@ class Solution:
         """
 
         res = 0
+
         def dfs(weights, values, capacity, index, path_weight, path_value):
             nonlocal res
             if sum(path_weight) <= capacity:
@@ -80,6 +94,7 @@ class Solution:
                 dfs(weights, values, capacity, i, path_weight, path_value)
                 path_value.pop()
                 path_weight.pop()
+
         dfs(weights, values, capacity, 0, [], [])
 
         return res
@@ -87,11 +102,11 @@ class Solution:
 
 if __name__ == '__main__':
     s = Solution()
-    weights = [3, 2, 4]  # 物品重量
+    weights = [1, 3, 4]  # 物品重量
     values = [15, 20, 30]  # 物品价值
     capacity = 4  # 背包容量
 
     # res = s.knapsack_complete(weights, values, capacity)
     # print(res)
-    res = s.knapsack_complete_dfs(weights, values, capacity)
+    res = s.knapsack_complete_1dim(weights, values, capacity)
     print(res)
