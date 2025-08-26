@@ -20,6 +20,7 @@ dp = [-2, 1, -2, 4, 3, 5, 6, 1, 5]
 
 from typing import List
 
+
 class Solution:
     def kadane(self, nums: List[int]) -> int:
         """
@@ -43,7 +44,7 @@ class Solution:
 
         核心思想：对于跨越边界的部分，最大子数组和 = 总和 - 不跨越边界的最小子数组和
 
-        不跨越边界的最小子数组和: 先对数组取负，然后利用kadane得到相反数
+        不跨越边界的最小子数组和: 先对数组取负，然后利用kadane得到最小子数组和的的相反数
 
         :param arr:
         :return:
@@ -58,7 +59,7 @@ class Solution:
         # 关键技巧：将数组取负，然后求最大子数组和
         # 这样得到的是原数组最小子数组和的相反数 ⭐️
         arr_neg = [-x for x in arr]
-        max_neg_kadane = self.kadane(arr_neg)
+        max_neg_kadane = self.kadane(arr_neg)  # 最小子数组和的相反数
 
         # 跨越边界的最大和 = 总和 - 最小子数组和
         max_wrap = arr_sum + max_neg_kadane
@@ -69,8 +70,6 @@ class Solution:
 
         # 返回两种情况的最大值
         return max(max_kadane, max_wrap)
-
-
 
 
 if __name__ == '__main__':
