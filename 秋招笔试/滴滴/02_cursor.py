@@ -1,18 +1,3 @@
-"""
-
-2
-3
-1 2 3
-4 5 6
-7 8 9
-2
-0 5
-3 1
-
-==
-24
-5
-"""
 import sys
 
 
@@ -25,37 +10,32 @@ def solve() -> None:
     out_lines = []
     for _ in range(t):
         n = int(input().strip())
-        a = [[0] * n for _ in range(n)]
-        for i in range(n):
-            row = list(map(int, input().split()))
-            for j in range(n):
-                a[i][j] = row[j]
+        a = [list(map(int, input().split())) for _ in range(n)]
 
         prefix = [[0] * (n + 1) for _ in range(n)]
         row_sum = [0] * n
         for i in range(n):
             ps = 0
+            pref_i = prefix[i]
+            row_i = a[i]
             for j in range(n):
-                ps += a[i][j]
-                prefix[i][j + 1] = ps
+                ps += row_i[j]
+                pref_i[j + 1] = ps
             row_sum[i] = ps
 
-        ans = 0
-        for c in range(1, n + 1):
-            # 在第一行，只能在到达列 c 之前经过房间的对外门
-            base = prefix[0][c - 1]
-
+        # 新建模：每列必须向右恰好一次，竖直方向只允许向下（行号非递减）
+        # 等价于：在每一列 j 选择一个行 i_j，要求 i_1 <= i_2 <= ... <= i_n，收益是 sum a[i_j][j]
+        # 这是经典的前缀最大 DP。
+        dp_prev = [a[i][0] for i in range(n)]
+        for j in range(1, n):
+            best = -1
+            dp_cur = [0] * n
             for i in range(n):
-                row_idx = i
-                if (i + 1) % 2 == 1:
-                    # 奇数行向右：经过 c..n 的对外门
-                    tail = row_sum[row_idx] - prefix[row_idx][c - 1]
-                else:
-                    # 偶数行向左：经过 1..c 的对外门
-                    tail = prefix[row_idx][c]
-                total = base + tail
-                if total > ans:
-                    ans = total
+                if dp_prev[i] > best:
+                    best = dp_prev[i]
+                dp_cur[i] = best + a[i][j]
+            dp_prev = dp_cur
+        ans = max(dp_prev)
 
         out_lines.append(str(ans))
 
