@@ -23,6 +23,12 @@ from typing import List
 
 class Solution:
     def findLength(self, nums1: List[int], nums2: List[int]) -> int:
+        """
+        dp[i][j] 表示 nums1[:i] 和 num[:j]最长的公共后缀
+        :param nums1:
+        :param nums2:
+        :return:
+        """
         if not nums1 or not nums2:
             return 0
         m = len(nums1)

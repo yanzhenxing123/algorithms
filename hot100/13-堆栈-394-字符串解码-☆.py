@@ -58,15 +58,36 @@ class Solution:
                 res = last_res + cur_multi * res
             elif '0' <= c <= '9':
                 multi = multi * 10 + int(c)
-            else:
+            else:  # 字符就延长
                 res += c
             print(stack)
         return res
 
+    def decodeString_2nd(self, s: str) -> str:
+        """
+        :param s:
+        :return:
+        """
+        stack = []
+        res = ""
+        multi = 0
+
+        for c in s:
+            if c == '[':  # 入栈
+                stack.append((multi, res))
+                multi = 0
+                res = ""
+            elif c == ']':
+                cur_multi, last_res = stack.pop()
+                res = res + last_res * cur_multi
+            elif '0' <= c <= '9':
+                multi = multi * 10 + int(c)
+            else:
+                res += c
+        return res
 
 
 if __name__ == '__main__':
     s = Solution()
     res = s.decodeString("3[a]2[bc]")
     print(res)
-
