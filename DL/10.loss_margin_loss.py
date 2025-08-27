@@ -45,7 +45,7 @@ class MarginLoss(nn.Module):
         neg_dist = self._compute_distance(anchor, negative)
 
         # Margin Loss 公式
-        loss = torch.clamp(self.margin + neg_dist  - pos_dist, min=0.0)
+        loss = torch.clamp(self.margin + neg_dist - pos_dist, min=0.0)
 
         return loss.mean()
 
