@@ -187,7 +187,7 @@ class Solution:
                     break
                 if s[i] != s[j]:
                     continue
-                if L == 2 or dp[i + 1][j - 1]:
+                if L == 2 or dp[i + 1][j - 1]:  # L = 2 或者 左右为
                     dp[i][j] = True
                     if L > max_len:
                         start = i

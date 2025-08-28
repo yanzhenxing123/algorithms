@@ -15,7 +15,7 @@ from typing import Optional, List
 class Solution:
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         """
-        递归法，先序遍历
+        递归法，先序遍历，将每一个left都作为right, right作为left
         """
         if not root:
             return None

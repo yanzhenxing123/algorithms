@@ -9,15 +9,15 @@ def kmeans(X, K, n_iter=20):
     :param n_iter:
     :return:
     """
-    N, D = X.shape # [150, 2]
+    N, D = X.shape  # [150, 2]
     # 随机初始化中心
-    indices = torch.randperm(N)[:K] # 返回一个从 0 到 n-1 的随机排列张量, 然后取钱K个
-    centers = X[indices].clone() # [3, 2]
+    indices = torch.randperm(N)[:K]  # 返回一个从 0 到 n-1 的随机排列张量, 然后取钱K个
+    centers = X[indices].clone()  # [3, 2]
     for _ in range(n_iter):
         # 计算距离 [N, K]
-        dist = torch.cdist(X, centers) # torch.Size([150, 3])
+        dist = torch.cdist(X, centers)  # torch.Size([150, 3])
         # 分配每个点到最近中心
-        labels = dist.argmin(dim=1) # [150]
+        labels = dist.argmin(dim=1)  # [150]
         # 更新中心
         for k in range(K):
             if (labels == k).sum() > 0:

@@ -16,9 +16,9 @@
 示例 2：
    0     1      2      3      4       5     6      7     8      9      10      11
 [[True, True, False, False, False, False, False, False, False, False, False, False],
- [True, True, False, False, False, True, True, False, False, False, False, False],
- [True, True, False, False, False, True, True, False, False, False, False, True],
- [True, True, False, False, False, True, True, False, False, False, True, True]]
+ [True, True, False, False, False, True,  True,  False, False, False, False, False],
+ [True, True, False, False, False, True,  True,  False, False, False, False, True],
+ [True, True, False, False, False, True,  True,  False, False, False,  True,  True]]
 
 
 输入：nums = [1,2,3,5]
@@ -143,7 +143,7 @@ class Solution:
         dp = [[False] * (target + 1) for _ in range(n)]  # 多一列0
 
         for i in range(n):
-            dp[i][0] = True # 将第一列都初始化为0
+            dp[i][0] = True  # 将第一列都初始化为0
 
         for i in range(0, n):
             num = nums[i]

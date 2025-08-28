@@ -26,10 +26,12 @@ class Solution:
                 right = mid - 1
             else:
                 return mid
+
+        print(left, right)
         return left
 
 
 if __name__ == '__main__':
     s = Solution()
-    res = s.searchInsert(nums=[1, 3], target=2)
+    res = s.searchInsert(nums=[1, 2, 2, 2, 3], target=2)
     print(res)

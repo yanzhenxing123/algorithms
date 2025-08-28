@@ -4,7 +4,6 @@
 @Description: 
 """
 
-
 import tensorflow as tf
 import numpy as np
 from sparse_tensor_2d import construct_test_qkv
@@ -117,68 +116,6 @@ selected_k = tf.gather(key_layer, valid_k_ids)  # [P, H, D]
 """
 
 
-def get_valid_indices(batch_eq_mask):
-    """
-    通过分块处理的方式获取 batch_eq_mask 中为 True 的有效索引。
-
-    Args:
-        batch_eq_mask (tf.Tensor): 形状为 [Nq, Nk] 的布尔张量。
-        chunk_size (int, optional): 分块处理的块大小，默认为 1024。
-
-    Returns:
-        tf.Tensor: 有效索引，形状为 [P, 2]。
-    """
-
-    Nq = batch_eq_mask.shape[0]
-    Nk = batch_eq_mask.shape[1]
-
-    max_value = 2 ** 30
-    chunk_size = max(max(0, 1 << (max_value // Nk).bit_length() - 1), 1)
-
-    # chunk_size = 2
-    print(f"chunk_size: {chunk_size}")
-    all_valid_indices = []
-
-    for i in range(0, Nq, chunk_size):
-        end = min(i + chunk_size, Nq)
-        chunk_mask = batch_eq_mask[i:end]
-        # 1024 * 10000
-        chunk_valid_indices = tf.where(chunk_mask)
-        # 调整索引偏移量
-        chunk_valid_indices = chunk_valid_indices + [i, 0]
-        all_valid_indices.append(chunk_valid_indices)
-
-    valid_indices = tf.concat(all_valid_indices, axis=0)
-    return valid_indices
-
-
-def get_valid_indices_v2(q_batch_ids, k_batch_ids):
-    from collections import defaultdict
-    import itertools
-    a = q_batch_ids.numpy()
-    b = k_batch_ids.numpy()
-
-    # 步骤1：记录每个值在a和b中的索引位置
-    a_indices = defaultdict(list)
-    b_indices = defaultdict(list)
-
-    # 使用列表推导式记录索引
-    _ = [a_indices[num].append(idx) for idx, num in enumerate(a)]
-    _ = [b_indices[num].append(idx) for idx, num in enumerate(b)]
-
-    # 步骤2：对共同元素生成索引笛卡尔积
-    common_values = sorted(set(a_indices.keys()) & set(b_indices.keys()))
-
-    # 使用 map 和 itertools.chain 生成结果
-    from itertools import chain
-    result_pairs = list(chain(*map(lambda v: itertools.product(a_indices[v], b_indices[v]), common_values)))
-
-    # 将结果转换为 TensorFlow 的 Tensor
-    result_tensor = tf.constant(result_pairs, dtype=tf.int32)
-
-    return result_tensor
-
-
 def sparse_multihead_attention_fast_v2(query_sparse,
                                        key_sparse,
                                        value_sparse,
@@ -208,7 +145,6 @@ def sparse_multihead_attention_fast_v2(query_sparse,
         dense_layer_K = tf.keras.layers.Dense(num_heads * size_per_head, use_bias=False)  # 用于 K 的映射
         dense_layer_V = tf.keras.layers.Dense(num_heads * v_size_per_head, use_bias=False)  # 用于 V 的映射
 
-
     # 对 Q/K/V 进行映射
     q_values = dense_layer_Q(q_values)  # [B, F, D] -> [B, F, H * D_h]
     k_values = dense_layer_K(k_values)  # [B, T, D] -> [B, T, H * D_h]
@@ -219,7 +155,6 @@ def sparse_multihead_attention_fast_v2(query_sparse,
     batch_eq_mask = tf.equal(tf.expand_dims(q_batch_ids, axis=1), tf.expand_dims(k_batch_ids, axis=0))  # [Nq, Nk]
     valid_indices = tf.where(batch_eq_mask)  # [P, 2]
 
-
     valid_q_ids = tf.cast(valid_indices[:, 0], tf.int32)
     valid_k_ids = tf.cast(valid_indices[:, 1], tf.int32)
 
@@ -227,7 +162,6 @@ def sparse_multihead_attention_fast_v2(query_sparse,
     query_layer = tf.reshape(q_values, [-1, num_heads, size_per_head])  # [Nq, H, D_h]
     key_layer = tf.reshape(k_values, [-1, num_heads, size_per_head])  # [Nk, H, D_h]
     value_layer = tf.reshape(v_values, [-1, num_heads, v_size_per_head])  # [Nk, H, V_h]
-
 
     selected_q = tf.gather(query_layer, valid_q_ids)  # [P, H, D_h]
     selected_k = tf.gather(key_layer, valid_k_ids)  # [P, H, D_h]
@@ -275,7 +209,6 @@ def sparse_multihead_attention_fast_v2(query_sparse,
             'valid_k_ids': valid_k_ids,  # [P]
             # 'segment_ids': segment_ids,  # [P, H] 可选
         }
-
 
     if mask is not None:
         # 将 SparseTensor2dValue 转换为密集张量
