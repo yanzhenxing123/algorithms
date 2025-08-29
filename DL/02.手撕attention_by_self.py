@@ -29,7 +29,7 @@ class MultiHeadSelfAttention(nn.Module):
 
         # 计算注意力分数
         attn_scores = (q @ k.transpose(2, 3)) / (size_per_head ** 0.5)  # (B, H, F, F)
-
+        torch.matmul
         # 处理 padding_mask（修正点）
         if padding_mask is not None:
             # 将 padding_mask 从 (B, F) 扩展为 (B, 1, 1, F)
