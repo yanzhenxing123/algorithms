@@ -129,14 +129,13 @@ def test_examples():
     print("预期输出: 2")
     
     # 模拟示例1
-    n = 5
-    arr = [3, 1, 2, 1, 3]
+    test_arr1 = [3, 1, 2, 1, 3]
     
-    if is_monotonic_increasing(arr):
+    if is_monotonic_increasing(test_arr1):
         result1 = 0
     else:
         # 使用正确算法
-        result1 = min_delete_operations_correct(n, arr)
+        result1 = min_delete_operations_correct(len(test_arr1), test_arr1)
     
     print(f"实际输出: {result1}")
     print(f"测试{'通过' if result1 == 2 else '失败'}")
@@ -146,10 +145,9 @@ def test_examples():
     print("预期输出: 0")
     
     # 模拟示例2
-    n = 4
-    arr = [1, 2, 3, 4]
+    test_arr2 = [1, 2, 3, 4]
     
-    result2 = 0 if is_monotonic_increasing(arr) else 1
+    result2 = 0 if is_monotonic_increasing(test_arr2) else 1
     print(f"实际输出: {result2}")
     print(f"测试{'通过' if result2 == 0 else '失败'}")
     
@@ -158,13 +156,12 @@ def test_examples():
     print("预期输出: 1")
     
     # 模拟示例3
-    n = 6
-    arr = [2, 2, 1, 1, 3, 3]
+    test_arr3 = [2, 2, 1, 1, 3, 3]
     
-    if is_monotonic_increasing(arr):
+    if is_monotonic_increasing(test_arr3):
         result3 = 0
     else:
-        result3 = min_delete_operations_correct(n, arr)
+        result3 = min_delete_operations_correct(len(test_arr3), test_arr3)
     
     print(f"实际输出: {result3}")
     print(f"测试{'通过' if result3 == 1 else '失败'}")
@@ -187,16 +184,9 @@ def test_examples():
     
     # 对比两种算法
     print("\n算法对比:")
-    print("正确版本结果:", min_delete_operations_correct(n, arr))
-    print("优化版本结果:", min_delete_operations_optimized(n, arr))
+    print("正确版本结果:", min_delete_operations_correct(len(test_arr1), test_arr1))
+    print("优化版本结果:", min_delete_operations_optimized(len(test_arr1), test_arr1))
     print("说明：优化版本的逻辑是错误的！")
-    
-    # 重新测试示例1，确保结果正确
-    print("\n重新测试示例1:")
-    test_arr = [3, 1, 2, 1, 3]
-    test_result = min_delete_operations_correct(len(test_arr), test_arr)
-    print(f"数组: {test_arr}")
-    print(f"结果: {test_result}")
 
 
 if __name__ == "__main__":
