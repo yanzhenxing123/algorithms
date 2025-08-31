@@ -1,4 +1,6 @@
 import sys
+import bisect
+
 input = sys.stdin.readline
 
 def solve():
@@ -7,26 +9,27 @@ def solve():
         n = int(input())
         arr = list(map(int, input().split()))
 
-        first, last = {}, {}
+        # 记录不同值的第一次出现顺序
+        first_pos = {}
+        seq = []
         for i, v in enumerate(arr):
-            if v not in first:
-                first[v] = i
-            last[v] = i
+            if v not in first_pos:
+                first_pos[v] = i
+                seq.append(v)
 
-        vals = sorted(set(arr))
-        total = len(vals)
-
-        best = 1
-        cur = 1
-        for i in range(1, len(vals)):
-            # 如果当前值 v 能和前一个值 vals[i-1] 接上
-            if vals[i] == vals[i-1] + 1 and last[vals[i-1]] < first[vals[i]]:
-                cur += 1
+        # 对seq求最长非降子序列 (因为值大小也影响顺序)
+        # 注意这里seq是不同值的出现顺序，但我们要求按值大小非降
+        # 所以真正的序列是 [值1, 值2, ...]
+        lis = []
+        for v in seq:
+            pos = bisect.bisect_right(lis, v)
+            if pos == len(lis):
+                lis.append(v)
             else:
-                cur = 1
-            best = max(best, cur)
+                lis[pos] = v
 
-        ans = total - best
+        longest = len(lis)
+        ans = len(seq) - longest
         print(ans)
 
 if __name__ == "__main__":
