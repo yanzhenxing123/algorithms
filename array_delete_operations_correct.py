@@ -190,6 +190,13 @@ def test_examples():
     print("正确版本结果:", min_delete_operations_correct(n, arr))
     print("优化版本结果:", min_delete_operations_optimized(n, arr))
     print("说明：优化版本的逻辑是错误的！")
+    
+    # 重新测试示例1，确保结果正确
+    print("\n重新测试示例1:")
+    test_arr = [3, 1, 2, 1, 3]
+    test_result = min_delete_operations_correct(len(test_arr), test_arr)
+    print(f"数组: {test_arr}")
+    print(f"结果: {test_result}")
 
 
 if __name__ == "__main__":
