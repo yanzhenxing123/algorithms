@@ -1,113 +1,52 @@
-"""
-@Time: 2025/8/16 10:16
-@Author: yanzx
-@Description:
+import sys
+input = sys.stdin.readline
 
+def solve():
+    T = int(input())
+    for _ in range(T):
+        n, m = map(int, input().split())
+        arr = list(map(int, input().split()))
+        threshold = (n + 1) // 2  # 上取整
 
-问题分析
-题目要求重新排列数组，使得权值 ∑
-i=2
-n
-​
- (a
-i
-​
- +a
-i−1
-​
- )达到最大和最小。我们需要找到排列方式使得相邻元素之和的总和最大化或最小化。
+        # 初始频率统计
+        freq = [0] * (n + 1)
+        for v in arr:
+            freq[v] += 1
+        max_freq = max(freq)
 
-关键观察
-1.
-​​权值展开​​：
+        ans = 0
+        if max_freq >= threshold:
+            ans += 1  # 初始状态满足
 
-i=2
-∑
-n
-​
- (a
-i
-​
- +a
-i−1
-​
- )=(a
-2
-​
- +a
-1
-​
- )+(a
-3
-​
- +a
-2
-​
- )+⋯+(a
-n
-​
- +a
-n−1
-​
- )=2
-i=1
-∑
-n
-​
- a
-i
-​
- −a
-1
-​
- −a
-n
-​
+        # 处理 m 次修改
+        for _ in range(m):
+            x, y = map(int, input().split())
+            x -= 1  # 下标从0开始
+            old = arr[x]
+            new = y
+            if old == new:
+                # 无变化，直接看当前是否满足
+                if max_freq >= threshold:
+                    ans += 1
+                continue
 
-因此，权值实际上等于 2×数组总和−首元素−尾元素。
+            # 更新频率
+            freq[old] -= 1
+            freq[new] += 1
+            arr[x] = new
 
-2.
-​​最大化权值​​：
+            # 更新 max_freq
+            if freq[new] > max_freq:
+                max_freq = freq[new]
+            elif freq[old] + 1 == max_freq and freq[old] < max_freq:
+                # 如果减少的是原来的最大值，需要重新计算
+                max_freq = max(freq)
 
-∙
-为了使权值最大，需要最小化 a
-1
-​
- +a
-n
-​
- 。
+            # 判断
+            if max_freq >= threshold:
+                ans += 1
 
-∙
-因此，将最小的两个元素放在首尾。
+        print(ans)
 
-3.
-​​最小化权值​​：
-
-∙
-为了使权值最小，需要最大化 a
-1
-​
- +a
-n
-​
- 。
-
-∙
-因此，将最大的两个元素放在首尾。
-"""
-
-n = int(input())
-a = list(map(int, input().split()))
-total = sum(a)
-
-# 排序数组
-a_sorted = sorted(a)
-
-# 最大权值：最小两个元素在首尾
-max_weight = 2 * total - a_sorted[0] - a_sorted[1]
-
-# 最小权值：最大两个元素在首尾
-min_weight = 2 * total - a_sorted[-1] - a_sorted[-2]
-
-print(max_weight, min_weight)
+if __name__ == "__main__":
+    solve()
