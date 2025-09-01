@@ -8,15 +8,16 @@
 def merge_sort(alist):
     """
     递归终止的条件：有序，即 数组长度为0或1
+    先分再和
     :param alist:
     :return:
     """
     if len(alist) <= 1:
         return alist
     # 二分分解
-    num = len(alist) // 2
-    left = merge_sort(alist[:num])
-    right = merge_sort(alist[num:])
+    mid = len(alist) // 2
+    left = merge_sort(alist[:mid])
+    right = merge_sort(alist[mid:])
     # 合并
     return merge(left, right)
 

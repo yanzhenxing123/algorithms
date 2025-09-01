@@ -10,6 +10,9 @@ class Solution:
         if start == end:
             return 0
 
+
+        # 示例使用
+
         # 构建图，使用邻接表表示
         graph = {}
         for edge in edges:
@@ -38,11 +41,13 @@ class Solution:
         return -1  # 如果没有找到路径，返回-1
 
 
-# 示例使用
-edges = [["CMB-001", "CMB-002"], ["CMB-002", "CMB-003"], ["CMB-001", "CMB-004"]]
-start = "CMB-001"
-end = "CMB-003"
+line1 = input()
+line2 = input()
+line3 = input()
+edges = eval(line1.split('=')[1])
+start  = eval(line2.split('=')[1])
+end = eval(line3.split('=')[1])
+s = Solution()
+res = s.shortest_path(edges, start, end)
+print(res)
 
-solution = Solution()
-result = solution.shortest_path(edges, start, end)
-print(result)  # 输出：2
