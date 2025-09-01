@@ -49,7 +49,7 @@ class Solution:
         """
         if not nums:
             return 0
-        dp = [1] * len(nums) # dp[i] 到当前位置最长严格递增子序列的长度
+        dp = [1] * len(nums)  # dp[i] 到当前位置最长严格递增子序列的长度
         res = 1
         for i in range(1, len(nums)):
             for j in range(0, i):  # 下三角进行遍历
@@ -69,12 +69,31 @@ class Solution:
             return 0
         dp = [1] * len(nums)
 
-        for i in range(1, len(nums)): # 固定的值
-            for j in range(0, i): # 左边的值
+        for i in range(1, len(nums)):  # 固定的值
+            for j in range(0, i):  # 左边的值
                 if nums[i] > nums[j]:
                     dp[i] = max(dp[j] + 1, dp[i])
 
         return max(dp)
+
+    def lengthOfLIS_binary(self, nums: List[int]) -> int:
+        d = []
+        for n in nums:
+            if not d or n > d[-1]:
+                d.append(n)
+            else:
+                l, r = 0, len(d) - 1
+                loc = r
+                while l <= r:
+                    mid = (l + r) // 2
+                    if d[mid] >= n:
+                        loc = mid
+                        r = mid - 1
+                    else:
+                        l = mid + 1
+                d[loc] = n
+        return len(d)
+
 
 if __name__ == '__main__':
     nums = [0, 1, 0, 3, 2, 1]

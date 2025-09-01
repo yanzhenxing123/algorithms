@@ -1,14 +1,15 @@
 import torch
+import torch.nn as nn
 
 
-B = 24
-seq_len = 100
-emb_dim = 16
+x = torch.randn(5, 16)
 
-q = torch.randn(B, seq_len, emb_dim)
-k = q.transpose(1, 2)
+wq = nn.Linear(16, 16)
 
-res = q @ k
-print(res.shape) #  torch.Size([24, 100, 100])
-print(res.shape) #  torch.Size([24, 100, 100])
+q = wq(x)
+k = wq(x)
+v = wq(x)
+
+
+print(q @ k.T)
 
