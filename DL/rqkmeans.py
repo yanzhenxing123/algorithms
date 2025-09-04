@@ -53,6 +53,8 @@ if __name__ == "__main__":
     torch.manual_seed(0)
     X = torch.randn(1000, 32)  # 1000个32维向量
     codes, codebooks = rq_kmeans(X, K=16, L=3, n_iter=10)
+    print(codes)
+    print(codebooks)
 
     X_rec = rq_decode(codes, codebooks)
     print("重构误差:", ((X - X_rec) ** 2).mean().item())  # torch.Size([1000, 32])
