@@ -20,6 +20,7 @@ RMSNorm（Root Mean Square Normalization，均方根归一化）是一种层归�
 ∙需要更小的学习率和更仔细的参数初始化
 
 RMSNorm 就是为了解决这个问题而设计的。
+其提出的动机是 LayerNorm 运算量比较大，所提出的RMSNorm 性能和 LayerNorm 相当，但是可以节省7%到64%的运算
 
 """
 import torch
@@ -55,8 +56,13 @@ class RMSNorm(nn.Module):
 
 
     def forward(self, x):
+        """
+        torch.Size([4, 3, 16])
+        :param x:
+        :return:
+        """
         x_2 = torch.pow(x, 2)
-        x_2_mean = torch.mean(x_2, dim=-1, keepdim=True)
+        x_2_mean = torch.mean(x_2, dim=-1, keepdim=True) #
         x_norm = x / torch.sqrt(x_2_mean + self.eps)
 
         output = self.gamma * x_norm
@@ -73,3 +79,4 @@ if __name__ == '__main__':
     rms_norm_layer = RMSNorm(emb_dim)
     res = rms_norm_layer(x)
     print(res)
+
