@@ -21,15 +21,17 @@ class Solution:
 
         inorder(root)
         return res
-    
+
     def inorderTraversal_2nd(self, root: Optional[TreeNode]) -> List[int]:
         res = []
+
         def inorder(node: Optional[TreeNode]):
             if not node:
                 return
             inorder(node.left)
             res.append(node.val)
             inorder(node.right)
+
         inorder(root)
         return res
 
@@ -51,7 +53,7 @@ class Solution:
             res.append(node.val)
             root = node.right
         return res
-    
+
     def inorderTraversal_recur_2nd(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
@@ -64,10 +66,7 @@ class Solution:
             node = stack.pop()
             res.append(node.val)
             root = node.right
-        return res 
-            
-            
-
+        return res
 
 
 if __name__ == '__main__':

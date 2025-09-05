@@ -92,12 +92,12 @@ class Solution:
                     count+=1 
             if count == k:
                 pre.next = None
-                # 翻转
+                # 2. 翻转
                 new_tmp_head = self.reverse_list(tmp_head)
             else:
                 new_tmp_head = tmp_head
             node_li.append(new_tmp_head)   
-        
+        # 3. 将头连接
         for i in range(len(node_li) - 1):
             p = node_li[0]
             while p.next:
@@ -105,9 +105,7 @@ class Solution:
             p.next = node_li[i+1]
         return node_li[0]
             
-    def main():
-        """_summary_
-        """
+
         
 
     def reverse_list(self, head):

@@ -19,14 +19,18 @@ class Solution:
                 item2 = stack.pop()
                 if item == ")" and item2 == "(":
                     continue
-                if item == "]" and item2 == "[":
+                elif item == "]" and item2 == "[":
                     continue
-                if item == "}" and item2 == "{":
+                elif item == "}" and item2 == "{":
                     continue
                 return False
         if stack:
             return False
         return True
+
+    def isValid_2nd(self, s: str) -> bool:
+        pass
+
 
 
 if __name__ == '__main__':
