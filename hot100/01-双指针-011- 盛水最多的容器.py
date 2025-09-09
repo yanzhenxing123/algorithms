@@ -75,9 +75,7 @@ class Solution:
                 right -= 1
         return max_area
 
-    def main():
-        
-        pass
+
 
 if __name__ == '__main__':
     # 测试用例
