@@ -4,6 +4,8 @@
 @Description:
 
 loss = -1/n * (y * log(y') + (1-y)*log(1-y'))
+多元交叉熵
+loss = - 1/n * (ylog(p))
 """
 
 import torch

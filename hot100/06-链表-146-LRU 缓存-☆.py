@@ -54,14 +54,12 @@ class LRUCache_2nd:
         self.capacity = capacity
         self.data = {}
 
-
     def get(self, key: int) -> int:
         if key in self.data:
             value = self.data.pop(key)
             self.data[key] = value
             return value
         return -1
-        
 
     def put(self, key: int, value: int) -> None:
         if key in self.data:
@@ -72,10 +70,6 @@ class LRUCache_2nd:
                 k = next(iter(self.data))
                 self.data.pop(k)
             self.data[key] = value
-            
-            
-    
-
 
 
 # 同时维护双端链表和哈希表
