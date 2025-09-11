@@ -185,14 +185,13 @@ class Solution:
                 j = i + L - 1
                 if j >= n:
                     break
-                if s[i] != s[j]:
-                    continue
-                if L == 2 or dp[i + 1][j - 1]:  # L = 2 或者 左右为
-                    dp[i][j] = True
-                    if L > max_len:
-                        start = i
-                        max_len = L
-                print(dp)
+                if s[i] == s[j]:
+                    if L == 2 or dp[i + 1][j - 1]:  # L = 2 或者 左右为
+                        dp[i][j] = True
+                        if L > max_len:
+                            start = i
+                            max_len = L
+                    print(dp)
         return s[start: start + max_len]
 
 
