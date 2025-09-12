@@ -41,6 +41,34 @@ class Solution:
         p.next = left if left else right
         return new_head.next
 
+    def mergeKLists_2nd(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        def merge(left, right):
+            dummy = ListNode(-1)
+            p = dummy
+            while left and right:
+                if left.val <= right.val:
+                    p.next = left
+                    left = left.next
+                else:
+                    p.next = right
+                    right = right.next
+                p = p.next
+
+            p.next = left if left else right
+            return dummy.next
+
+        if not lists:
+            return None
+        if len(lists) == 1:
+            return lists[0]
+        length = len(lists)
+        left, right = 0, length - 1
+        mid = (left + right) // 2
+        head1 = self.mergeKLists(lists[left:mid + 1])
+        head2 = self.mergeKLists(lists[mid + 1:right + 1])
+        return self.merge(head1, head2)
+
+
 
 if __name__ == '__main__':
     s = Solution()

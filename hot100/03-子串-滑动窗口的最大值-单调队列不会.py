@@ -67,8 +67,12 @@ class Solution:
         return res
 
 
-class MyQueue:  # 单调队列（从大到小
+class MyQueue:
     def __init__(self):
+        """
+        # 单调队列（从大到小)
+        实现的是单调队列，不用管队列的大小
+        """
         self.queue = deque()  # 这里需要使用deque实现单调队列，直接使用list会超时
 
     def pop(self, value):

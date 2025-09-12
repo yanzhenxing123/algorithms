@@ -1,7 +1,7 @@
 """
 @Time: 2025/9/3 23:17
 @Author: yanzx
-@Description: 
+@Description: kv是单个头，所以在映射时需要把kv的最后一维映射为 head_dim
 """
 
 
