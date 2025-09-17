@@ -14,7 +14,8 @@ class Solution:
         fast = slow = 0
 
         n = len(nums)
-        while fast <
+        while fast < n:
+            pass
 
 
 if __name__ == '__main__':

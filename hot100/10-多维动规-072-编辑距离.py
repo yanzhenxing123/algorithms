@@ -77,6 +77,14 @@ dp = [
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
+
+        """
+        dp[i][j]表示将字符串 A的前 i个字符（即 A[0:i]）转换为字符串 B的前 j个字符（即 B[0:j]）所需的最少操作次数。​​
+
+        :param word1:
+        :param word2:
+        :return:
+        """
         m, n = len(word1), len(word2)
         dp = [[0 for _ in range(n + 1)] for _ in range(m + 1)]
         for i in range(m + 1):
