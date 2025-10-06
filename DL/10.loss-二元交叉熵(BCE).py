@@ -3,7 +3,7 @@
 @Time: 2025/8/19 09:44 
 @Description:
 
-loss = -1/n * (y * log(y') + (1-y)*log(1-y'))
+loss = -1/n * (y * log(p) + (1-y)*log(1-p))
 """
 
 import torch

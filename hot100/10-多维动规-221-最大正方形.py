@@ -64,7 +64,6 @@ class Solution:
         maxSquare = maxSide * maxSide
         return maxSquare
 
-
     def maximalSquare_2nd(self, matrix: List[List[str]]) -> int:
         if len(matrix) == 0 or len(matrix[0]) == 0:
             return 0
@@ -78,9 +77,9 @@ class Solution:
                         dp[i][j] = 1
                     else:
                         dp[i][j] = min(
-                            dp[i][j-1],
-                            dp[i-1][j],
-                            dp[i-1][j-1],
+                            dp[i][j - 1],
+                            dp[i - 1][j],
+                            dp[i - 1][j - 1],
                         ) + 1
                     max_side = max(max_side, dp[i][j])
 
@@ -92,11 +91,7 @@ if __name__ == '__main__':
     matrix = [["1", "0", "1", "0", "0"],
               ["1", "0", "1", "1", "1"],
               ["1", "1", "1", "1", "1"],
-            ["1", "0", "0", "1", "0"]]
+              ["1", "0", "0", "1", "0"]]
 
     res = s.maximalSquare_2nd(matrix)
     print(res)
-
-
-
-
