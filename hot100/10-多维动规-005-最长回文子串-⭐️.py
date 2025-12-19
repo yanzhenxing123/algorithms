@@ -174,7 +174,6 @@ class Solution:
         if n < 2:
             return s
         dp = [[False] * n for _ in range(n)]
-        start = 0
         max_len = 1
 
         for i in range(n):
@@ -189,10 +188,9 @@ class Solution:
                     if L == 2 or dp[i + 1][j - 1]:  # L = 2 或者 左右为
                         dp[i][j] = True
                         if L > max_len:
-                            start = i
                             max_len = L
                     print(dp)
-        return s[start: start + max_len]
+        return max_len
 
 
 if __name__ == '__main__':
